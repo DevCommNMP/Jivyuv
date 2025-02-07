@@ -1,18 +1,16 @@
 const passport = require("passport");
 const User = require("../../modal/user/user"); // Import User model
-
-// Google Auth Redirect
+const BASE_URL = process.env.BASE_URL; // Google Auth Redirect
 const googleAuth = passport.authenticate("google", { scope: ["profile", "email"] });
 
 // Google Auth Callback
 const googleCallback = passport.authenticate("google", {
-  failureRedirect: "http://localhost:3000/login",
-});
+  failureRedirect: `${BASE_URL}/login`,});
 
 // Handle Google Auth Success & Store User in Database
 const handleGoogleCallback = async (req, res) => {
   if (!req.user) {
-    return res.redirect("http://localhost:3000/login"); // Redirect on failure
+    return res.redirect(`${BASE_URL}/login`,); // Redirect on failure
   }
 
   try {
@@ -38,20 +36,31 @@ const handleGoogleCallback = async (req, res) => {
     // Store user in session
     req.session.user = user;
 
-    res.redirect("http://localhost:3000"); // Redirect to frontend
+    res.redirect(`${BASE_URL}`); // Redirect to frontend
   } catch (error) {
     console.error("Google Auth Error:", error);
-    res.redirect("http://localhost:3000/login"); // Redirect on error
+    res.redirect(`${BASE_URL}/login`); // Redirect on error
   }
 };
 
 // Logout User & Destroy Session
 const logoutUser = (req, res) => {
-  req.logout(() => {});
-  req.session.destroy((err) => {
-    if (err) console.log("Error destroying session:", err);
-    res.redirect("http://localhost:3000/");
-  });
-};
+    req.logout((err) => {
+      if (err) return res.status(500).json({ error: "Logout failed" });
+  
+      if (req.session) {
+        req.session.destroy((err) => {
+          if (err) {
+            console.log("Error destroying session:", err);
+            return res.status(500).json({ error: "Session destruction failed" });
+          }
+          res.clearCookie("connect.sid"); // Clear session cookie
+          return res.redirect(`${BASE_URL}`);
+        });
+      } else {
+        return res.redirect(`${BASE_URL}`);
+      }
+    });
+  };
 
 module.exports = { googleAuth, googleCallback, handleGoogleCallback, logoutUser };

@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     // Personal Information
     firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    lastName: { type: String,  },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: false },
     password: { type: String, required: false }, // Optional for Google login
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tour" }], // Saved tours
 
     createdAt: { type: Date, default: Date.now }, // Timestamp
-    
+
   },
   { timestamps: true }
 );

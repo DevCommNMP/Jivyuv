@@ -1,16 +1,31 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-
 import { LucideSearch, LucideUserRound } from "lucide-react";
+import { checkSession } from "@/app/uitls/authFunctions";
+import { useEffect, useState } from "react";
 
 export default function Header({}) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const sessionUser = await checkSession();
+      setUser(sessionUser);
+    };
+
+    fetchSession();
+  }, []);
+
+  console.log(user)
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/auth/google";
   };
  
+  const handleLogout = () => {
+    window.location.href = "http://localhost:5000/api/auth/logout"; // Redirect to logout
+  };
 
-  
   return (
     <>
       <header className="main-header style-one">
@@ -269,10 +284,20 @@ export default function Header({}) {
                   </div>
                 </li>
                 <li className="user-link">
-                  <Link href="" onClick={handleGoogleLogin}>
-                    <LucideUserRound />
-                  </Link>
-                </li>
+      {user ? (
+        <Link href="" onClick={handleLogout}>
+        
+            <img src={user.profilePicture} alt="profile photo" style={{borderRadius:"50%",backgroundColor:"transparent"}}/>
+          
+        </Link>
+      ) : (
+        <Link href="" onClick={handleGoogleLogin}>
+     
+            <LucideUserRound />
+          
+        </Link>
+      )}
+    </li>
               </ul>
             </div>
           </div>
