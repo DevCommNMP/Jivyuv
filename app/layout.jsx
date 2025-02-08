@@ -1,8 +1,8 @@
-
 import Footer from "@/components/FooterSection";
 import Header from "@/components/HeaderSection";
-import "./globals.css";
 import { use } from "passport";
+import "./custom.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Tour & Travel",
@@ -10,8 +10,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
- 
-
   return (
     <html lang="en">
       <body>
