@@ -149,7 +149,10 @@ export default function LoginForm() {
                     </div>
                   </div>
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
-                    <div className="form-group message-btn">
+                    <div
+                      className="form-group message-btn"
+                      style={{ textAlign: "center" }}
+                    >
                       <button type="submit" className="theme-btn">
                         Sign In
                       </button>
@@ -157,8 +160,8 @@ export default function LoginForm() {
                   </div>
                 </div>
               </form>
-              <div className="other-text">
-                Already have an account? <a href="signup.html">Register Now</a>
+              <div className="other-text" style={{ textAlign: "center" }}>
+                Already have an account? <a href="/sign-up">Register Now</a>
               </div>
             </div>
           </div>
