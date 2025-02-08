@@ -4,10 +4,8 @@ import Header from "@/components/HeaderSection";
 import "./globals.css";
 import { use } from "passport";
 
-export const metadata = {
-  title: "Tour & Travel",
-  description: "Tour & Travel",
-};
+
+
 
 export default function RootLayout({ children }) {
  
@@ -18,7 +16,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
-      </body>
+      </body> 
     </html>
   );
 }
