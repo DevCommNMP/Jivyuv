@@ -1,11 +1,11 @@
 "use client";
+import { checkSession } from "@/app/uitls/authFunctions";
+import { LucideSearch, LucideUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { LucideSearch, LucideUserRound } from "lucide-react";
-import { checkSession } from "@/app/uitls/authFunctions";
 import { useEffect, useState } from "react";
 
-export default function Header({}) {
+export default function Header({ }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Header({}) {
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/auth/google";
   };
- 
+
   const handleLogout = () => {
     window.location.href = "http://localhost:5000/api/auth/logout"; // Redirect to logout
   };
@@ -57,72 +57,72 @@ export default function Header({}) {
                   >
                     <ul className="navigation clearfix">
                       <li className="current dropdown">
-                        <Link href="index.html">Home</Link>
+                        <Link href="/">Home</Link>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Destinations</Link>
+                        <Link href="#">Destinations</Link>
                         <ul>
                           <li>
-                            <Link href="destination.html">Destinations 01</Link>
+                            <Link href="destination-1">Destinations 01</Link>
                           </li>
                           <li>
-                            <Link href="destination-2.html">
+                            <Link href="destination-2">
                               Destinations 02
                             </Link>
                           </li>
                           <li>
-                            <Link href="destination-details.html">
+                            <Link href="destination-details">
                               Destination Details
                             </Link>
                           </li>
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Tours</Link>
+                        <Link href="#">Tours</Link>
                         <ul>
                           <li>
-                            <Link href="tour-1.html">Tours Grid</Link>
+                            <Link href="tour-grid">Tours Grid</Link>
                           </li>
                           <li>
-                            <Link href="tour-2.html">Tours List</Link>
+                            <Link href="tour-list">Tours List</Link>
                           </li>
                           <li>
-                            <Link href="tour-details.html">Tour Details</Link>
+                            <Link href="tour-details">Tour Details</Link>
                           </li>
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Pages</Link>
+                        <Link href="#">Pages</Link>
                         <ul>
                           <li>
-                            <Link href="about.html">About Us</Link>
+                            <Link href="about-us">About Us</Link>
                           </li>
                           <li>
-                            <Link href="booking-1.html">Booking Process</Link>
+                            <Link href="booking-process">Booking Process</Link>
                           </li>
                           <li>
-                            <Link href="tour-deals.html">Tour Deals</Link>
+                            <Link href="tour-deals">Tour Deals</Link>
                           </li>
                           <li>
-                            <Link href="tour-guide.html">Tour Guide</Link>
+                            <Link href="tour-guide">Tour Guide</Link>
                           </li>
                           <li>
-                            <Link href="gallery-1.html">Gallery 01</Link>
+                            <Link href="gallery-1">Gallery 01</Link>
                           </li>
                           <li>
-                            <Link href="gallery-2.html">Gallery 02</Link>
+                            <Link href="gallery-2">Gallery 02</Link>
                           </li>
                           <li>
-                            <Link href="faq.html">Faq&aps;s</Link>
+                            <Link href="faq">Faq&aps;s</Link>
                           </li>
                           <li>
-                            <Link href="signup.html">Sign Up</Link>
+                            <Link href="sign-up">Sign Up</Link>
                           </li>
                           <li>
-                            <Link href="login.html">Sign In</Link>
+                            <Link href="sign-in">Sign In</Link>
                           </li>
                           <li>
-                            <Link href="error.html">404</Link>
+                            <Link href="error">404</Link>
                           </li>
                         </ul>
                       </li>
@@ -284,20 +284,20 @@ export default function Header({}) {
                   </div>
                 </li>
                 <li className="user-link">
-      {user ? (
-        <Link href="" onClick={handleLogout}>
-        
-            <img src={user.profilePicture} alt="profile photo" style={{borderRadius:"50%",backgroundColor:"transparent"}}/>
-          
-        </Link>
-      ) : (
-        <Link href="" onClick={handleGoogleLogin}>
-     
-            <LucideUserRound />
-          
-        </Link>
-      )}
-    </li>
+                  {user ? (
+                    <Link href="" onClick={handleLogout}>
+
+                      <img src={user.profilePicture} alt="profile photo" style={{ borderRadius: "50%", backgroundColor: "transparent" }} />
+
+                    </Link>
+                  ) : (
+                    <Link href="" onClick={handleGoogleLogin}>
+
+                      <LucideUserRound />
+
+                    </Link>
+                  )}
+                </li>
               </ul>
             </div>
           </div>
