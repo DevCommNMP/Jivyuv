@@ -127,7 +127,7 @@ export default function Header({ }) {
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Elements</Link>
+                        <Link href="#">Elements</Link>
                         <div className="megamenu">
                           <div className="row clearfix">
                             <div className="col-xl-6 column">
@@ -136,42 +136,42 @@ export default function Header({ }) {
                                   <h4>Elements 1</h4>
                                 </li>
                                 <li>
-                                  <Link href="about-element-1.html">
+                                  <Link href="about-element-1">
                                     About Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="about-element-2.html">
+                                  <Link href="about-element-2">
                                     About Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="about-element-3.html">
+                                  <Link href="about-element-3">
                                     About Block 03
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="feature-element-1.html">
+                                  <Link href="feature-element-1">
                                     Feature Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="feature-element-2.html">
+                                  <Link href="feature-element-2">
                                     Feature Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="tour-element-1.html">
+                                  <Link href="tour-element-1">
                                     Tour Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="tour-element-2.html">
+                                  <Link href="tour-element-2">
                                     Tour Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="place-element-1.html">
+                                  <Link href="place-block-1">
                                     Place Block 01
                                   </Link>
                                 </li>
@@ -183,42 +183,42 @@ export default function Header({ }) {
                                   <h4>Elements 2</h4>
                                 </li>
                                 <li>
-                                  <Link href="place-element-2.html">
+                                  <Link href="place-block-2">
                                     Place Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="news-element-1.html">
+                                  <Link href="news-block-1">
                                     News Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="news-element-2.html">
+                                  <Link href="news-block-2">
                                     News Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="team-element-1.html">
+                                  <Link href="team-block-1">
                                     Team Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="team-element-2.html">
+                                  <Link href="team-block-2">
                                     Team Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="video-element.html">
+                                  <Link href="video-element">
                                     Video Block
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="funfact-element.html">
+                                  <Link href="funfact-element">
                                     Funfact Block
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="testimonial-element.html">
+                                  <Link href="testimonial-element">
                                     Testimonial Block
                                   </Link>
                                 </li>
@@ -228,21 +228,21 @@ export default function Header({ }) {
                         </div>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Blog</Link>
+                        <Link href="/">Blog</Link>
                         <ul>
                           <li>
-                            <Link href="blog.html">Blog Grid</Link>
+                            <Link href="blog-1">Blog Grid</Link>
                           </li>
                           <li>
-                            <Link href="blog-2.html">Blog Standard</Link>
+                            <Link href="blog-2">Blog Standard</Link>
                           </li>
                           <li>
-                            <Link href="blog-details.html">Blog Details</Link>
+                            <Link href="blog-details">Blog Details</Link>
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <Link href="contact.html">Contact</Link>
+                        <Link href="contact">Contact</Link>
                       </li>
                     </ul>
                   </div>
@@ -308,7 +308,7 @@ export default function Header({ }) {
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">
-                  <Link href="index.html">
+                  <Link href="/">
                     <Image
                       src="/assets/images/logo.png"
                       alt=""
