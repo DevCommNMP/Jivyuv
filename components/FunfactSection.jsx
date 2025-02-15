@@ -1,4 +1,24 @@
+'use client';
+import { useEffect, useState } from 'react';
+
 export default function Funfact() {
+  const [counts, setCounts] = useState({
+    hikers: 0,
+    places: 0,
+    miles: 0,
+    years: 0
+  });
+
+  useEffect(() => {
+    // Implement counter animation here
+    setCounts({
+      hikers: 2000,
+      places: 70,
+      miles: 1200,
+      years: 15
+    });
+  }, []);
+
   return (
     <>
       <section className="funfact-section centred">
@@ -30,7 +50,7 @@ export default function Funfact() {
                         data-speed="1500"
                         data-stop="2000"
                       >
-                        0
+                        {counts.hikers}
                       </span>
                       <span>+</span>
                       <p>Awesome Hikers</p>
@@ -53,7 +73,7 @@ export default function Funfact() {
                         data-speed="1500"
                         data-stop="70"
                       >
-                        0
+                        {counts.places}
                       </span>
                       <span>+</span>
                       <p>Stunning Places</p>
@@ -76,7 +96,7 @@ export default function Funfact() {
                         data-speed="1500"
                         data-stop="1200"
                       >
-                        0
+                        {counts.miles}
                       </span>
                       <span>+</span>
                       <p>Miles to Hike</p>
@@ -99,7 +119,7 @@ export default function Funfact() {
                         data-speed="1500"
                         data-stop="15"
                       >
-                        0
+                        {counts.years}
                       </span>
                       <p>Years in Service</p>
                     </div>
