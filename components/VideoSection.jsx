@@ -10,7 +10,7 @@ export default function VideoSection() {
     <>
       <section
         className="video-section centred"
-        style={{ backgroundImage: "url(assets/images/background/video-1.jpg)" }}
+        style={{ backgroundImage: "url(assets/img/home/video-1.jpg)" }}
       >
         <div className="auto-container">
           <div className="inner-box">

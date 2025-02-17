@@ -20,7 +20,7 @@ export default function Footer() {
                   <figure className="footer-logo">
                     <Link href="index.html">
                       <Image
-                        src="/assets/images/footer-logo.png"
+                        src="/assets/img/footer/footer-logo.png"
                         width={100}
                         height={30}
                         alt=""
@@ -103,7 +103,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-1.jpg"
+                              src="/assets/img/footer/footer-gallery-1.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -115,7 +115,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-2.jpg"
+                              src="/assets/img/footer/footer-gallery-2.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -127,7 +127,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-3.jpg"
+                              src="/assets/img/footer/footer-gallery-3.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -139,7 +139,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-4.jpg"
+                              src="/assets/img/footer/footer-gallery-4.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -151,7 +151,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-5.jpg"
+                              src="/assets/img/footer/footer-gallery-5.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -163,7 +163,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-6.jpg"
+                              src="/assets/img/footer/footer-gallery-6.jpg"
                               alt=""
                               width={90}
                               height={90}

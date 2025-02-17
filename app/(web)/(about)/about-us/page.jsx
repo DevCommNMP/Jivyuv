@@ -57,8 +57,8 @@ export default function about() {
             {/* -- place-style-three --> */}
             <section className="place-style-three bg-color-1 sec-pad">
                 <div className="anim-icon">
-                    <div className="icon anim-icon-1" style={{ backgroundImage: 'url(assets/images/background/page-title.jpg)' }}></div>
-                    <div className="icon anim-icon-2" style={{ backgroundImage: 'url(assets/images/background/page-title.jpg)' }}></div>
+                    <div className="icon anim-icon-1" style={{ backgroundImage: 'url(assets/img/home/page-title.jpg)' }}></div>
+                    <div className="icon anim-icon-2" style={{ backgroundImage: 'url(assets/img/home/page-title.jpg)' }}></div>
                 </div>
                 <div className="auto-container">
                     <div className="sec-title centred">
@@ -69,7 +69,7 @@ export default function about() {
                         <div className="three-item-carousel owl-carousel owl-theme owl-nav-none dots-style-one">
                             <div className="place-block-two">
                                 <div className="inner-box">
-                                    <figure className="image-box"><img src="assets/images/resource/place-6.jpg" alt="" /></figure>
+                                    <figure className="image-box"><img src="assets/img/home/place-6.jpg" alt="" /></figure>
                                     <div className="text">
                                         <h3>New York City</h3>
                                     </div>
@@ -77,7 +77,7 @@ export default function about() {
                             </div>
                             <div className="place-block-two">
                                 <div className="inner-box">
-                                    <figure className="image-box"><img src="assets/images/resource/place-7.jpg" alt="" /></figure>
+                                    <figure className="image-box"><img src="assets/img/home/place-7.jpg" alt="" /></figure>
                                     <div className="text">
                                         <h3>Mont Blanc</h3>
                                     </div>
