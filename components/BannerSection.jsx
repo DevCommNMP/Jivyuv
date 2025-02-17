@@ -1,4 +1,16 @@
+'use client';
+import { useEffect } from 'react';
+
 export default function Banner() {
+  useEffect(() => {
+    // Initialize datepicker here
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission
+  };
+
   return (
     <>
       <section
@@ -21,8 +33,7 @@ export default function Banner() {
             </p>
             <div className="form-inner">
               <form
-                action="index.html"
-                method="post"
+                onSubmit={handleSubmit}
                 className="booking-form clearfix"
               >
                 <div className="form-group">

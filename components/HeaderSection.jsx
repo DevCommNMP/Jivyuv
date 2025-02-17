@@ -1,11 +1,11 @@
 "use client";
+import { checkSession } from "@/app/uitls/authFunctions";
+import { LucideSearch, LucideUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { LucideSearch, LucideUserRound } from "lucide-react";
-import { checkSession } from "@/app/uitls/authFunctions";
 import { useEffect, useState } from "react";
 
-export default function Header({}) {
+export default function Header({ }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Header({}) {
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/auth/google";
   };
- 
+
   const handleLogout = () => {
     window.location.href = "http://localhost:5000/api/auth/logout"; // Redirect to logout
   };
@@ -57,77 +57,77 @@ export default function Header({}) {
                   >
                     <ul className="navigation clearfix">
                       <li className="current dropdown">
-                        <Link href="index.html">Home</Link>
+                        <Link href="/">Home</Link>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Destinations</Link>
+                        <Link href="#">Destinations</Link>
                         <ul>
                           <li>
-                            <Link href="destination.html">Destinations 01</Link>
+                            <Link href="destination-1">Destinations 01</Link>
                           </li>
                           <li>
-                            <Link href="destination-2.html">
+                            <Link href="destination-2">
                               Destinations 02
                             </Link>
                           </li>
                           <li>
-                            <Link href="destination-details.html">
+                            <Link href="destination-details">
                               Destination Details
                             </Link>
                           </li>
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Tours</Link>
+                        <Link href="#">Tours</Link>
                         <ul>
                           <li>
-                            <Link href="tour-1.html">Tours Grid</Link>
+                            <Link href="tour-grid">Tours Grid</Link>
                           </li>
                           <li>
-                            <Link href="tour-2.html">Tours List</Link>
+                            <Link href="tour-list">Tours List</Link>
                           </li>
                           <li>
-                            <Link href="tour-details.html">Tour Details</Link>
+                            <Link href="tour-details">Tour Details</Link>
                           </li>
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Pages</Link>
+                        <Link href="#">Pages</Link>
                         <ul>
                           <li>
-                            <Link href="about.html">About Us</Link>
+                            <Link href="about-us">About Us</Link>
                           </li>
                           <li>
-                            <Link href="booking-1.html">Booking Process</Link>
+                            <Link href="booking-process">Booking Process</Link>
                           </li>
                           <li>
-                            <Link href="tour-deals.html">Tour Deals</Link>
+                            <Link href="tour-deals">Tour Deals</Link>
                           </li>
                           <li>
-                            <Link href="tour-guide.html">Tour Guide</Link>
+                            <Link href="tour-guide">Tour Guide</Link>
                           </li>
                           <li>
-                            <Link href="gallery-1.html">Gallery 01</Link>
+                            <Link href="gallery-1">Gallery 01</Link>
                           </li>
                           <li>
-                            <Link href="gallery-2.html">Gallery 02</Link>
+                            <Link href="gallery-2">Gallery 02</Link>
                           </li>
                           <li>
-                            <Link href="faq.html">Faq&aps;s</Link>
+                            <Link href="faq">Faq&aps;s</Link>
                           </li>
                           <li>
-                            <Link href="signup.html">Sign Up</Link>
+                            <Link href="sign-up">Sign Up</Link>
                           </li>
                           <li>
-                            <Link href="login.html">Sign In</Link>
+                            <Link href="sign-in">Sign In</Link>
                           </li>
                           <li>
-                            <Link href="error.html">404</Link>
+                            <Link href="error">404</Link>
                           </li>
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Elements</Link>
+                        <Link href="#">Elements</Link>
                         <div className="megamenu">
                           <div className="row clearfix">
                             <div className="col-xl-6 column">
@@ -136,42 +136,42 @@ export default function Header({}) {
                                   <h4>Elements 1</h4>
                                 </li>
                                 <li>
-                                  <Link href="about-element-1.html">
+                                  <Link href="about-element-1">
                                     About Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="about-element-2.html">
+                                  <Link href="about-element-2">
                                     About Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="about-element-3.html">
+                                  <Link href="about-element-3">
                                     About Block 03
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="feature-element-1.html">
+                                  <Link href="feature-element-1">
                                     Feature Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="feature-element-2.html">
+                                  <Link href="feature-element-2">
                                     Feature Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="tour-element-1.html">
+                                  <Link href="tour-element-1">
                                     Tour Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="tour-element-2.html">
+                                  <Link href="tour-element-2">
                                     Tour Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="place-element-1.html">
+                                  <Link href="place-block-1">
                                     Place Block 01
                                   </Link>
                                 </li>
@@ -183,42 +183,42 @@ export default function Header({}) {
                                   <h4>Elements 2</h4>
                                 </li>
                                 <li>
-                                  <Link href="place-element-2.html">
+                                  <Link href="place-block-2">
                                     Place Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="news-element-1.html">
+                                  <Link href="news-block-1">
                                     News Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="news-element-2.html">
+                                  <Link href="news-block-2">
                                     News Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="team-element-1.html">
+                                  <Link href="team-block-1">
                                     Team Block 01
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="team-element-2.html">
+                                  <Link href="team-block-2">
                                     Team Block 02
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="video-element.html">
+                                  <Link href="video-element">
                                     Video Block
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="funfact-element.html">
+                                  <Link href="funfact-element">
                                     Funfact Block
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="testimonial-element.html">
+                                  <Link href="testimonial-element">
                                     Testimonial Block
                                   </Link>
                                 </li>
@@ -228,21 +228,21 @@ export default function Header({}) {
                         </div>
                       </li>
                       <li className="dropdown">
-                        <Link href="index.html">Blog</Link>
+                        <Link href="/">Blog</Link>
                         <ul>
                           <li>
-                            <Link href="blog.html">Blog Grid</Link>
+                            <Link href="blog-1">Blog Grid</Link>
                           </li>
                           <li>
-                            <Link href="blog-2.html">Blog Standard</Link>
+                            <Link href="blog-2">Blog Standard</Link>
                           </li>
                           <li>
-                            <Link href="blog-details.html">Blog Details</Link>
+                            <Link href="blog-details">Blog Details</Link>
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <Link href="contact.html">Contact</Link>
+                        <Link href="contact">Contact</Link>
                       </li>
                     </ul>
                   </div>
@@ -284,20 +284,20 @@ export default function Header({}) {
                   </div>
                 </li>
                 <li className="user-link">
-      {user ? (
-        <Link href="" onClick={handleLogout}>
-        
-            <img src={user.profilePicture} alt="profile photo" style={{borderRadius:"50%",backgroundColor:"transparent"}}/>
-          
-        </Link>
-      ) : (
-        <Link href="" onClick={handleGoogleLogin}>
-     
-            <LucideUserRound />
-          
-        </Link>
-      )}
-    </li>
+                  {user ? (
+                    <Link href="" onClick={handleLogout}>
+
+                      <img src={user.profilePicture} alt="profile photo" style={{ borderRadius: "50%", backgroundColor: "transparent" }} />
+
+                    </Link>
+                  ) : (
+                    <Link href="" onClick={handleGoogleLogin}>
+
+                      <LucideUserRound />
+
+                    </Link>
+                  )}
+                </li>
               </ul>
             </div>
           </div>
@@ -308,7 +308,7 @@ export default function Header({}) {
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">
-                  <Link href="index.html">
+                  <Link href="/">
                     <Image
                       src="/assets/images/logo.png"
                       alt=""
