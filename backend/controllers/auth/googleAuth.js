@@ -26,6 +26,7 @@ const handleGoogleCallback = async (req, res) => {
         firstName: displayName.split(" ")[0], // Extract first name
         lastName: displayName.split(" ").slice(1).join(" ") || "", // Extract last name
         email: emails[0].value,
+        userName: displayName, // Extract username from email
         googleId: id,
         profilePicture: photos[0].value, // Store Google profile picture
       });
