@@ -1,4 +1,11 @@
+'use client';
+import { useEffect } from 'react';
+
 export default function VideoSection() {
+  useEffect(() => {
+    // Initialize lightbox here if you're using a library
+  }, []);
+
   return (
     <>
       <section
