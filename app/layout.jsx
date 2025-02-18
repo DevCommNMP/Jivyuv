@@ -4,10 +4,14 @@ import "./custom.css";
 import "./globals.css";
 
 
+
 export const metadata = {
   title: "Tour & Travel",
   description: "Tour & Travel",
 };
+
+
+
 
 export default function RootLayout({ children }) {
   return (
@@ -16,7 +20,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
-      </body>
+      </body> 
     </html>
   );
 }
