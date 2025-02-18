@@ -2,7 +2,7 @@ export default function tourGrid() {
     return (
         <>
             {/* <!-- Page Title --> */}
-            <section className="page-title style-two centred" style={{ backgroundImage: 'url(assets/img/tour-grid/page-title-2.jpg);' }}>
+            <section className="page-title style-two centred" style={{ backgroundImage: 'url(assets/img/tour-grid/page-title-2.jpg)' }}>
                 <div className="auto-container">
                     <div className="content-box">
                         <h1>Tours Grid</h1>

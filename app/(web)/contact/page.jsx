@@ -15,8 +15,8 @@ export default function contact() {
 
             <section className="contact-info-section bg-color-1">
                 <div className="anim-icon">
-                    <div className="icon anim-icon-1" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png);' }}></div>
-                    <div className="icon anim-icon-2" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png);' }}></div>
+                    <div className="icon anim-icon-1" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png)' }}></div>
+                    <div className="icon anim-icon-2" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png)' }}></div>
                 </div>
                 <div className="auto-container">
                     <div className="row clearfix">

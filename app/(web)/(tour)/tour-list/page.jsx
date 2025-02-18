@@ -2,7 +2,7 @@ export default function tourList() {
     return (
         <>
             {/* <!-- Page Title --> */}
-            <section class="page-title style-two centred" style={{ backgroundImage: 'url(assets/img/tour-grid/page-title-2.jpg);' }}>
+            <section class="page-title style-two centred" style={{ backgroundImage: 'url(assets/img/tour-grid/page-title-2.jpg)' }}>
                 <div class="auto-container">
                     <div class="content-box">
                         <h1>Tours List</h1>

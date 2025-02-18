@@ -16,8 +16,8 @@ export default function tourGuide() {
             {/* <!-- team-section --> */}
             <section class="team-section tour-guide-page bg-color-1 centred">
                 <div class="anim-icon">
-                    <div class="icon anim-icon-1" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png);' }}></div>
-                    <div class="icon anim-icon-2" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png);' }}></div>
+                    <div class="icon anim-icon-1" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png)' }}></div>
+                    <div class="icon anim-icon-2" style={{ backgroundImage: 'url(assets/images/shape/shape-3.png)' }}></div>
                 </div>
                 <div class="auto-container">
                     <div class="row clearfix">
