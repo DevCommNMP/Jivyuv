@@ -1,5 +1,10 @@
 const express = require("express");
-const { googleAuth, googleCallback, handleGoogleCallback, logoutUser } = require("../../controllers/auth/googleAuth");
+const {
+  googleAuth,
+  googleCallback,
+  handleGoogleCallback,
+  logoutUser,
+} = require("../../controllers/auth/googleAuth");
 
 const router = express.Router();
 

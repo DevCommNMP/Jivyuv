@@ -10,6 +10,7 @@ import PlaceSection from "@/components/PlaceSection";
 import TourSection from "@/components/TourSection";
 import VideoSection from "@/components/VideoSection";
 
+
 export const generateMetadata = () => {
   return {
     title: "Best Tour & Travel Packages | Explore the World",
@@ -29,6 +30,7 @@ export const generateMetadata = () => {
     },
   };
 };
+
 
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";

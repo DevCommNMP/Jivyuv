@@ -27,7 +27,7 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-1.jpg"
+                        src="/assets/img/home/news-1.jpg"
                         alt=""
                         width={370}
                         height={270}
@@ -75,7 +75,7 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-2.jpg"
+                        src="/assets/img/home/news-2.jpg"
                         alt=""
                         width={370}
                         height={270}
@@ -123,7 +123,7 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-3.jpg"
+                        src="/assets/img/home/news-3.jpg"
                         alt=""
                         width={370}
                         height={270}

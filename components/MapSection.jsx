@@ -65,7 +65,7 @@ export default function MapSection() {
                   <span>3</span>
                 </figure>
                 <div className="address-box">
-                  <h3>Norway Lake</h3>
+                  <h3>India</h3>
                   <p>
                     Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod
                     tempor incididunt.

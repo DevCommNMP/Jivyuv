@@ -19,7 +19,7 @@ export default function Feature() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/feature-1.jpg"
+                      src="/assets/img/home/feature-1.jpg"
                       alt=""
                       width={270}
                       height={170}
@@ -43,7 +43,7 @@ export default function Feature() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/feature-2.jpg"
+                      src="/assets/img/home/feature-2.jpg"
                       alt=""
                       width={270}
                       height={170}
@@ -67,7 +67,7 @@ export default function Feature() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/feature-3.jpg"
+                      src="/assets/img/home/feature-3.jpg"
                       alt=""
                       width={270}
                       height={170}
@@ -91,7 +91,7 @@ export default function Feature() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/feature-4.jpg"
+                      src="/assets/img/home/feature-4.jpg"
                       alt=""
                       width={270}
                       height={170}

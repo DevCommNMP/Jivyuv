@@ -1,9 +1,15 @@
 import Footer from "@/components/FooterSection";
 import Header from "@/components/HeaderSection";
-import { use } from "passport";
 import "./custom.css";
 import "./globals.css";
 import * as Lucide from 'lucide-react';
+
+
+export const metadata = {
+  title: "Tour & Travel",
+  description: "Tour & Travel",
+};
+
 
 
 

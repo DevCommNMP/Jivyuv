@@ -188,6 +188,7 @@ export default function SignupForm() {
                   </div>
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
                     <div className="form-group">
+                      <label>Password</label>
                       <input
                         type="password"
                         name="password"
