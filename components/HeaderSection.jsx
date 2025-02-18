@@ -207,18 +207,9 @@ export default function Header({ }) {
                                     Team Block 02
                                   </Link>
                                 </li>
+
                                 <li>
-                                  <Link href="video-element">
-                                    Video Block
-                                  </Link>
-                                </li>
-                                <li>
-                                  <Link href="funfact-element">
-                                    Funfact Block
-                                  </Link>
-                                </li>
-                                <li>
-                                  <Link href="testimonial-element">
+                                  <Link href="testimonial">
                                     Testimonial Block
                                   </Link>
                                 </li>

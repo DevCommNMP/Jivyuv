@@ -6,7 +6,7 @@ export default function AboutSection() {
       <section className="about-section">
         <div
           className="pattern-layer"
-          style={{ backgroundImage: "url(assets/images/shape/shape-1.png)" }}
+          style={{ backgroundImage: "url(assets/img/home//shape-1.png)" }}
         ></div>
         <div className="auto-container">
           <div className="row clearfix">
@@ -29,7 +29,7 @@ export default function AboutSection() {
                   </div>
                   <figure className="image image-1">
                     <Image
-                      src="/assets/images/resource/about-1.jpg"
+                      src="/assets/img/home/about-1.jpg"
                       alt=""
                       width={390}
                       height={390}
@@ -43,7 +43,7 @@ export default function AboutSection() {
                   </figure>
                   <figure className="image image-2">
                     <Image
-                      src="/assets/images/resource/about-2.jpg"
+                      src="/assets/img/home/about-2.jpg"
                       alt=""
                       width={280}
                       height={200}

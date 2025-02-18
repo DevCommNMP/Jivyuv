@@ -24,7 +24,7 @@ export default function TourSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/tour/tour-1.jpg"
+                      src="/assets/img/home/tour-1.jpg"
                       alt=""
                       width={370}
                       height={270}
@@ -70,7 +70,7 @@ export default function TourSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/tour/tour-2.jpg"
+                      src="/assets/img/home/tour-2.jpg"
                       alt=""
                       width={370}
                       height={270}
@@ -116,7 +116,7 @@ export default function TourSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/tour/tour-3.jpg"
+                      src="/assets/img/home/tour-3.jpg"
                       alt=""
                       width={370}
                       height={270}
