@@ -9,6 +9,7 @@ import PlaceSection from "@/components/PlaceSection";
 import TourSection from "@/components/TourSection";
 import VideoSection from "@/components/VideoSection";
 
+
 export default function Home() {
 
   return (
