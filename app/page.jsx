@@ -10,28 +10,6 @@ import PlaceSection from "@/components/PlaceSection";
 import TourSection from "@/components/TourSection";
 import VideoSection from "@/components/VideoSection";
 
-
-export const generateMetadata = () => {
-  return {
-    title: "Best Tour & Travel Packages | Explore the World",
-    description: "Discover amazing travel deals and destinations.",
-    openGraph: {
-      title: "Best Tour & Travel Packages | Explore the World",
-      description: "Discover amazing travel deals and destinations.",
-      images: ["https://example.com/featured-image.jpg"],
-      url: "https://yourwebsite.com",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Best Tour & Travel Packages | Explore the World",
-      description: "Discover amazing travel deals and destinations.",
-      images: ["https://example.com/featured-image.jpg"],
-    },
-  };
-};
-
-
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";
   const description = "Discover amazing travel deals and destinations.";
@@ -40,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />

@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
-require("./config/passportConfig"); // Initialize passport config
+require("./config/passport/passportConfig"); // Initialize passport config
 dotenv.config();
 const dbConnect=require("./db/connectDB")
 const app = express();
