@@ -11,7 +11,7 @@ const passwordResetMailOptions = require("../../config/mailConfigration/password
 // Controller to register user
 const registerUser = expressAsyncHandler(async (req, res) => {
   try {
-    const { userName, email, password, firstName,lastName } = req.body;
+    const { userName, email, password, firstName, lastName } = req.body;
 
     // Check if the user already exists
     const userExist = await User.findOne({ email });
@@ -28,7 +28,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       email,
       password,
       firstName,
-      lastName
+      lastName,
     });
 
     // Generate token
@@ -72,8 +72,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     const socialLinkTwitter = "https://twitter.com/";
     const socialLinkInstagram = "https://www.instagram.com/";
     const socialLinkYoutube = "https://www.youtube.com/";
-const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
-const registrationImage = "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
+    const logoImage =
+      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage =
+      "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
     // Send email
     const mailOptions = registrationMailOptions(
       emailReceiver,
@@ -206,51 +208,51 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
       .json({ success: false, error: true, message: "Internal server error." });
   }
 });
-//-------------------------------login ctrl--------------------------------------------------
-//controller to login user
+// -------------------------------login ctrl--------------------------------------------------
+// controller to login user
 // Login route
-// const login = expressAsyncHandler(async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
+const login = expressAsyncHandler(async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-//     // Find user by email
-//     const userFound = await User.findOne({ email });
+    // Find user by email
+    const userFound = await User.findOne({ email });
 
-//     if (!userFound) {
-//       return res.status(401).json({ message: "Invalid Email" });
-//     }
+    if (!userFound) {
+      return res.status(401).json({ message: "Invalid Email" });
+    }
 
-//     // Verify password
-//     if (await userFound.isPasswordMatched(password)) {
-//       // Generate JWT token before saving session
-//       const generatenewToken = generateToken(userFound._id);
+    // Verify password
+    if (await userFound.isPasswordMatched(password)) {
+      // Generate JWT token before saving session
+      const generatenewToken = generateToken(userFound._id);
 
-//       // Save user information in session
-//       req.session.user = {
-//         id: userFound._id,
-//         email: userFound.email,
-//         profilePhoto: userFound.profilePhoto,
-//         firstName: userFound.firstName,
-//         lastName: userFound.lastName,
-//         token: generatenewToken, // Corrected token placement
-//       };
+      // Save user information in session
+      req.session.user = {
+        id: userFound._id,
+        email: userFound.email,
+        profilePhoto: userFound.profilePhoto,
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
+        token: generatenewToken, // Corrected token placement
+      };
 
-//       console.log("Session after login:", req.session); // Check session data
+      console.log("Session after login:", req.session); // Check session data
 
-//       // Send response
-//       return res.status(200).json({
-//         success: true,
-//         message: "Login successful",
-//         user: userFound,
-//         token: generatenewToken,
-//       });
-//     } else {
-//       return res.status(401).json({ message: "Invalid Password" });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-// });
+      // Send response
+      return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        user: userFound,
+        token: generatenewToken,
+      });
+    } else {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
 
 // controller to reset Password
 const passwordResetMail = expressAsyncHandler(async (req, res) => {

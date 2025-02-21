@@ -5,10 +5,11 @@ const session = require("express-session");
 const passport = require("passport");
 require("./config/passport/passportConfig"); // Initialize passport config
 dotenv.config();
-const dbConnect=require("./db/connectDB")
+const dbConnect = require("./db/connectDB");
 const app = express();
 const PORT = 5000;
-const routes=require("./routes/allRoutes/allRoutes")
+const routes = require("./routes/allRoutes/allRoutes");
+const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
 const allowedOrigins = ["http://localhost:3000", "https://accounts.google.com"];
 
@@ -47,7 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use(routes)
+app.use(routes);
 
 // Test session route
 app.get("/test-session", (req, res) => {
