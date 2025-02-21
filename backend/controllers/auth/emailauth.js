@@ -209,48 +209,48 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
 //-------------------------------login ctrl--------------------------------------------------
 //controller to login user
 // Login route
-const login = expressAsyncHandler(async (req, res) => {
-  try {
-    const { email, password } = req.body;
+// const login = expressAsyncHandler(async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
 
-    // Find user by email
-    const userFound = await User.findOne({ email });
+//     // Find user by email
+//     const userFound = await User.findOne({ email });
 
-    if (!userFound) {
-      return res.status(401).json({ message: "Invalid Email" });
-    }
+//     if (!userFound) {
+//       return res.status(401).json({ message: "Invalid Email" });
+//     }
 
-    // Verify password
-    if (userFound && (await userFound.isPasswordMatched(password))) {
-      // Save user information in session
-      req.session.user = {
-        id: userFound._id,
-        email: userFound.email,
-      };
-      console.log("Session after login:", req.session); // Check session data
+//     // Verify password
+//     if (await userFound.isPasswordMatched(password)) {
+//       // Generate JWT token before saving session
+//       const generatenewToken = generateToken(userFound._id);
 
-      const generatenewToken = generateToken(userFound._id); // Generate JWT token
+//       // Save user information in session
+//       req.session.user = {
+//         id: userFound._id,
+//         email: userFound.email,
+//         profilePhoto: userFound.profilePhoto,
+//         firstName: userFound.firstName,
+//         lastName: userFound.lastName,
+//         token: generatenewToken, // Corrected token placement
+//       };
 
-      // Respond with user details and token
-      res.json({
-        user: {
-          id: userFound._id,
-          email: userFound.email,
-          profilePhoto: userFound.profilePhoto,
-          firstName: userFound.firstName,
-          lastName: userFound.lastName,
-          token: generatenewToken,
-        },
-        authToken: generatenewToken, // Token for front-end
-        session: req.session.user, // Return session info
-      });
-    } else {
-      res.status(401).json({ message: "Invalid Password" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+//       console.log("Session after login:", req.session); // Check session data
+
+//       // Send response
+//       return res.status(200).json({
+//         success: true,
+//         message: "Login successful",
+//         user: userFound,
+//         token: generatenewToken,
+//       });
+//     } else {
+//       return res.status(401).json({ message: "Invalid Password" });
+//     }
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// });
 
 // controller to reset Password
 const passwordResetMail = expressAsyncHandler(async (req, res) => {
