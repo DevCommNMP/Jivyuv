@@ -26,7 +26,7 @@ router.route('/auth/registerAdmin')
 
 
 // ----------------------Verify Token-------------------------
-router.route('/verify-account/:token')
+router.route('/verify-account')
 .post(verifyAccount)
 
 // -----------resnd Verification-token-----------

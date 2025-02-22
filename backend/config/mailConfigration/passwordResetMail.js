@@ -1,14 +1,31 @@
-const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
-    console.log(receiver, message, username, BASE_URL)  
-    const mailOptions = {
-      from: {
-        name: "SUNFO",
-        address: "services@sunfo.in", // Sender email
-      },
-      to: receiver, // Receiver email
-      subject: "Reset Password Link", // Subject line
-      text: message,  
-        html: `<html
+const passwordResetMailOptions = (  emailReceiver,
+  emailSender,
+  emailSubject,
+  emailHeader,
+  greetMessage,
+  companyMessage,
+  displayName,
+  logoImage,
+  registrationImage,
+  websiteName,
+  BASE_URL,
+  supportEmail,
+  supportPhone,
+  supportAddress,
+  socilaLinkLinkedin,
+  socialLinkFacebook,
+  socialLinkTwitter,
+  socialLinkInstagram,
+  socialLinkYoutube) => {
+  const mailOptions = {
+    from: {
+      name: `${emailHeader}`,
+      address: `${emailSender}`, // Sender email
+    },
+    to: `${emailReceiver}`, // Receiver email
+    subject: `${emailSubject}`, // Subject line
+    text: `${greetMessage}`,
+    html: `<html
         lang="en"
       >
         <head>
@@ -433,7 +450,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                           <img
                                             alt="logo image"
                                             class="fullWidth"
-                                            src="https://res.cloudinary.com/dyf4m9od7/image/upload/v1729325809/bsqau1juja7kiz63ihhl.png"
+                                            src=${logoImage}
                                             style="
                                               display: block;
                                               height: auto;
@@ -448,7 +465,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                           <img
                                             alt="I'm an image"
                                             class="fullWidth"
-                                            src="https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid"
+                                             src=${registrationImage}
                                             style="
                                               display: block;
                                               height: auto;
@@ -592,8 +609,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                           <p
                                             style="margin: 0; word-break: break-word"
                                           >
-                                           We're excited to have you as part of SUNFO - A BRAND OF ADACITY MEDIA PRIVATE LIMITED! To reset your password and secure your account, please click the link below.
-                                            
+  ${greetMessage}                                            
                                           </p>
                                         </div>
                                       </td>
@@ -892,7 +908,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                             <tr>
                                               <td style="padding: 0 10px 0 10px">
                                                 <a
-                                                  href="https://www.facebook.com"
+                                                  href=${socialLinkFacebook}
                                                   target="_blank"
                                                   ><img
                                                     alt="Facebook"
@@ -909,7 +925,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                               </td>
                                               <td style="padding: 0 10px 0 10px">
                                                 <a
-                                                  href="https://www.twitter.com"
+                                                  href=${socialLinkTwitter}
                                                   target="_blank"
                                                   ><img
                                                     alt="Twitter"
@@ -926,7 +942,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                               </td>
                                               <td style="padding: 0 10px 0 10px">
                                                 <a
-                                                  href="https://www.instagram.com"
+                                                  href=${socialLinkInstagram}
                                                   target="_blank"
                                                   ><img
                                                     alt="Instagram"
@@ -943,7 +959,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                               </td>
                                               <td style="padding: 0 10px 0 10px">
                                                 <a
-                                                  href="https://www.linkedin.com"
+                                                  href=${socialLinkYoutube}
                                                   target="_blank"
                                                   ><img
                                                     alt="LinkedIn"
@@ -1000,14 +1016,12 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                           "
                                         >
                                           <p style="margin: 0">
-  At Sunfo, every piece tells a story. We are dedicated to offering exquisite jewelry and wearables that combine elegance, craftsmanship, and quality. Whether you're looking for stunning rings, personalized accessories, or unique fashion wearables, we provide customized solutions to bring your style and vision to life with exceptional artistry.                                        </p>
-                                          <ul>
+  ${companyMessage}                                          <ul>
                                                                                   <li>
-                                           Address:Hridoy pur, Barasat, North 24 parganas, West Bengal, 700127
-                                                                                  </li>
-                                                                                <li>(+91) 8777563773</li>
+ ${supportAddress}                                                                                  </li>
+                                                                                <li>${supportPhone}</li>
                                                        
-                                                                                  <li>support@sunfo.in</li>
+                                                                                  <li>${supportEmail}n</li>
                                                                                 </ul>
                                         </div>
                                       </td>
@@ -1106,7 +1120,7 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
                                               >
                                               <span
                                                 id="c2e0ec35-b4ce-44fc-9c78-fa5cec49c8ec"
-                                                > <p style="color: #f8f8f8">&copy;2024 Adacity Media private limited. All rights reserved.</p>
+                                                > <p style="color: #f8f8f8">&copy;2025 ${websiteName}. All rights reserved.</p>
   
   </span
                                               ></span
@@ -1293,10 +1307,9 @@ const passwordResetMailOptions = (receiver, message, username, BASE_URL) => {
           <!-- End -->
         </body>
       </html>`, // Use message parameter here
-    };
-    
-    return mailOptions;
   };
-  
-  module.exports = passwordResetMailOptions;
-  
+
+  return mailOptions;
+};
+
+module.exports = passwordResetMailOptions;

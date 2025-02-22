@@ -1,6 +1,7 @@
 // Import required modules
 const generateToken = require("../../config/token/generateToken");
 const User = require("../../modal/user/user");
+const passport = require("passport");
 const expressAsyncHandler = require("express-async-handler");
 const registrationMailOptions = require("../../config/mailConfigration/registrationMailOption");
 const sendMailController = require("../../config/mailConfigration/sendMailConfig");
@@ -11,9 +12,10 @@ const passwordResetMailOptions = require("../../config/mailConfigration/password
 // Controller to register user
 const registerUser = expressAsyncHandler(async (req, res) => {
   try {
-    const { userName, email, password, firstName,lastName } = req.body;
+    const {  email, password, firstName, lastName } = req.body;
 
     // Check if the user already exists
+    const userName=`${firstName} ${lastName}`
     const userExist = await User.findOne({ email });
 
     if (userExist) {
@@ -28,7 +30,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
       email,
       password,
       firstName,
-      lastName
+      lastName,
     });
 
     // Generate token
@@ -72,8 +74,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     const socialLinkTwitter = "https://twitter.com/";
     const socialLinkInstagram = "https://www.instagram.com/";
     const socialLinkYoutube = "https://www.youtube.com/";
-const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
-const registrationImage = "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
+    const logoImage =
+      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage =
+      "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
     // Send email
     const mailOptions = registrationMailOptions(
       emailReceiver,
@@ -112,11 +116,14 @@ const registrationImage = "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNV
       .json({ success: false, message: error.message, error: true });
   }
 });
-// Controller for verify account
+// Controller Sfor verify account
 const verifyAccount = expressAsyncHandler(async (req, res) => {
   try {
-    const { token } = req.params;
-    // console.log(token)
+    const token = req.headers.authorization.split(" ")[1]; // Corrected token extraction
+    console.log(token)
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    const decodedUser = await User.findById(decoded.id).lean();
+console.log(decodedUser )
     // Find the user with the given token
     const user = await User.findOne({
       accountVerificationToken: token,
@@ -133,7 +140,7 @@ const verifyAccount = expressAsyncHandler(async (req, res) => {
     // Update user status to verified
     user.isAccountVerified = true;
     user.accountVerificationToken = undefined; // Remove the token
-    user.accountVerificationTokenExpires = undefined; // Remove the expiration time
+    user.accountVerificationTokenExpiry = undefined; // Remove the expiration time
     await user.save();
 
     res.status(200).json({
@@ -173,25 +180,65 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
         .json({ success: false, error: true, message: "User not found." });
     }
 
-    // Generate a token (replace with your actual token generation logic)
-    const token = await generateToken(user._id); // Ensure this function is defined
+    // Generate a token
+    const token = await generateToken(user._id);
 
     // Update the user document
     const updatedUser = await User.findOneAndUpdate(
       { email: email },
       {
-        // Update fields
-        $set: {
-          accountVerificationToken: token,
-          accountVerificationTokenExpires: expirationDate,
-          isAccountVerified: false,
-        },
+        accountVerificationToken: token,
+        accountVerificationTokenExpiry: expirationDate,
+        isAccountVerified: false,
       },
       { new: true } // Return the updated user document
     );
 
-    // Logic to resend verification email
-    await sendVerificationEmail(updatedUser.email, token); // Ensure this function is defined
+    const BASE_URL = `${process.env.BASE_URL}/verify-account/${token}`;
+    const userName = `${user.firstName} ${user.lastName}`;
+    // Set up email content
+    const emailReceiver = email;
+    const emailSender = "contact@planandbooktrip.com";
+    const emailSubject = "Email Verification";
+    const emailHeader = "Plan And Booktrip";
+    const displayName = `${userName}`;
+    const websiteName = "Plan and Book Trip";
+    const greetMessage = `Hey ${displayName}, We're thrilled to have you on board at <strong>${websiteName}</strong>. To finalize your registration, please click the link below to verify your email address:`;
+    const companyMessage = `At ${websiteName}, every journey tells a story. We are dedicated to offering exceptional tour and travel packages that blend adventure, comfort, and unforgettable experiences. Whether you're seeking breathtaking destinations, personalized itineraries, or unique travel experiences, we provide tailored solutions to bring your dream trip to life with expert planning and seamless execution.`;
+
+    const supportEmail = "contact@planandbooktrip.com";
+    const supportPhone = "1234567890";
+    const supportAddress = "1234, Dwarka Mor, Delhi, India";
+    const socialLinkLinkedin = "https://www.linkedin.com/";
+    const socialLinkFacebook = "https://www.facebook.com/";
+    const socialLinkTwitter = "https://twitter.com/";
+    const socialLinkInstagram = "https://www.instagram.com/";
+    const socialLinkYoutube = "https://www.youtube.com/";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
+    // Send email
+    const mailOptions = registrationMailOptions(
+      emailReceiver,
+      emailSender,
+      emailSubject,
+      emailHeader,
+      greetMessage,
+      companyMessage,
+      displayName,
+      logoImage,
+      registrationImage,
+      websiteName,
+      BASE_URL,
+      supportEmail,
+      supportPhone,
+      supportAddress,
+      socialLinkLinkedin,
+      socialLinkFacebook,
+      socialLinkTwitter,
+      socialLinkInstagram,
+      socialLinkYoutube
+    );
+    await sendMailController(mailOptions);
 
     // Send success response
     return res.status(200).json({
@@ -200,97 +247,155 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
     });
   } catch (error) {
     // Handle unexpected errors
-    // console.error("Error during resend verification mail:", error);
     return res
       .status(500)
       .json({ success: false, error: true, message: "Internal server error." });
   }
 });
+
 //-------------------------------login ctrl--------------------------------------------------
 //controller to login user
 // Login route
-// const login = expressAsyncHandler(async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
+const login = expressAsyncHandler(async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
 
-//     // Find user by email
-//     const userFound = await User.findOne({ email });
+    // Find user by email
+    const userFound = await User.findOne({ email });
 
-//     if (!userFound) {
-//       return res.status(401).json({ message: "Invalid Email" });
-//     }
+    if (!userFound) {
+      return res.status(401).json({ message: "Invalid Email" });
+    }
 
-//     // Verify password
-//     if (await userFound.isPasswordMatched(password)) {
-//       // Generate JWT token before saving session
-//       const generatenewToken = generateToken(userFound._id);
+    // Verify password
+    if (!(await userFound.isPasswordMatched(password))) {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
 
-//       // Save user information in session
-//       req.session.user = {
-//         id: userFound._id,
-//         email: userFound.email,
-//         profilePhoto: userFound.profilePhoto,
-//         firstName: userFound.firstName,
-//         lastName: userFound.lastName,
-//         token: generatenewToken, // Corrected token placement
-//       };
+    // Generate JWT token
+    const generatenewToken = generateToken(userFound._id);
 
-//       console.log("Session after login:", req.session); // Check session data
+    // Set session user data BEFORE saving the session
+    req.session.user = {
+      id: userFound._id,
+      email: userFound.email,
+      profilePhoto: userFound.profilePhoto,
+      firstName: userFound.firstName,
+      lastName: userFound.lastName,
+      token: generatenewToken,
+    };
 
-//       // Send response
-//       return res.status(200).json({
-//         success: true,
-//         message: "Login successful",
-//         user: userFound,
-//         token: generatenewToken,
-//       });
-//     } else {
-//       return res.status(401).json({ message: "Invalid Password" });
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ message: error.message });
-//   }
-// });
+    // Save session before responding
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res.status(500).json({ message: "Session creation failed" });
+      }
+
+      console.log("Session after login:", req.session); // Debugging
+
+      return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        user: req.session.user, // Return session user data
+        token: generatenewToken,
+      });
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
 
 // controller to reset Password
 const passwordResetMail = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email: email });
-  !user &&
-    res
-      .status(404)
-      .json({ success: false, error: true, message: "User not found" });
-  const token = generateToken(user._id);
-  const expirationTime = new Date(Date.now() + 5 * 60 * 1000); // 10 minutes in milliseconds
 
-  const updateUser = await User.findOneAndUpdate(
-    { email: email },
-    {
-      forgotPasswordVerificationToken: token,
-      forgotPasswordVerificationTokenExpires: expirationTime,
+  // Check if email is provided
+  if (!email) {
+    return res
+      .status(400)
+      .json({ success: false, error: true, message: "Email is required." });
+  }
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, error: true, message: "User not found." });
     }
-  );
 
-  let BASE_URL_Password = `${process.env.BASE_URL}/reset-password/${token}`;
-  const message = "Password Reset Link";
-  const mailOptions = passwordResetMailOptions(
-    email,
-    message,
-    user.username,
-    BASE_URL_Password
-  );
+    // Generate a token
+    const token = generateToken(user._id);
+    const expirationTime = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
 
-  if (email) {
-    try {
-      await sendMailController(mailOptions);
-      res
-        .status(201)
-        .json({ success: true, message: "email sent successfully" });
-    } catch (error) {
-      res
-        .status(200)
-        .json({ success: false, message: "Something went wrong.Try again!" });
-    }
+    // Update the user document
+    await User.findOneAndUpdate(
+      { email: email },
+      {
+        forgotPasswordVerificationToken: token,
+        forgotPasswordVerificationTokenExpires: expirationTime,
+      },
+      { new: true } // Return the updated user document
+    );
+
+    const BASE_URL = `${process.env.BASE_URL}/reset-password/${token}`;
+    const userName = `${user.firstName} ${user.lastName}`;
+    // Set up email content
+    const emailReceiver = email;
+    const emailSender = "contact@planandbooktrip.com";
+    const emailSubject = "Password Reset";
+    const emailHeader = "Plan And Booktrip";
+    const displayName = `${userName}`;
+    const websiteName = "Plan and Book Trip";
+    const greetMessage = `Hey ${displayName}, We received a request to reset your password for <strong>${websiteName}</strong>. Please click the link below to reset your password:`;
+    const companyMessage = `At ${websiteName}, every journey tells a story. We are dedicated to offering exceptional tour and travel packages that blend adventure, comfort, and unforgettable experiences. Whether you're seeking breathtaking destinations, personalized itineraries, or unique travel experiences, we provide tailored solutions to bring your dream trip to life with expert planning and seamless execution.`;
+
+    const supportEmail = "contact@planandbooktrip.com";
+    const supportPhone = "1234567890";
+    const supportAddress = "1234, Dwarka Mor, Delhi, India";
+    const socialLinkLinkedin = "https://www.linkedin.com/";
+    const socialLinkFacebook = "https://www.facebook.com/";
+    const socialLinkTwitter = "https://twitter.com/";
+    const socialLinkInstagram = "https://www.instagram.com/";
+    const socialLinkYoutube = "https://www.youtube.com/";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
+    // Send email
+    const mailOptions = passwordResetMailOptions(
+      emailReceiver,
+      emailSender,
+      emailSubject,
+      emailHeader,
+      greetMessage,
+      companyMessage,
+      displayName,
+      logoImage,
+      registrationImage,
+      websiteName,
+      BASE_URL,
+      supportEmail,
+      supportPhone,
+      supportAddress,
+      socialLinkLinkedin,
+      socialLinkFacebook,
+      socialLinkTwitter,
+      socialLinkInstagram,
+      socialLinkYoutube
+    );
+    await sendMailController(mailOptions);
+
+    // Send success response
+    return res.status(200).json({
+      success: true,
+      message: "Password reset email sent successfully.",
+    });
+  } catch (error) {
+    // Handle unexpected errors
+    return res
+      .status(500)
+      .json({ success: false, error: true, message: "Internal server error." });
   }
 });
 
@@ -613,3 +718,4 @@ module.exports = {
   isAuthenticated,
   registerAdmin,
 };
+
