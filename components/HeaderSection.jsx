@@ -36,10 +36,10 @@ export default function Header({ }) {
                 <figure className="logo">
                   <Link href="/">
                     <Image
-                      src="/assets/images/logo.png"
-                      alt=""
-                      width={100}
-                      height={30}
+                      src="/assets/images/logo/jivyuv-logo.png"
+                      alt="image not found"
+                      width='200'
+                      height='50'
                     />
                   </Link>
                 </figure>

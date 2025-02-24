@@ -16,13 +16,35 @@ const SetNewPassword = () => {
         return <div style={{ textAlign: "center", marginTop: "50px", height: "100vh", width: "100vw", padding: "100px" }}>Loading...</div>; // or return a loading spinner
     }
 
-    const handleSetNewPassword = () => {
+    const handleSetNewPassword = async () => {
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
-        console.log("New password set:", password);
+
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/reset-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Password reset successfully!");
+                // Redirect or perform any necessary action
+            } else {
+                alert(data.message || "Failed to reset password");
+            }
+        } catch (error) {
+            console.error("Error resetting password:", error);
+            alert("Something went wrong. Please try again.");
+        }
     };
+
 
     return (
         <div

@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 
 const ResetPassword = () => {
     const [email, setEmail] = useState("");
-    const [mounted, setMounted] = useState(false); // To ensure the client-side mount
+    const [mounted, setMounted] = useState(false);
 
-    // Use effect to ensure that this runs only after the component is mounted on the client
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -16,9 +15,35 @@ const ResetPassword = () => {
         return <div style={{ textAlign: "center", marginTop: "50px", height: "100vh", width: "100vw", padding: "100px" }}>Loading...</div>; // or return a loading spinner
     }
 
-    const handleReset = () => {
-        console.log("Reset password request for:", email);
+    const handleReset = async () => {
+        if (!email) {
+            alert("Please enter your email.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/forgot-password", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert("Password reset link sent to your email!");
+
+            } else {
+                alert(data.message || "Failed to send reset email");
+            }
+        } catch (error) {
+            console.error("Error sending reset request:", error);
+            alert("Something went wrong. Please try again.");
+        }
     };
+
 
     return (
         <div
