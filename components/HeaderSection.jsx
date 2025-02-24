@@ -57,10 +57,10 @@ export default function Header({ }) {
                   >
                     <ul className="navigation clearfix">
                       <li className="current dropdown">
-                        <Link href="/">Home</Link>
+                        <Link href="/" style={{ color: "grey" }}>Home</Link>
                       </li>
                       <li className="dropdown">
-                        <Link href="#">Destinations</Link>
+                        <Link href="#" style={{ color: "grey" }}>Destinations</Link>
                         <ul>
                           <li>
                             <Link href="destination-1">Destinations 01</Link>
@@ -78,7 +78,7 @@ export default function Header({ }) {
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="#">Tours</Link>
+                        <Link href="#" style={{ color: "grey" }}>Tours</Link>
                         <ul>
                           <li>
                             <Link href="tour-grid">Tours Grid</Link>
@@ -92,10 +92,10 @@ export default function Header({ }) {
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="#">Pages</Link>
+                        <Link href="#" style={{ color: "grey" }}>Pages</Link>
                         <ul>
                           <li>
-                            <Link href="about-us">About Us</Link>
+                            <Link href="about-us" style={{ color: "grey" }}>About Us</Link>
                           </li>
                           <li>
                             <Link href="booking-process">Booking Process</Link>
@@ -127,7 +127,7 @@ export default function Header({ }) {
                         </ul>
                       </li>
                       <li className="dropdown">
-                        <Link href="#">Elements</Link>
+                        <Link href="#" style={{ color: "grey" }}>Elements</Link>
                         <div className="megamenu">
                           <div className="row clearfix">
                             <div className="col-xl-6 column">
@@ -219,7 +219,7 @@ export default function Header({ }) {
                         </div>
                       </li>
                       <li className="dropdown">
-                        <Link href="/">Blog</Link>
+                        <Link href="/" style={{ color: "grey" }}>Blog</Link>
                         <ul>
                           <li>
                             <Link href="blog-1">Blog Grid</Link>
@@ -233,7 +233,11 @@ export default function Header({ }) {
                         </ul>
                       </li>
                       <li>
-                        <Link href="contact">Contact</Link>
+                        <Link href="contact" style={{ color: "grey" }}>Contact</Link>
+                      </li>
+
+                      <li>
+                        <Link href="forgot-password" style={{ color: "grey" }}>Forgot-Password</Link>
                       </li>
                     </ul>
                   </div>
