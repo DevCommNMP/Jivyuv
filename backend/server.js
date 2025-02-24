@@ -3,10 +3,14 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const session = require("express-session");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const MongoStore = require("connect-mongo");
 require("./config/passport/passportConfig"); // Initialize passport config
 dotenv.config();
 const dbConnect = require("./db/connectDB");
+const User = require("./modal/user/user"); // Ensure User model is imported
 const app = express();
+
 const PORT = 5000;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
@@ -35,6 +39,7 @@ app.use(
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     cookie: {
       maxAge: 60 * 60 * 1000, // 1 hour
       httpOnly: true,
@@ -47,13 +52,39 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Serialize user into the session
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize user from the session
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
+
 // Routes
 app.use(routes);
 
 // Test session route
-app.get("/test-session", (req, res) => {
+app.get("/google-session", (req, res) => {
   if (req.session.user) {
     res.json({ message: "Session found", sessionData: req.session.user });
+  } else {
+    res.status(401).json({ message: "No session found" });
+  }
+});
+
+app.get("/token/token-session", async (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt.decode(token, process.env.JWT_KEY);
+  const decodedUser = await User.findById(decoded.id).lean();
+  if (decodedUser) {
+    res.json({ message: "Session found", sessionData: decodedUser });
   } else {
     res.status(401).json({ message: "No session found" });
   }
