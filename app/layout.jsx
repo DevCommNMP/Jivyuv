@@ -10,9 +10,6 @@ export const metadata = {
   description: "Tour & Travel",
 };
 
-
-
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -20,7 +17,7 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
-      </body> 
+      </body>
     </html>
   );
 }

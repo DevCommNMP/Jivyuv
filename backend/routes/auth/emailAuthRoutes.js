@@ -7,6 +7,7 @@ const {registerUser,
        verifyAccount,
        resendVerifyAccountMail,
        passwordResetMail,
+       resendPasswordResetMail,
        logout,
        updatePassword,
        isAuthenticated,
@@ -65,6 +66,8 @@ router.route('/auth/logout')
 // ====================Password Reset Mail======================
 router.route('/auth/password-reset')
 .post(passwordResetMail);
+router.route('/auth/resend-password-reset-mail')
+.post(resendPasswordResetMail)
 router.route('/auth/update-password')
 .post(updatePassword);
 

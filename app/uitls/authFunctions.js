@@ -1,15 +1,71 @@
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 export const checkSession = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/test-session", {
-        credentials: "include", // Important for cookies
+  try {
+    const isTokenValid = await checkTokenExpiration(); // Ensure token is valid before making request
+    const token = localStorage.getItem("token");
+
+    if (isTokenValid && token) {
+      const response = await fetch(`${SERVER_URL}/token/token-session`, {
+        method: "GET",
+        credentials: "include", // Important for sending cookies
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Send token in Authorization header
+        },
       });
-  
+
       if (!response.ok) throw new Error("No active session");
-  
+
       const data = await response.json();
-      return data.sessionData; // Return session user data
-    } catch (error) {
-      return null; // No session found
+      console.log("Session Data:", data);
+      return data.sessionData;
     }
-  };
-  
+
+    // If no valid token, check Google session
+    const googleResponse = await fetch(`${SERVER_URL}/google-session`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!googleResponse.ok) throw new Error("No active session");
+
+    const googleData = await googleResponse.json();
+    console.log("Google Session Data:", googleData);
+    return googleData.sessionData;
+  } catch (error) {
+    console.error("Session check error:", error.message);
+    return null; // No session found
+  }
+};
+
+export const checkTokenExpiration = async () => {
+  const expirationTime = localStorage.getItem("tokenExpiration");
+
+  if (!expirationTime) {
+    console.log("No token expiration found.");
+    return false; // No token expiration means token is invalid
+  }
+
+  const currentTime = Date.now();
+  const expiresAt = parseInt(expirationTime, 10);
+
+  if (currentTime >= expiresAt) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiration");
+    console.log("Token expired and removed.");
+    return false; // Token is expired
+  }
+
+  // Set timeout to remove the token exactly when it expires (only if not set already)
+  setTimeout(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("tokenExpiration");
+    console.log("Token expired and removed.");
+  }, expiresAt - currentTime);
+
+  return true; // Token is still valid
+};
