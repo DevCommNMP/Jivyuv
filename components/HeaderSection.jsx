@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Header({ }) {
+export default function Header({}) {
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -17,13 +18,13 @@ export default function Header({ }) {
     fetchSession();
   }, []);
 
-  console.log(user)
-  const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
-  };
-
   const handleLogout = () => {
-    window.location.href = "http://localhost:5000/api/auth/logout"; // Redirect to logout
+    try {
+      localStorage.removeItem("token");
+      window.location.href = `${SERVER_URL}/api/auth/logout`; // Redirect to logout
+    } catch (error) {
+      console.log("Something went wrong:", error);
+    }
   };
 
   return (
@@ -66,9 +67,7 @@ export default function Header({ }) {
                             <Link href="destination-1">Destinations 01</Link>
                           </li>
                           <li>
-                            <Link href="destination-2">
-                              Destinations 02
-                            </Link>
+                            <Link href="destination-2">Destinations 02</Link>
                           </li>
                           <li>
                             <Link href="destination-details">
@@ -188,24 +187,16 @@ export default function Header({ }) {
                                   </Link>
                                 </li>
                                 <li>
-                                  <Link href="news-block-1">
-                                    News Block 01
-                                  </Link>
+                                  <Link href="news-block-1">News Block 01</Link>
                                 </li>
                                 <li>
-                                  <Link href="news-block-2">
-                                    News Block 02
-                                  </Link>
+                                  <Link href="news-block-2">News Block 02</Link>
                                 </li>
                                 <li>
-                                  <Link href="team-block-1">
-                                    Team Block 01
-                                  </Link>
+                                  <Link href="team-block-1">Team Block 01</Link>
                                 </li>
                                 <li>
-                                  <Link href="team-block-2">
-                                    Team Block 02
-                                  </Link>
+                                  <Link href="team-block-2">Team Block 02</Link>
                                 </li>
 
                                 <li>
@@ -281,15 +272,18 @@ export default function Header({ }) {
                 <li className="user-link">
                   {user ? (
                     <Link href="" onClick={handleLogout}>
-
-                      <img src={user.profilePicture} alt="profile photo" style={{ borderRadius: "50%", backgroundColor: "transparent" }} />
-
+                      <img
+                        src={user.profilePicture}
+                        alt=""
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: "transparent",
+                        }}
+                      />
                     </Link>
                   ) : (
-                    <Link href="" onClick={handleGoogleLogin}>
-
+                    <Link href="/sign-in">
                       <LucideUserRound />
-
                     </Link>
                   )}
                 </li>

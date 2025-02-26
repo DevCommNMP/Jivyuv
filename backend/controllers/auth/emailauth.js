@@ -439,6 +439,98 @@ const passwordResetMail = expressAsyncHandler(async (req, res) => {
   }
 });
 
+const resendPasswordResetMail=expressAsyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  // Check if email is provided
+  if (!email) {
+    return res
+      .status(400)
+      .json({ success: false, error: true, message: "Email is required." });
+  }
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, error: true, message: "User not found." });
+    }
+
+    // Generate a token
+    const token = generateToken(user._id);
+    const expirationTime = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+
+    // Update the user document
+    await User.findOneAndUpdate(
+      { email: email },
+      {
+        forgotPasswordVerificationToken: token,
+        forgotPasswordVerificationTokenExpires: expirationTime,
+      },
+      { new: true } // Return the updated user document
+    );
+
+    const BASE_URL = `${process.env.BASE_URL}/reset-password/${token}`;
+    const userName = `${user.firstName} ${user.lastName}`;
+    // Set up email content
+    const emailReceiver = email;
+    const emailSender = "contact@planandbooktrip.com";
+    const emailSubject = "Password Reset";
+    const emailHeader = "Plan And Booktrip";
+    const displayName = `${userName}`;
+    const websiteName = "Plan and Book Trip";
+    const greetMessage = `Hey ${displayName}, We received a request to reset your password for <strong>${websiteName}</strong>. Please click the link below to reset your password:`;
+    const companyMessage = `At ${websiteName}, every journey tells a story. We are dedicated to offering exceptional tour and travel packages that blend adventure, comfort, and unforgettable experiences. Whether you're seeking breathtaking destinations, personalized itineraries, or unique travel experiences, we provide tailored solutions to bring your dream trip to life with expert planning and seamless execution.`;
+
+    const supportEmail = "contact@planandbooktrip.com";
+    const supportPhone = "1234567890";
+    const supportAddress = "1234, Dwarka Mor, Delhi, India";
+    const socialLinkLinkedin = "https://www.linkedin.com/";
+    const socialLinkFacebook = "https://www.facebook.com/";
+    const socialLinkTwitter = "https://twitter.com/";
+    const socialLinkInstagram = "https://www.instagram.com/";
+    const socialLinkYoutube = "https://www.youtube.com/";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
+    // Send email
+    const mailOptions = passwordResetMailOptions(
+      emailReceiver,
+      emailSender,
+      emailSubject,
+      emailHeader,
+      greetMessage,
+      companyMessage,
+      displayName,
+      logoImage,
+      registrationImage,
+      websiteName,
+      BASE_URL,
+      supportEmail,
+      supportPhone,
+      supportAddress,
+      socialLinkLinkedin,
+      socialLinkFacebook,
+      socialLinkTwitter,
+      socialLinkInstagram,
+      socialLinkYoutube
+    );
+    await sendMailController(mailOptions);
+
+    // Send success response
+    return res.status(200).json({
+      success: true,
+      message: "Password reset email sent successfully.",
+    });
+  } catch (error) {
+    // Handle unexpected errors
+    return res
+      .status(500)
+      .json({ success: false, error: true, message: "Internal server error." });
+  }
+});
+
 const isAuthenticated = async (req, res, next) => {
   try {
     // Extract the Authorization header
@@ -488,7 +580,7 @@ const updatePassword = async (req, res) => {
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
-
+console.log(newPassword)
     // Check if the Authorization header is present
     if (!authHeader) {
       return res
@@ -564,7 +656,7 @@ const logout = (req, res) => {
         .json({ message: "Something went wrong, try again!" });
     }
 
-    // Clear the session cookie from the client
+    // Clear the session co okie from the client
     res.clearCookie("connect.sid"); // Default cookie name used by express-session
 
     // Send response confirming logout
@@ -757,5 +849,6 @@ module.exports = {
   editUser,
   isAuthenticated,
   registerAdmin,
+  resendPasswordResetMail
 };
 

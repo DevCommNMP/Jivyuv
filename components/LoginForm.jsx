@@ -2,25 +2,63 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation"; // Use next/navigation for app directory
 
 export default function LoginForm() {
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [formData, setFormData] = useState({
-    name: "",
+    email: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  useEffect(() => {
+    const errorParam = searchParams.get("error");
+    if (errorParam === "email_exists") {
+      setError("Email already exists. Please use a different email.");
+    } else if (errorParam === "auth_failed") {
+      setError("Authentication failed. Please try again.");
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleGoogleLogin = () => {
+    setGoogleLoading(true);
+    window.location.href = `${SERVER_URL}/api/auth/google`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
-      const res = await axios.post("/api/login", formData);
-      console.log(res.data);
+      const res = await axios.post(`${SERVER_URL}/api/auth/login`, formData);
+      const { token } = res.data;
+
+      // Get current time and set expiration time (1 hour from now)
+      const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour in milliseconds
+
+      // Store token and expiration timestamp in localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("tokenExpiration", expirationTime.toString());
+
+      // Redirect to dashboard
+      window.location.href = "/";
     } catch (error) {
-      console.log(error);
+      setError("Login failed. Please check your email and password.");
+      console.log("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,16 +85,11 @@ export default function LoginForm() {
             <div className="form-inner">
               <h3>Sign In with</h3>
               <ul className="social-links clearfix">
-                {/* <li>
-                  <a href="signup.html">
-                    <span>Sign In with Facebook</span>
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                </li> */}
-                <li>
-                  <Link href="signup">
-                    <span>Sign In with Google</span>
-
+                <li onClick={handleGoogleLogin}>
+                  <Link href="#">
+                    <span>
+                      {googleLoading ? "Redirecting..." : "Sign In with Google"}
+                    </span>
                     <i>
                       <svg
                         version="1.1"
@@ -104,47 +137,42 @@ export default function LoginForm() {
                     </i>
                   </Link>
                 </li>
-                {/* <li>
-                  <a href="signup.html">
-                    <span>Sign In with Twitter</span>
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                </li> */}
               </ul>
               <div className="text">
                 <span>or</span>
               </div>
-              <form action="login.html" method="post" className="register-form">
+              <form className="register-form" onSubmit={handleSubmit}>
                 <div className="row clearfix">
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
                     <div className="form-group">
-                      <label>Your Name</label>
+                      <label>Email</label>
                       <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
+                        type="email"
+                        name="email"
+                        value={formData.email}
                         onChange={handleChange}
                         required
+                        disabled={loading || googleLoading}
                       />
                     </div>
                   </div>
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
                     <div className="form-group">
                       <label>Password</label>
-                      {/* <input type="password" name="password" required /> */}
                       <input
                         type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
                         required
+                        disabled={loading || googleLoading}
                       />
                     </div>
                   </div>
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
                     <div className="form-group">
-                      <div className="forgor-password text-right">
-                        <a href="login.html">Forget Password?</a>
+                      <div className="forgot-password text-right">
+                        <a href="/forgot-password">Forget Password?</a>
                       </div>
                     </div>
                   </div>
@@ -153,20 +181,53 @@ export default function LoginForm() {
                       className="form-group message-btn"
                       style={{ textAlign: "center" }}
                     >
-                      <button type="submit" className="theme-btn">
-                        Sign In
+                      <button
+                        className="theme-btn"
+                        type="submit"
+                        disabled={loading || googleLoading}
+                      >
+                        {loading ? <div className="spinner"></div> : "Sign In"}
                       </button>
                     </div>
                   </div>
                 </div>
               </form>
+              {googleLoading && (
+                <div className="loader" style={{ textAlign: "center" }}>
+                  Redirecting...
+                </div>
+              )}
+              {error && (
+                <div
+                  className="error-message"
+                  style={{ color: "red", textAlign: "center" }}
+                >
+                  {error}
+                </div>
+              )}
               <div className="other-text" style={{ textAlign: "center" }}>
-                Already have an account? <a href="/sign-up">Register Now</a>
+                Don't have an account? <a href="/sign-up">Register Now</a>
               </div>
             </div>
           </div>
         </div>
       </section>
+      <style jsx>{`
+        .spinner {
+          border: 4px solid rgba(233, 175, 50, 0.1);
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          border-left-color: #09f;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </>
   );
 }

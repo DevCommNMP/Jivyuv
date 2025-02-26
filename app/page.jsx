@@ -16,6 +16,9 @@ export default function Home() {
   const image = "https://example.com/featured-image.jpg";
   const url = "https://yourwebsite.com";
 
+
+  
+
   return (
     <>
       <Head>
