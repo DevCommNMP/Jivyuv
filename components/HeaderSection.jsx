@@ -4,10 +4,13 @@ import { LucideSearch, LucideUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import MobileMenu from "./MobileMenu";
 
-export default function Header({}) {
+export default function Header({ }) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -27,6 +30,14 @@ export default function Header({}) {
     }
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const toggleDropdown = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
   return (
     <>
       <header className="main-header style-one">
@@ -37,16 +48,16 @@ export default function Header({}) {
                 <figure className="logo">
                   <Link href="/">
                     <Image
-                      src="/assets/images/logo.png"
-                      alt=""
-                      width={100}
-                      height={30}
+                      src="/assets/images/logo/jivyuv-logo.png"
+                      alt="image not found"
+                      width='200'
+                      height='50'
                     />
                   </Link>
                 </figure>
               </div>
               <div className="menu-area clearfix">
-                <div className="mobile-nav-toggler">
+                <div className="mobile-nav-toggler" onClick={toggleMobileMenu}>
                   <i className="icon-bar"></i>
                   <i className="icon-bar"></i>
                   <i className="icon-bar"></i>
@@ -58,10 +69,10 @@ export default function Header({}) {
                   >
                     <ul className="navigation clearfix">
                       <li className="current dropdown">
-                        <Link href="/">Home</Link>
+                        <Link href="/" style={{ color: "grey" }}>Home</Link>
                       </li>
-                      <li className="dropdown">
-                        <Link href="#">Destinations</Link>
+                      <li className={`dropdown ${activeDropdown === 1 ? 'open' : ''}`}>
+                        <Link href="#" style={{ color: "grey" }} onClick={() => toggleDropdown(1)}>Destinations</Link>
                         <ul>
                           <li>
                             <Link href="destination-1">Destinations 01</Link>
@@ -76,8 +87,8 @@ export default function Header({}) {
                           </li>
                         </ul>
                       </li>
-                      <li className="dropdown">
-                        <Link href="#">Tours</Link>
+                      <li className={`dropdown ${activeDropdown === 2 ? 'open' : ''}`}>
+                        <Link href="#" style={{ color: "grey" }} onClick={() => toggleDropdown(2)}>Tours</Link>
                         <ul>
                           <li>
                             <Link href="tour-grid">Tours Grid</Link>
@@ -90,11 +101,11 @@ export default function Header({}) {
                           </li>
                         </ul>
                       </li>
-                      <li className="dropdown">
-                        <Link href="#">Pages</Link>
+                      <li className={`dropdown ${activeDropdown === 3 ? 'open' : ''}`}>
+                        <Link href="#" style={{ color: "grey" }} onClick={() => toggleDropdown(3)}>Pages</Link>
                         <ul>
                           <li>
-                            <Link href="about-us">About Us</Link>
+                            <Link href="about-us" style={{ color: "grey" }}>About Us</Link>
                           </li>
                           <li>
                             <Link href="booking-process">Booking Process</Link>
@@ -125,8 +136,8 @@ export default function Header({}) {
                           </li>
                         </ul>
                       </li>
-                      <li className="dropdown">
-                        <Link href="#">Elements</Link>
+                      <li className={`dropdown ${activeDropdown === 4 ? 'open' : ''}`}>
+                        <Link href="#" style={{ color: "grey" }} onClick={() => toggleDropdown(4)}>Elements</Link>
                         <div className="megamenu">
                           <div className="row clearfix">
                             <div className="col-xl-6 column">
@@ -183,8 +194,7 @@ export default function Header({}) {
                                 </li>
                                 <li>
                                   <Link href="place-block-2">
-                                    Place Block 02
-                                  </Link>
+                                    Place Block 02</Link>
                                 </li>
                                 <li>
                                   <Link href="news-block-1">News Block 01</Link>
@@ -210,7 +220,7 @@ export default function Header({}) {
                         </div>
                       </li>
                       <li className="dropdown">
-                        <Link href="/">Blog</Link>
+                        <Link href="/" style={{ color: "grey" }}>Blog</Link>
                         <ul>
                           <li>
                             <Link href="blog-1">Blog Grid</Link>
@@ -224,7 +234,11 @@ export default function Header({}) {
                         </ul>
                       </li>
                       <li>
-                        <Link href="contact">Contact</Link>
+                        <Link href="contact" style={{ color: "grey" }}>Contact</Link>
+                      </li>
+
+                      <li>
+                        <Link href="forgot-password" style={{ color: "grey" }}>Forgot-Password</Link>
                       </li>
                     </ul>
                   </div>
@@ -354,67 +368,7 @@ export default function Header({}) {
         </div>
       </header>
 
-      <div className="mobile-menu">
-        <div className="menu-backdrop"></div>
-        <div className="close-btn">
-          <i className="fas fa-times"></i>
-        </div>
-
-        <nav className="menu-box">
-          <div className="nav-logo">
-            <Link href="/">
-              <Image
-                src="/assets/images/logo-2.png"
-                alt=""
-                width={100}
-                height={30}
-              />
-            </Link>
-          </div>
-          <div className="menu-outer"></div>
-          <div className="contact-info">
-            <h4>Contact Info</h4>
-            <ul>
-              <li>Chicago 12, Melborne City, USA</li>
-              <li>
-                <Link href="tel:+8801682648101">+88 01682648101</Link>
-              </li>
-              <li>
-                <Link href="mailto:info@example.com">info@example.com</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="social-links">
-            <ul className="clearfix">
-              <li>
-                <Link href="/">
-                  <span className="fab fa-twitter"></span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <span className="fab fa-facebook-square"></span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <span className="fab fa-pinterest-p"></span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <span className="fab fa-instagram"></span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
-                  <span className="fab fa-youtube"></span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <MobileMenu isMobileMenuOpen={isMobileMenuOpen} toggleMobileMenu={toggleMobileMenu} />
     </>
   );
 }

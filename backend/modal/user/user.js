@@ -6,12 +6,8 @@ const userSchema = new mongoose.Schema(
   {
     // Personal Information
     firstName: { type: String, required: true },
-<<<<<<< HEAD
-    lastName: { type: String },
-=======
     lastName: { type: String,  },
     userName: { type: String, required: true },
->>>>>>> Aditya
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: false },
     password: { type: String, required: false }, // Optional for Google login
@@ -53,17 +49,10 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-<<<<<<< HEAD
-// Pre middleware to hash the password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-=======
 
 userSchema.pre("save", async function(next) {
   if (!this.isModified('password')) {
       next();
->>>>>>> Aditya
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(this.password, salt);
@@ -71,17 +60,6 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-<<<<<<< HEAD
-// Method to match passwords
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
-  try {
-    return await bcrypt.compare(enteredPassword, this.password);
-  } catch (error) {
-    throw error;
-  }
-};
-
-=======
 // Method to compare entered password with hashed password
 userSchema.methods.isPasswordMatched = async function(enteredPassword) {
   try {
@@ -119,7 +97,6 @@ userSchema.methods.createPasswordResetToken = async function() {
   }
 
 }
->>>>>>> Aditya
 // Create User Model
 const User = mongoose.model("User", userSchema);
 

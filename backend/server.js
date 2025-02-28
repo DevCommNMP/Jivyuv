@@ -13,6 +13,7 @@ const app = express();
 
 const PORT = 5000;
 const routes = require("./routes/allRoutes/allRoutes");
+const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
 const allowedOrigins = ["http://localhost:3000", "https://accounts.google.com"];
 
