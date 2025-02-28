@@ -30,12 +30,13 @@ const userSchema = new mongoose.Schema(
     },
 
     // Account Details
-    role: { type: String, enum: ["user", "admin"], default: "user" }, // Role Management
+    role: { type: String, enum: ["user", "admin", "super-admin"], default: "user" }, // Role Management
     status: { type: String, enum: ["active", "banned"], default: "active" }, // Account Status
     accountVerificationToken: { type: String }, // Account Verification Token
     isAccountVerified: { type: Boolean, default: false }, // Account Verification Status
     accountVerificationTokenExpiry: { type: Date }, // Account Verification Token Expiry
 
+    
     // Password Reset Fields
     passwordResetToken: { type: String }, // Password Reset Token (Optional)
     passwordResetTokenExpiry: { type: Date }, // Password Reset Token Expiry (Optional)

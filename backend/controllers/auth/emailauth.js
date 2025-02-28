@@ -26,7 +26,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 
     // Create new user
     const user = await User.create({
-      username: `${userName}`,
+      userName, // Corrected field name
       email,
       password,
       firstName,
@@ -629,7 +629,7 @@ const logout = (req, res) => {
 const registerAdmin = expressAsyncHandler(async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
-    console.log(role);
+    
     // Check if the user already exists
     const userExist = await User.findOne({ email });
 
@@ -641,15 +641,16 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 
     // Create new user
     const user = await User.create({
-      username: `${firstName} ${lastName}`,
+     
       firstName,
       lastName,
+      userName: `${firstName} ${lastName}`, // Corrected field name
       email,
       role,
       password,
     });
 
-    console.log(user);
+    // console.log(user);
 
     // Generate token
     const token = await generateToken(user._id);
@@ -661,7 +662,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
       user._id,
       {
         accountVerificationToken: token,
-        accountVerificationTokenExpires: expirationTime,
+        accountVerificationTokenExpiry: expirationTime,
       },
       {
         new: true, // This option returns the updated document
@@ -670,15 +671,54 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 
     const BASE_URL = `${process.env.BASE_URL}/verify-account/${token}`;
     // Set up email content
-    const receiver = email;
-    const message = "Email Verification";
-    const username = `${firstName} ${lastName}`;
+    const userName = `${user.firstName} ${user.lastName}`;
+    const emailReceiver = email;
+    const emailSender = "contact@planandbooktrip.com";
+    const emailSubject = "Email Verification";
+    const emailHeader = "Plan And Booktrip";
+    const displayName = `${userName}`;
+    const websiteName = "Plan and Book Trip";
+    const greetMessage = `  Hey ${displayName} We're thrilled to
+                                            have you on board at
+                                            <strong> ${websiteName}</strong> To
+                                            finalize your registration, please click
+                                            the link below to verify your email
+                                            address:`;
+    const companyMessage = `At ${websiteName}, every journey tells a story. We are dedicated to offering exceptional tour and travel packages that blend adventure, comfort, and unforgettable experiences. Whether you're seeking breathtaking destinations, personalized itineraries, or unique travel experiences, we provide tailored solutions to bring your dream trip to life with expert planning and seamless execution.<ul>`;
+
+    const supportEmail = "contact@planandbooktrip.com";
+    const supportPhone = "1234567890";
+    const supportAddress = "1234,Dwarka Mor, Delhi,India";
+    const socilaLinkLinkedin = "https://www.linkedin.com/";
+    const socialLinkFacebook = "https://www.facebook.com/";
+    const socialLinkTwitter = "https://twitter.com/";
+    const socialLinkInstagram = "https://www.instagram.com/";
+    const socialLinkYoutube = "https://www.youtube.com/";
+    const logoImage =
+      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage =
+      "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
     // Send email
     const mailOptions = registrationMailOptions(
-      receiver,
-      message,
-      username,
-      BASE_URL
+      emailReceiver,
+      emailSender,
+      emailSubject,
+      emailHeader,
+      greetMessage,
+      companyMessage,
+      displayName,
+      logoImage,
+      registrationImage,
+      websiteName,
+      BASE_URL,
+      supportEmail,
+      supportPhone,
+      supportAddress,
+      socilaLinkLinkedin,
+      socialLinkFacebook,
+      socialLinkTwitter,
+      socialLinkInstagram,
+      socialLinkYoutube
     );
     await sendMailController(mailOptions);
 
@@ -691,6 +731,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
     });
   } catch (error) {
     // Handle errors
+    console.log(error)
     res
       .status(500)
       .json({ success: false, message: error.message, error: true });
