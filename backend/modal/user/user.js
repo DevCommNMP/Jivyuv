@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema(
   {
     // Personal Information
     firstName: { type: String, required: true },
-    lastName: { type: String },
+    lastName: { type: String,  },
+    userName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: false },
     password: { type: String, required: false }, // Optional for Google login
@@ -20,7 +21,7 @@ const userSchema = new mongoose.Schema(
     }, // URL for profile picture
 
     // Address (Optional)
-    address: {
+    address: { 
       street: { type: String },
       city: { type: String },
       state: { type: String },
@@ -48,10 +49,10 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Pre middleware to hash the password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
+
+userSchema.pre("save", async function(next) {
+  if (!this.isModified('password')) {
+      next();
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(this.password, salt);
@@ -59,15 +60,43 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Method to match passwords
-userSchema.methods.isPasswordMatched = async function (enteredPassword) {
+// Method to compare entered password with hashed password
+userSchema.methods.isPasswordMatched = async function(enteredPassword) {
   try {
-    return await bcrypt.compare(enteredPassword, this.password);
+      return await bcrypt.compare(enteredPassword, this.password);
   } catch (error) {
-    throw error;
+      throw error;
   }
 };
 
+// Method to generate account verification token
+userSchema.methods.createAccountVerificationToken = async function() {
+  try {
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      const hashedToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
+      this.accountVerificationToken = hashedToken;
+      const expirationTime = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+      this.accountVerificationTokenExpires = expirationTime;
+      return verificationToken;
+  } catch (error) {
+      throw error;
+  }
+};
+
+// Method to generate password reset token
+userSchema.methods.createPasswordResetToken = async function() {
+  try {
+      const resetToken = crypto.randomBytes(32).toString('hex');
+      const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+      this.passwordResetToken = hashedToken;
+      const expirationTime = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+      this.passwordResetTokenExpires = expirationTime;
+      return resetToken;
+  } catch (error) {
+      throw error;
+  }
+
+}
 // Create User Model
 const User = mongoose.model("User", userSchema);
 
