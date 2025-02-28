@@ -3,14 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { LucideSearch, LucideUserRound } from "lucide-react";
+import { useEffect } from "react";
 
 export default function Header({}) {
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/auth/google";
   };
- 
 
-  
   return (
     <>
       <header className="main-header style-one">
