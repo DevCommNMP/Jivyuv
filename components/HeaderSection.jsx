@@ -6,6 +6,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 
+<<<<<<< HEAD
+export default function Header({ }) {
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  const [user, setUser] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+=======
+import { LucideSearch, LucideUserRound } from "lucide-react";
+
 export default function Header({ }) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
