@@ -1,9 +1,9 @@
 "use client";
-<<<<<<< HEAD
-
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
@@ -12,24 +12,6 @@ export default function SignupForm() {
     email: "",
     password: "",
     password2: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-=======
-import { useState } from 'react';
-import Link from 'next/link';
-import axios from 'axios';
-
-const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-
-export default function SignupForm() {
-  const [formData, setFormData] = useState({
-    fname: '',
-    lname: '',
-    email: '',
-    password: '',
-    password2: '',
     termsAccepted: false,
   });
   const [loading, setLoading] = useState(false);
@@ -38,60 +20,50 @@ export default function SignupForm() {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     });
->>>>>>> Aditya
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    try {
-      const response = await axios.post("/api/signup", formData);
-      alert(response.data.message);
-    } catch (error) {
-      alert(error.response?.data?.error || "An error occurred");
-    }
-  };
-
-  console.log("formData", formData);
-
-=======
     setLoading(true);
 
     try {
-      const response = await axios.post(`${SERVER_URL}/api/auth/register`, formData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.post(
+        `${SERVER_URL}/api/auth/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Handle successful response
-        console.log('Signup successful');
+        console.log("Signup successful");
       } else {
         // Handle error response
-        console.error('Signup failed');
+        console.error("Signup failed");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
   };
 
->>>>>>> Aditya
   return (
     <>
       <section className="register-section sec-pad">
         <div className="anim-icon">
           <div
             className="icon anim-icon-1"
-            style={{ backgroundImage: 'url(assets/images/shape/shape-16.png)' }}
+            style={{ backgroundImage: "url(assets/images/shape/shape-16.png)" }}
           ></div>
           <div
             className="icon anim-icon-2"
-            style={{ backgroundImage: 'url(assets/images/shape/shape-17.png)' }}
+            style={{ backgroundImage: "url(assets/images/shape/shape-17.png)" }}
           ></div>
         </div>
         <div className="auto-container">
@@ -209,15 +181,9 @@ export default function SignupForm() {
                         type="text"
                         name="fname"
                         value={formData.fname}
-<<<<<<< HEAD
-                        required
-                        onChange={handleChange}
-                      />{" "}
-=======
                         onChange={handleChange}
                         required
                       />
->>>>>>> Aditya
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-12 column">
@@ -227,15 +193,9 @@ export default function SignupForm() {
                         type="text"
                         name="lname"
                         value={formData.lname}
-<<<<<<< HEAD
-                        required
-                        onChange={handleChange}
-                      />{" "}
-=======
                         onChange={handleChange}
                         required
                       />
->>>>>>> Aditya
                     </div>
                   </div>
                   <div className="col-lg-12 col-md-12 col-sm-12 column">
@@ -245,13 +205,8 @@ export default function SignupForm() {
                         type="email"
                         name="email"
                         value={formData.email}
-<<<<<<< HEAD
-                        required
-                        onChange={handleChange}
-=======
                         onChange={handleChange}
                         required
->>>>>>> Aditya
                       />
                     </div>
                   </div>
@@ -262,13 +217,8 @@ export default function SignupForm() {
                         type="password"
                         name="password"
                         value={formData.password}
-<<<<<<< HEAD
-                        required
-                        onChange={handleChange}
-=======
                         onChange={handleChange}
                         required
->>>>>>> Aditya
                       />
                     </div>
                   </div>
@@ -279,13 +229,8 @@ export default function SignupForm() {
                         type="password"
                         name="password2"
                         value={formData.password2}
-<<<<<<< HEAD
-                        required
-                        onChange={handleChange}
-=======
                         onChange={handleChange}
                         required
->>>>>>> Aditya
                       />
                     </div>
                   </div>
@@ -294,13 +239,6 @@ export default function SignupForm() {
                       <div className="custom-check-box">
                         <div className="custom-controls-stacked">
                           <label className="custom-control material-checkbox">
-<<<<<<< HEAD
-                            <span className="description">
-                              By signing up, you agree to our{" "}
-                              <Link href="/terms-conditions">
-                                terms &amp; conditions
-                              </Link>
-=======
                             <input
                               type="checkbox"
                               className="material-control-input"
@@ -310,11 +248,10 @@ export default function SignupForm() {
                             />
                             <span className="material-control-indicator"></span>
                             <span className="description">
-                              I accept{' '}
-                              <Link href="book-appointment">terms</Link> and{' '}
-                              <Link href="book-appointment">conditions</Link>{' '}
+                              I accept{" "}
+                              <Link href="book-appointment">terms</Link> and{" "}
+                              <Link href="book-appointment">conditions</Link>{" "}
                               and general policy
->>>>>>> Aditya
                             </span>
                           </label>
                         </div>
@@ -326,8 +263,12 @@ export default function SignupForm() {
                     style={{ textAlign: "center" }}
                   >
                     <div className="form-group message-btn">
-                      <button type="submit" className="theme-btn" disabled={loading}>
-                        {loading ? 'Signing Up...' : 'Sign Up'}
+                      <button
+                        type="submit"
+                        className="theme-btn"
+                        disabled={loading}
+                      >
+                        {loading ? "Signing Up..." : "Sign Up"}
                       </button>
                     </div>
                   </div>
