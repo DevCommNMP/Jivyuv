@@ -12,7 +12,11 @@ const passwordResetMailOptions = require("../../config/mailConfigration/password
 // Controller to register user
 const registerUser = expressAsyncHandler(async (req, res) => {
   try {
+<<<<<<< HEAD
+    const { userName, email, password, firstName, lastName } = req.body;
+=======
     const {  email, password, firstName, lastName } = req.body;
+>>>>>>> main
 
     // Check if the user already exists
     const userName=`${firstName} ${lastName}`
@@ -252,11 +256,18 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
       .json({ success: false, error: true, message: "Internal server error." });
   }
 });
+<<<<<<< HEAD
+// -------------------------------login ctrl--------------------------------------------------
+// controller to login user
+// Login route
+const login = expressAsyncHandler(async (req, res) => {
+=======
 
 //-------------------------------login ctrl--------------------------------------------------
 //controller to login user
 // Login route
 const login = expressAsyncHandler(async (req, res, next) => {
+>>>>>>> main
   try {
     const { email, password } = req.body;
 
@@ -268,6 +279,34 @@ const login = expressAsyncHandler(async (req, res, next) => {
     }
 
     // Verify password
+<<<<<<< HEAD
+    if (await userFound.isPasswordMatched(password)) {
+      // Generate JWT token before saving session
+      const generatenewToken = generateToken(userFound._id);
+
+      // Save user information in session
+      req.session.user = {
+        id: userFound._id,
+        email: userFound.email,
+        profilePhoto: userFound.profilePhoto,
+        firstName: userFound.firstName,
+        lastName: userFound.lastName,
+        token: generatenewToken, // Corrected token placement
+      };
+
+      console.log("Session after login:", req.session); // Check session data
+
+      // Send response
+      return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        user: userFound,
+        token: generatenewToken,
+      });
+    } else {
+      return res.status(401).json({ message: "Invalid Password" });
+    }
+=======
     if (!(await userFound.isPasswordMatched(password))) {
       return res.status(401).json({ message: "Invalid Password" });
     }
@@ -301,6 +340,7 @@ const login = expressAsyncHandler(async (req, res, next) => {
         token: generatenewToken,
       });
     });
+>>>>>>> main
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
