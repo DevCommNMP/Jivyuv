@@ -42,3 +42,14 @@
 }
 
 /* style.css | http://localhost:3000/assets/css/style.css */
+
+.image_block_1 .image-box .video-content .video-btn a svg {
+  height: 80px !important;
+  width: 80px !important;
+}
+
+/* Element | http://localhost:3000/ */
+
+div.video-btn:nth-child(3) > a:nth-child(1) > svg:nth-child(1) {
+  transform: translateY(-5px);
+}
