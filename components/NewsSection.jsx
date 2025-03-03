@@ -1,3 +1,4 @@
+import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 
 export default function NewsSection() {
@@ -34,7 +35,7 @@ export default function NewsSection() {
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>5 Oct, 2020
+                      <CalendarDays /> 5 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
@@ -82,7 +83,7 @@ export default function NewsSection() {
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>4 Oct, 2020
+                      <CalendarDays /> 4 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
@@ -130,7 +131,7 @@ export default function NewsSection() {
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>3 Oct, 2020
+                      <CalendarDays /> 3 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">

@@ -1,6 +1,6 @@
-'use client';
-import { useEffect } from 'react';
-
+"use client";
+import { CalendarDays, MapPin, Search } from "lucide-react";
+import { useEffect } from "react";
 export default function Banner() {
   useEffect(() => {
     // Initialize datepicker here
@@ -32,11 +32,9 @@ export default function Banner() {
               started!
             </p>
             <div className="form-inner">
-              <form
-                onSubmit={handleSubmit}
-                className="booking-form clearfix"
-              >
+              <form onSubmit={handleSubmit} className="booking-form clearfix">
                 <div className="form-group">
+                  <MapPin />
                   <input
                     type="text"
                     name="service"
@@ -45,7 +43,7 @@ export default function Banner() {
                   />
                 </div>
                 <div className="form-group input-date">
-                  <i className="far fa-angle-down"></i>
+                  <CalendarDays />{" "}
                   <input
                     type="text"
                     name="date"
@@ -66,7 +64,7 @@ export default function Banner() {
                 </div>
                 <div className="message-btn">
                   <button type="submit" className="theme-btn">
-                    <i className="far fa-search"></i>Find Now
+                    <Search /> Find Now
                   </button>
                 </div>
               </form>
