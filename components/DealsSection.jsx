@@ -6,7 +6,7 @@ export default function DealsSection() {
       <section
         className="deals-section"
         style={{
-          backgroundImage: "url(/assets/images/background/deals-1.jpg)",
+          backgroundImage: "url(/assets/img/home/deals-1.jpg)",
         }}
       >
         <div className="auto-container">

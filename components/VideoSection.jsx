@@ -1,9 +1,16 @@
+"use client";
+import { CirclePlay } from "lucide-react";
+import { useEffect } from "react";
 export default function VideoSection() {
+  useEffect(() => {
+    // Initialize lightbox here if you're using a library
+  }, []);
+
   return (
     <>
       <section
         className="video-section centred"
-        style={{ backgroundImage: "url(assets/images/background/video-1.jpg)" }}
+        style={{ backgroundImage: "url(assets/img/home/video-1.jpg)" }}
       >
         <div className="auto-container">
           <div className="inner-box">
@@ -15,7 +22,7 @@ export default function VideoSection() {
                 className="lightbox-image"
                 data-caption=""
               >
-                <i className="far fa-play"></i>
+                <CirclePlay size={48} />
                 <span className="border-animation border-1"></span>
                 <span className="border-animation border-2"></span>
                 <span className="border-animation border-3"></span>

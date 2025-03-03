@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcryptjs");
+// Importing crypto for generating tokens
+const crypto = require("crypto");
 const userSchema = new mongoose.Schema(
   {
     // Personal Information
@@ -12,7 +14,11 @@ const userSchema = new mongoose.Schema(
 
     // Google Authentication Fields
     googleId: { type: String, unique: true, sparse: true }, // Google ID (Unique but optional)
-    profilePicture: { type: String }, // URL for profile picture
+    profilePicture: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/03/04/22/35/avatar-659651__340.png",
+    }, // URL for profile picture
 
     // Address (Optional)
     address: { 
@@ -24,15 +30,23 @@ const userSchema = new mongoose.Schema(
     },
 
     // Account Details
-    role: { type: String, enum: ["user", "admin"], default: "user" }, // Role Management
+    role: { type: String, enum: ["user", "admin", "super-admin"], default: "user" }, // Role Management
     status: { type: String, enum: ["active", "banned"], default: "active" }, // Account Status
+    accountVerificationToken: { type: String }, // Account Verification Token
+    isAccountVerified: { type: Boolean, default: false }, // Account Verification Status
+    accountVerificationTokenExpiry: { type: Date }, // Account Verification Token Expiry
 
+    
+    // Password Reset Fields
+    passwordResetToken: { type: String }, // Password Reset Token (Optional)
+    passwordResetTokenExpiry: { type: Date }, // Password Reset Token Expiry (Optional)
+    loginToken: { type: String }, // Login Token (Optional)
+    loginTokenExpiryToken: { type: Date },
     // Tour-related Fields
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }], // Reference to bookings
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tour" }], // Saved tours
 
     createdAt: { type: Date, default: Date.now }, // Timestamp
-
   },
   { timestamps: true }
 );

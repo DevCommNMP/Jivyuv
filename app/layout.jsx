@@ -1,8 +1,9 @@
-
 import Footer from "@/components/FooterSection";
 import Header from "@/components/HeaderSection";
+import "./custom.css";
 import "./globals.css";
-import { use } from "passport";
+import * as Lucide from 'lucide-react';
+
 
 export const metadata = {
   title: "Tour & Travel",
@@ -10,10 +11,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
- 
-
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <Header />
         {children}

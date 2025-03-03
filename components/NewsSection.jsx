@@ -1,3 +1,4 @@
+import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 
 export default function NewsSection() {
@@ -27,14 +28,14 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-1.jpg"
+                        src="/assets/img/home/news-1.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>5 Oct, 2020
+                      <CalendarDays /> 5 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
@@ -75,14 +76,14 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-2.jpg"
+                        src="/assets/img/home/news-2.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>4 Oct, 2020
+                      <CalendarDays /> 4 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
@@ -123,14 +124,14 @@ export default function NewsSection() {
                   <figure className="image-box">
                     <a href="blog-details.html">
                       <Image
-                        src="/assets/images/news/news-3.jpg"
+                        src="/assets/img/home/news-3.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
                     </a>
                     <span className="post-date">
-                      <i className="icon-Calendar"></i>3 Oct, 2020
+                      <CalendarDays /> 3 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">

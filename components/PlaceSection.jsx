@@ -39,7 +39,7 @@ export default function PlaceSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/place-1.jpg"
+                      src="/assets/img/home/place-1.jpg"
                       alt=""
                       width={340}
                       height={340}
@@ -58,7 +58,7 @@ export default function PlaceSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/place-2.jpg"
+                      src="/assets/img/home/place-2.jpg"
                       alt=""
                       width={340}
                       height={340}
@@ -77,7 +77,7 @@ export default function PlaceSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/place-3.jpg"
+                      src="/assets/img/home/place-3.jpg"
                       alt=""
                       width={340}
                       height={340}
@@ -96,7 +96,7 @@ export default function PlaceSection() {
                 <div className="inner-box">
                   <figure className="image-box">
                     <Image
-                      src="/assets/images/resource/place-4.jpg"
+                      src="/assets/img/home/place-4.jpg"
                       alt=""
                       width={340}
                       height={340}

@@ -1,6 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPinCheckInside,
+  PhoneCall,
+  Twitter,
+} from "lucide-react";
+
 export default function Footer() {
   return (
     <>
@@ -20,7 +30,7 @@ export default function Footer() {
                   <figure className="footer-logo">
                     <Link href="index.html">
                       <Image
-                        src="/assets/images/footer-logo.png"
+                        src="/assets/img/footer/footer-logo.png"
                         width={100}
                         height={30}
                         alt=""
@@ -37,27 +47,22 @@ export default function Footer() {
                   <ul className="social-links clearfix">
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-facebook-f"></i>
+                        <Facebook />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-twitter"></i>
+                        <Twitter />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-instagram"></i>
+                        <Instagram />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-google-plus-g"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="index.html">
-                        <i className="fab fa-linkedin-in"></i>
+                        <Linkedin />
                       </Link>
                     </li>
                   </ul>
@@ -103,7 +108,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-1.jpg"
+                              src="/assets/img/footer/footer-gallery-1.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -115,7 +120,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-2.jpg"
+                              src="/assets/img/footer/footer-gallery-2.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -127,7 +132,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-3.jpg"
+                              src="/assets/img/footer/footer-gallery-3.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -139,7 +144,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-4.jpg"
+                              src="/assets/img/footer/footer-gallery-4.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -151,7 +156,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-5.jpg"
+                              src="/assets/img/footer/footer-gallery-5.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -163,7 +168,7 @@ export default function Footer() {
                         <figure className="image-box">
                           <Link href="gallery-1.html">
                             <Image
-                              src="/assets/images/resource/footer-gallery-6.jpg"
+                              src="/assets/img/footer/footer-gallery-6.jpg"
                               alt=""
                               width={90}
                               height={90}
@@ -183,15 +188,15 @@ export default function Footer() {
                   <div className="widget-content">
                     <ul className="info-list clearfix">
                       <li>
-                        <i className="fas fa-map-marker-alt"></i>Flat 20,
-                        Reynolds Neck, North Helenaville, FV77 8WS
+                        <MapPinCheckInside /> Flat 20, Reynolds Neck, North
+                        Helenaville, FV77 8WS
                       </li>
                       <li>
-                        <i className="fas fa-microphone"></i>
+                        <PhoneCall />
                         <Link href="tel:23055873407">+2(305) 587-3407</Link>
                       </li>
                       <li>
-                        <i className="fas fa-envelope"></i>
+                        <Mail />
                         <Link href="mailto:info@example.com">
                           info@example.com
                         </Link>
@@ -208,7 +213,7 @@ export default function Footer() {
             <div className="bottom-inner clearfix">
               <div className="copyright pull-left">
                 <p>
-                  <Link href="index.html">JivYuv</Link> &copy; 2021 All Right
+                  <Link href="index.html">JivYuv</Link> &copy; 2025 All Right
                   Reserved
                 </p>
               </div>

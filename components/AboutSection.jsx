@@ -1,3 +1,4 @@
+import { CirclePlay, SquareCheckBig } from "lucide-react";
 import Image from "next/image";
 
 export default function AboutSection() {
@@ -6,7 +7,7 @@ export default function AboutSection() {
       <section className="about-section">
         <div
           className="pattern-layer"
-          style={{ backgroundImage: "url(assets/images/shape/shape-1.png)" }}
+          style={{ backgroundImage: "url(assets/img/home//shape-1.png)" }}
         ></div>
         <div className="auto-container">
           <div className="row clearfix">
@@ -29,7 +30,7 @@ export default function AboutSection() {
                   </div>
                   <figure className="image image-1">
                     <Image
-                      src="/assets/images/resource/about-1.jpg"
+                      src="/assets/img/home/about-1.jpg"
                       alt=""
                       width={390}
                       height={390}
@@ -43,7 +44,7 @@ export default function AboutSection() {
                   </figure>
                   <figure className="image image-2">
                     <Image
-                      src="/assets/images/resource/about-2.jpg"
+                      src="/assets/img/home/about-2.jpg"
                       alt=""
                       width={280}
                       height={200}
@@ -57,7 +58,7 @@ export default function AboutSection() {
                         className="lightbox-image"
                         data-caption=""
                       >
-                        <i className="icon-Video"></i>
+                        <CirclePlay />
                       </a>
                     </div>
                   </div>
@@ -80,9 +81,15 @@ export default function AboutSection() {
                     </p>
                   </div>
                   <ul className="list clearfix">
-                    <li>Ratione voluptatem.sequi nesciunt.</li>
-                    <li>Ratione voluptatem.</li>
-                    <li>Ratione voluptatem sequi.</li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem.sequi nesciunt.
+                    </li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem.
+                    </li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem sequi.
+                    </li>
                   </ul>
                   <div className="btn-box">
                     <a href="tour-1.html" className="theme-btn">
