@@ -259,7 +259,7 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
 const login = expressAsyncHandler(async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
+console.log(email);
     // Find user by email
     const userFound = await User.findOne({ email });
 
