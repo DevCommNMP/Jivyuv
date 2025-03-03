@@ -15,7 +15,7 @@ const PORT = 5000;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
-const allowedOrigins = ["http://localhost:3000", "https://accounts.google.com"];
+const allowedOrigins = ["http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com"];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -41,7 +41,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
     cookie: {
-      maxAge: 60 * 60 * 1000, // 1 hour
+      maxAge: 1 * 60 * 1000, // 1 hour
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // HTTPS in production
     },
@@ -83,12 +83,21 @@ app.get("/token/token-session", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.decode(token, process.env.JWT_KEY);
   const decodedUser = await User.findById(decoded.id).lean();
+  const serverResponse={
+    profilePhoto: decodedUser.profilePicture,
+    firstName: decodedUser.firstName,
+    lastName: decodedUser.lastName,
+    token: decodedUser.loginToken,
+    tokenExpiryTime:decodedUser.loginTokenExpiryToken,
+    role: decodedUser.role,
+  }
   if (decodedUser) {
-    res.json({ message: "Session found", sessionData: decodedUser });
+    res.json({ message: "Session found", sessionData: serverResponse });
   } else {
     res.status(401).json({ message: "No session found" });
   }
 });
+
 
 // Fallback 404 Route
 app.use((req, res) => {

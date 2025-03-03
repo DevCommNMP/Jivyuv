@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 
-import { LucideSearch, LucideUserRound } from "lucide-react";
+
 
 export default function Header({}) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -336,7 +336,7 @@ export default function Header({}) {
                   {user ? (
                     <Link href="" onClick={handleLogout}>
                       <img
-                        src={user.profilePicture}
+                        src={user?.profilePicture}
                         alt=""
                         style={{
                           borderRadius: "50%",
