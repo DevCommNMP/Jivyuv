@@ -12,10 +12,10 @@ const passwordResetMailOptions = require("../../config/mailConfigration/password
 // Controller to register user
 const registerUser = expressAsyncHandler(async (req, res) => {
   try {
-    const { email, password, firstName, lastName } = req.body;
+    const {  email, password, firstName, lastName } = req.body;
 
     // Check if the user already exists
-    const userName = `${firstName} ${lastName}`;
+    const userName=`${firstName} ${lastName}`
     const userExist = await User.findOne({ email });
 
     if (userExist) {
@@ -120,10 +120,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 const verifyAccount = expressAsyncHandler(async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1]; // Corrected token extraction
-    console.log(token);
+    console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const decodedUser = await User.findById(decoded.id).lean();
-    console.log(decodedUser);
+console.log(decodedUser )
     // Find the user with the given token
     const user = await User.findOne({
       accountVerificationToken: token,
@@ -214,10 +214,8 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
     const socialLinkTwitter = "https://twitter.com/";
     const socialLinkInstagram = "https://www.instagram.com/";
     const socialLinkYoutube = "https://www.youtube.com/";
-    const logoImage =
-      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
-    const registrationImage =
-      "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://ci3.googleusercontent.com/meips/ADKq_NZuv4HNVAbZJ1KMZJ30rA2DZmtveJH7EhtpIPauj79WxFi4tbKM86owne9Srk6CBDMChyQrSG9tAhRHF6u1C_785qJLa3JqmaBT3E4k1hwFNidY4bgs07Lj_HPP-EPy=s0-d-e1-ft#https://modulescomposer.s3.us-east-2.amazonaws.com/purple/img_intro_1.png";
     // Send email
     const mailOptions = registrationMailOptions(
       emailReceiver,
@@ -263,9 +261,7 @@ const login = expressAsyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
 
     // Find user by email
-    const userFound = await User.findOneAndUpdate(
-      { email } // Filter criteri
-    );
+    const userFound = await User.findOne({ email });
 
     if (!userFound) {
       return res.status(401).json({ message: "Invalid Email" });
@@ -279,34 +275,16 @@ const login = expressAsyncHandler(async (req, res, next) => {
     // Generate JWT token
     const generatenewToken = generateToken(userFound._id);
 
-    const updateUser = await User.findOneAndUpdate(
-      { email }, // Filter criteria
-      {
-        $set: {
-          loginToken: generatenewToken,
-          loginTokenExpiryToken: Date.now() + 30 * 60 * 1000,
-        },
-      }, // Update operation
-      { new: true } // Option to return the updated document
-    );
     // Set session user data BEFORE saving the session
     req.session.user = {
       id: userFound._id,
       email: userFound.email,
       profilePhoto: userFound.profilePhoto,
       firstName: userFound.firstName,
-    
-      loginTokenExpiryToken: userFound.loginTokenExpiryToken,
+      lastName: userFound.lastName,
+      token: generatenewToken,
     };
 
-    const user = {
-      email: userFound.email,
-      profilePhoto: userFound.profilePhoto,
-      firstName: userFound.firstName,
-      lastName: userFound.lastName,
-      token: userFound.loginToken,
-      loginTokenExpiryToken: userFound.loginTokenExpiryToken,
-    };
     // Save session before responding
     req.session.save((err) => {
       if (err) {
@@ -319,12 +297,7 @@ const login = expressAsyncHandler(async (req, res, next) => {
       return res.status(200).json({
         success: true,
         message: "Login successful",
-        email: userFound.email,
-      profilePhoto: userFound.profilePhoto,
-      firstName: userFound.firstName,
-      lastName: userFound.lastName,
-      token: userFound.loginToken,
-      loginTokenExpiryToken: userFound.loginTokenExpiryToken, // Return session user data
+        user: req.session.user, // Return session user data
         token: generatenewToken,
       });
     });
@@ -387,10 +360,8 @@ const passwordResetMail = expressAsyncHandler(async (req, res) => {
     const socialLinkTwitter = "https://twitter.com/";
     const socialLinkInstagram = "https://www.instagram.com/";
     const socialLinkYoutube = "https://www.youtube.com/";
-    const logoImage =
-      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
-    const registrationImage =
-      "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
     // Send email
     const mailOptions = passwordResetMailOptions(
       emailReceiver,
@@ -428,7 +399,7 @@ const passwordResetMail = expressAsyncHandler(async (req, res) => {
   }
 });
 
-const resendPasswordResetMail = expressAsyncHandler(async (req, res) => {
+const resendPasswordResetMail=expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
   // Check if email is provided
@@ -481,10 +452,8 @@ const resendPasswordResetMail = expressAsyncHandler(async (req, res) => {
     const socialLinkTwitter = "https://twitter.com/";
     const socialLinkInstagram = "https://www.instagram.com/";
     const socialLinkYoutube = "https://www.youtube.com/";
-    const logoImage =
-      "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
-    const registrationImage =
-      "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
+    const logoImage = "https://res.cloudinary.com/dyf4m9od7/image/upload/v1739945332/s12vlendf2xokigwma5o.png";
+    const registrationImage = "https://img.freepik.com/free-vector/two-factor-authentication-concept-illustration_114360-5488.jpg?size=626&ext=jpg&ga=GA1.1.2048544296.1723098509&semt=ais_hybrid";
     // Send email
     const mailOptions = passwordResetMailOptions(
       emailReceiver,
@@ -571,7 +540,7 @@ const updatePassword = async (req, res) => {
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
-    console.log(newPassword);
+console.log(newPassword)
     // Check if the Authorization header is present
     if (!authHeader) {
       return res
@@ -660,7 +629,7 @@ const logout = (req, res) => {
 const registerAdmin = expressAsyncHandler(async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
-
+    
     // Check if the user already exists
     const userExist = await User.findOne({ email });
 
@@ -672,6 +641,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 
     // Create new user
     const user = await User.create({
+     
       firstName,
       lastName,
       userName: `${firstName} ${lastName}`, // Corrected field name
@@ -761,7 +731,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
     });
   } catch (error) {
     // Handle errors
-    console.log(error);
+    console.log(error)
     res
       .status(500)
       .json({ success: false, message: error.message, error: true });
@@ -781,11 +751,9 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
     }
 
     // Check if user has admin or super-admin role
-    const userRole =userFound.role === "admin" || userFound.role === "super-admin";
+    const userRole = userFound.role === "admin" || userFound.role === "super-admin";
     if (!userRole) {
-      return res
-        .status(401)
-        .json({ message: "Access Denied", error: true, success: false });
+      return res.status(401).json({ message: "Access Denied", error: true, success: false });
     }
 
     // Verify password
@@ -793,22 +761,9 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
       return res.status(401).json({ message: "Invalid Password" });
     }
 
-
-
     // Generate JWT token
     const generatenewToken = generateToken(userFound._id);
 
-
-    const updateUser = await User.findOneAndUpdate(
-      { email }, // Filter criteria
-      {
-        $set: {
-          loginToken: generatenewToken,
-          loginTokenExpiryToken: Date.now() + 30 * 60 * 1000,
-        },
-      }, // Update operation
-      { new: true } // Option to return the updated document
-    );
     // Set session user data BEFORE saving the session
     req.session.user = {
       id: userFound._id,
@@ -816,8 +771,8 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
       profilePhoto: userFound.profilePhoto,
       firstName: userFound.firstName,
       lastName: userFound.lastName,
-      token: userFound.loginToken,
-      loginTokenExpiryToken: userFound.loginTokenExpiryToken,
+      token: generatenewToken,
+      role: userFound.role,
     };
 
     // Save session before responding
@@ -832,14 +787,10 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Admin login successful",
-        email: userFound.email,
-        profilePhoto: userFound.profilePhoto,
-        firstName: userFound.firstName,
-        lastName: userFound.lastName,
-        token: userFound.loginToken,
-        tokenExpiryTime:userFound.loginTokenExpiryToken,
-        role: userFound.role,
+        user: req.session.user, // Return session user data
+        token: generatenewToken,
       });
+    
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -903,5 +854,6 @@ module.exports = {
   editUser,
   isAuthenticated,
   registerAdmin,
-  resendPasswordResetMail,
+  resendPasswordResetMail
 };
+
