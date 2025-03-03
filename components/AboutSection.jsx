@@ -1,3 +1,4 @@
+import { CirclePlay, SquareCheckBig } from "lucide-react";
 import Image from "next/image";
 
 export default function AboutSection() {
@@ -57,7 +58,7 @@ export default function AboutSection() {
                         className="lightbox-image"
                         data-caption=""
                       >
-                        <i className="icon-Video"></i>
+                        <CirclePlay />
                       </a>
                     </div>
                   </div>
@@ -80,9 +81,15 @@ export default function AboutSection() {
                     </p>
                   </div>
                   <ul className="list clearfix">
-                    <li>Ratione voluptatem.sequi nesciunt.</li>
-                    <li>Ratione voluptatem.</li>
-                    <li>Ratione voluptatem sequi.</li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem.sequi nesciunt.
+                    </li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem.
+                    </li>
+                    <li>
+                      <SquareCheckBig /> Ratione voluptatem sequi.
+                    </li>
                   </ul>
                   <div className="btn-box">
                     <a href="tour-1.html" className="theme-btn">

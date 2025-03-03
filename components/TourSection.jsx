@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Clock, Map, Star } from "lucide-react";
 export default function TourSection() {
   return (
     <>
@@ -36,7 +37,7 @@ export default function TourSection() {
                   <div className="lower-content">
                     <div className="rating">
                       <span>
-                        <i className="fas fa-star"></i>8.0 Superb
+                        <Star size={24} color={"gold"} /> 8.0 Superb
                       </span>
                     </div>
                     <h3>
@@ -47,10 +48,10 @@ export default function TourSection() {
                     </h4>
                     <ul className="info clearfix">
                       <li>
-                        <i className="far fa-clock"></i>5 Days
+                        <Clock size={24} /> 5 Days
                       </li>
                       <li>
-                        <i className="far fa-map"></i>G87P, Birmingham
+                        <Map size={24} /> G87P, Birmingham
                       </li>
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>
@@ -82,7 +83,7 @@ export default function TourSection() {
                   <div className="lower-content">
                     <div className="rating">
                       <span>
-                        <i className="fas fa-star"></i>8.0 Superb
+                        <Star size={24} color={"gold"} /> 8.0 Superb
                       </span>
                     </div>
                     <h3>
@@ -93,10 +94,10 @@ export default function TourSection() {
                     </h4>
                     <ul className="info clearfix">
                       <li>
-                        <i className="far fa-clock"></i>5 Days
+                        <Clock size={24} /> 5 Days
                       </li>
                       <li>
-                        <i className="far fa-map"></i>G87P, Birmingham
+                        <Map size={24} /> G87P, Birmingham
                       </li>
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>
@@ -128,7 +129,7 @@ export default function TourSection() {
                   <div className="lower-content">
                     <div className="rating">
                       <span>
-                        <i className="fas fa-star"></i>8.0 Superb
+                        <Star size={24} color={"gold"} /> 8.0 Superb
                       </span>
                     </div>
                     <h3>
@@ -139,10 +140,10 @@ export default function TourSection() {
                     </h4>
                     <ul className="info clearfix">
                       <li>
-                        <i className="far fa-clock"></i>5 Days
+                        <Clock size={24} /> 5 Days
                       </li>
                       <li>
-                        <i className="far fa-map"></i>G87P, Birmingham
+                        <Map size={24} /> G87P, Birmingham
                       </li>
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>

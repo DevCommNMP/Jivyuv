@@ -1,3 +1,9 @@
+import {
+  BriefcaseBusiness,
+  ShieldCheck,
+  SmilePlus,
+  UsersRound,
+} from "lucide-react";
 import Image from "next/image";
 
 export default function Feature() {
@@ -27,7 +33,7 @@ export default function Feature() {
                   </figure>
                   <div className="lower-content">
                     <div className="icon-box">
-                      <i className="icon-1"></i>
+                      <UsersRound />
                     </div>
                     <h4>2000+ Our Worldwide Guides</h4>
                   </div>
@@ -51,7 +57,7 @@ export default function Feature() {
                   </figure>
                   <div className="lower-content">
                     <div className="icon-box">
-                      <i className="icon-2"></i>
+                      <ShieldCheck />
                     </div>
                     <h4>100% Trusted Tour Agency</h4>
                   </div>
@@ -75,7 +81,7 @@ export default function Feature() {
                   </figure>
                   <div className="lower-content">
                     <div className="icon-box">
-                      <i className="icon-3"></i>
+                      <BriefcaseBusiness />
                     </div>
                     <h4>12+ Years of Travel Experience</h4>
                   </div>
@@ -99,7 +105,7 @@ export default function Feature() {
                   </figure>
                   <div className="lower-content">
                     <div className="icon-box">
-                      <i className="icon-4"></i>
+                      <SmilePlus />
                     </div>
                     <h4>98% of Our Travelers are Happy</h4>
                   </div>

@@ -1,6 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPinCheckInside,
+  PhoneCall,
+  Twitter,
+} from "lucide-react";
+
 export default function Footer() {
   return (
     <>
@@ -37,27 +47,22 @@ export default function Footer() {
                   <ul className="social-links clearfix">
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-facebook-f"></i>
+                        <Facebook />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-twitter"></i>
+                        <Twitter />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-instagram"></i>
+                        <Instagram />
                       </Link>
                     </li>
                     <li>
                       <Link href="index.html">
-                        <i className="fab fa-google-plus-g"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="index.html">
-                        <i className="fab fa-linkedin-in"></i>
+                        <Linkedin />
                       </Link>
                     </li>
                   </ul>
@@ -183,15 +188,15 @@ export default function Footer() {
                   <div className="widget-content">
                     <ul className="info-list clearfix">
                       <li>
-                        <i className="fas fa-map-marker-alt"></i>Flat 20,
-                        Reynolds Neck, North Helenaville, FV77 8WS
+                        <MapPinCheckInside /> Flat 20, Reynolds Neck, North
+                        Helenaville, FV77 8WS
                       </li>
                       <li>
-                        <i className="fas fa-microphone"></i>
+                        <PhoneCall />
                         <Link href="tel:23055873407">+2(305) 587-3407</Link>
                       </li>
                       <li>
-                        <i className="fas fa-envelope"></i>
+                        <Mail />
                         <Link href="mailto:info@example.com">
                           info@example.com
                         </Link>
@@ -208,7 +213,7 @@ export default function Footer() {
             <div className="bottom-inner clearfix">
               <div className="copyright pull-left">
                 <p>
-                  <Link href="index.html">JivYuv</Link> &copy; 2021 All Right
+                  <Link href="index.html">JivYuv</Link> &copy; 2025 All Right
                   Reserved
                 </p>
               </div>

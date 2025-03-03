@@ -1,6 +1,6 @@
-'use client';
-import { useEffect } from 'react';
-
+"use client";
+import { CirclePlay } from "lucide-react";
+import { useEffect } from "react";
 export default function VideoSection() {
   useEffect(() => {
     // Initialize lightbox here if you're using a library
@@ -22,7 +22,7 @@ export default function VideoSection() {
                 className="lightbox-image"
                 data-caption=""
               >
-                <i className="far fa-play"></i>
+                <CirclePlay size={48} />
                 <span className="border-animation border-1"></span>
                 <span className="border-animation border-2"></span>
                 <span className="border-animation border-3"></span>
