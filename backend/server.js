@@ -84,7 +84,7 @@ app.get("/token/token-session", async (req, res) => {
   const decoded = jwt.decode(token, process.env.JWT_KEY);
   const decodedUser = await User.findById(decoded.id).lean();
   const serverResponse={
-    profilePhoto: decodedUser.profilePicture,
+    profilePicture: decodedUser.profilePicture,
     firstName: decodedUser.firstName,
     lastName: decodedUser.lastName,
     token: decodedUser.loginToken,

@@ -295,8 +295,7 @@ const login = expressAsyncHandler(async (req, res, next) => {
       email: userFound.email,
       profilePhoto: userFound.profilePhoto,
       firstName: userFound.firstName,
-      lastName: userFound.lastName,
-      token: generatenewToken,
+    
       loginTokenExpiryToken: userFound.loginTokenExpiryToken,
     };
 
@@ -320,7 +319,12 @@ const login = expressAsyncHandler(async (req, res, next) => {
       return res.status(200).json({
         success: true,
         message: "Login successful",
-        user: user, // Return session user data
+        email: userFound.email,
+      profilePhoto: userFound.profilePhoto,
+      firstName: userFound.firstName,
+      lastName: userFound.lastName,
+      token: userFound.loginToken,
+      loginTokenExpiryToken: userFound.loginTokenExpiryToken, // Return session user data
         token: generatenewToken,
       });
     });
