@@ -22,7 +22,7 @@ export default function Header({}) {
 
     fetchSession();
   }, []);
-  console.log(user)
+ 
 
   const handleLogout = () => {
     try {
