@@ -10,7 +10,7 @@ dotenv.config();
 const dbConnect = require("./db/connectDB");
 const User = require("./modal/user/user"); // Ensure User model is imported
 const app = express();
-
+const path = require('path');
 const PORT = 5000;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
@@ -31,7 +31,7 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // Ensure this line is present
 dbConnect();
 // Session Setup
 app.use(
@@ -47,6 +47,9 @@ app.use(
     },
   })
 );
+
+app.use('/categories', express.static(path.join(__dirname, 'uploads', 'categories')));
+
 
 // Passport Middleware
 app.use(passport.initialize());
