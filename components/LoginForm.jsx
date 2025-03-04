@@ -4,9 +4,12 @@ import axios from "axios";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation"; // Use next/navigation for app directory
+import Preloader from "./Preloader";
 
 export default function LoginForm() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  console.log(SERVER_URL);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -42,8 +45,10 @@ export default function LoginForm() {
     setLoading(true);
     setError("");
     try {
+     
       const res = await axios.post(`${SERVER_URL}/api/auth/login`, formData);
       const { token } = res.data;
+    console.log(res);
 
       // Get current time and set expiration time (1 hour from now)
       const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour in milliseconds
@@ -55,6 +60,7 @@ export default function LoginForm() {
       // Redirect to dashboard
       window.location.href = "/";
     } catch (error) {
+       
       setError("Login failed. Please check your email and password.");
       console.log("Login error:", error);
     } finally {
@@ -65,6 +71,8 @@ export default function LoginForm() {
   console.log("Form Data", formData);
   return (
     <>
+  
+    {loading===true?<Preloader/>:
       <section className="register-section sec-pad">
         <div className="anim-icon">
           <div
@@ -212,6 +220,7 @@ export default function LoginForm() {
           </div>
         </div>
       </section>
+}
       <style jsx>{`
         .spinner {
           border: 4px solid rgba(233, 175, 50, 0.1);

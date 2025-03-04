@@ -1,12 +1,18 @@
 "use client";
+import axios from "axios";
 import { useEffect, useState } from "react";
-
-const SetNewPassword = () => {
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
+const SetNewPassword = ({ params }) => {
+    let {id}=params;
+    
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [mounted, setMounted] = useState(false); // To ensure the client-side mount
+    const router=useRouter();
 
     // Use effect to ensure that this runs only after the component is mounted on the client
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -15,48 +21,65 @@ const SetNewPassword = () => {
     if (!mounted) {
         return <div style={{ textAlign: "center", marginTop: "50px", height: "100vh", width: "100vw", padding: "100px" }}>Loading...</div>; // or return a loading spinner
     }
+ 
+
+
 
     const handleSetNewPassword = async () => {
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            Swal.fire({title:"Passwords do not match!",icon:"warning"});
             return;
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/reset-password", {
-                method: "POST",
+            const response = await axios.post(`${SERVER_URL}/api/auth/update-password`, {password,confirmPassword}, {
+             
                 headers: {
-                    "Content-Type": "application/json",
+                'Authorization': `Bearer ${id}`
+                       }
                 },
-                body: JSON.stringify({ password }),
-            });
+               
+            );
+           
+                
+           
 
-            const data = await response.json();
+           
+                Swal.fire({title:response.data.message || "Password reset successfully!",icon:"success"}).then((result)=>{
+                    if(result.isConfirmed){
+                        // router("/sign-in");
+                        router.replace("/sign-in"); 
 
-            if (response.ok) {
-                alert("Password reset successfully!");
+                    }
+
+                });
+                 
                 // Redirect or perform any necessary action
-            } else {
-                alert(data.message || "Failed to reset password");
-            }
+            
         } catch (error) {
+
             console.error("Error resetting password:", error);
-            alert("Something went wrong. Please try again.");
+            console.log(error);
+           Swal.fire({title:error?.data?.message || "Something went wrong. Please try again.",icon:"error"});
         }
     };
 
 
     return (
+        
         <div
             style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                marginTop: "100px",
+                // alignItems: "center",
+                // height: "100vh",
+               
+                margin:"100px 10px",
                 background: "linear-gradient(grey)",
             }}
         >
+            
+           
             <div
                 style={{
                     backgroundColor: "white",
@@ -88,6 +111,7 @@ const SetNewPassword = () => {
                         fontWeight: "bold",
                         display: "block",
                         marginBottom: "5px",
+                        textAlign:"left"
                     }}
                 >
                     New Password
@@ -116,6 +140,7 @@ const SetNewPassword = () => {
                         fontWeight: "bold",
                         display: "block",
                         marginBottom: "5px",
+                        textAlign:"left"
                     }}
                 >
                     Confirm Password

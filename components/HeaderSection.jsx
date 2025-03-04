@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 
-
 export default function Header({}) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);

@@ -1,10 +1,18 @@
 
 "use client";
+import Preloader from "@/components/Preloader";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-const ResetPassword = () => {
+const ResetPassword = ({ params }) => {
+    const {id}=params;
+    console.log("hii kundna");
+    console.log("id",id);
     const [email, setEmail] = useState("");
     const [mounted, setMounted] = useState(false);
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+    const [isLoading,setIsloading]=useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -22,30 +30,38 @@ const ResetPassword = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/forgot-password", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email }),
+            setIsloading(true);
+            const response = await axios.post(`${SERVER_URL}/api/auth/password-reset`, {email:email
+               
+                
             });
+                 setEmail("");
+               
+               Swal.fire({title:response.data.message || "Password reset link sent to your email!",icon:"success"});
+            
 
-            const data = await response.json();
+               
 
-            if (response.ok) {
-                alert("Password reset link sent to your email!");
 
-            } else {
-                alert(data.message || "Failed to send reset email");
-            }
-        } catch (error) {
-            console.error("Error sending reset request:", error);
-            alert("Something went wrong. Please try again.");
+    
+              
+               
+               
+            }catch (error) {
+           
+            Swal.fire({title:error?.response?.data?.message || error.message || "Something went wrong. Please try again.",icon:"error"});
+            
+        }finally{
+            setIsloading(false);
+
         }
     };
 
 
     return (
+        <>
+       
+        {isLoading==true?<Preloader/>:
         <div
             style={{
                 display: "flex",
@@ -124,11 +140,15 @@ const ResetPassword = () => {
                     }}
                     onMouseOver={(e) => (e.target.style.backgroundColor = "#b30000")}
                     onMouseOut={(e) => (e.target.style.backgroundColor = "#ff7c5b")}
+                    disabled={isLoading}
                 >
                     Reset Password
                 </button>
             </div>
         </div>
+     }
+        </>
+    
     );
 };
 
