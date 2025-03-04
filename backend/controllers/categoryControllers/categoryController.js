@@ -1,12 +1,12 @@
-const Category = require("../models/Category");
+const Category = require("../../modal/category/category");
 
 //  Create a new category
 exports.createCategory = async (req, res) => {
   try {
     const { name } = req.body;
-
+console.log(name)
     // Check if category already exists
-    const existingCategory = await Category.findOne({ name });
+    const existingCategory  = await Category.findOne({ name });
     if (existingCategory) {
       return res.status(400).json({ success: false, message: "Category already exists" });
     }

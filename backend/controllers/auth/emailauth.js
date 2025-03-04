@@ -566,7 +566,7 @@ console.log(newPassword)
 
     const tokenValidityPeriod = 5 * 60 * 1000; // 5 minutes in milliseconds
     const tokenExpiryTime =
-      new Date(user.passwordResetTokenExpires).getTime() + tokenValidityPeriod;
+      new Date(user.passwordResetTokenExpiry).getTime() + tokenValidityPeriod;
 
     if (tokenExpiryTime < Date.now()) {
       return res
@@ -837,7 +837,7 @@ const editUser = expressAsyncHandler(async (req, res) => {
 const deleteUser = expressAsyncHandler(async (req, res) => {
   const { id } = req?.body;
   console.log(id);
-  const user = await User.deleteMany({});
+  const user = await User.deleteOne({_id: id});
   res.status(200).json({ success: true, message: "user deleted successfully" });
 });
 
