@@ -5,6 +5,7 @@ const SetNewPassword = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [mounted, setMounted] = useState(false); // To ensure the client-side mount
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
     // Use effect to ensure that this runs only after the component is mounted on the client
     useEffect(() => {
@@ -15,6 +16,22 @@ const SetNewPassword = () => {
     if (!mounted) {
         return <div style={{ textAlign: "center", marginTop: "50px", height: "100vh", width: "100vw", padding: "100px" }}>Loading...</div>; // or return a loading spinner
     }
+    async function verifyResetToken(){
+        try{
+            let response=await  axios.post(`${SERVER_URL}/api/`,{
+                headers:{
+                    Authorization:`Bearer ${id}`
+
+                }
+
+             })
+            }catch(error){
+
+            }
+
+    
+
+    }
 
     const handleSetNewPassword = async () => {
         if (password !== confirmPassword) {
@@ -23,7 +40,7 @@ const SetNewPassword = () => {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/auth/reset-password", {
+            const response = await fetch(`${SERVER_URL}/api/auth/update-password`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
