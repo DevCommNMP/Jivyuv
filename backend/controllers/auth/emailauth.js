@@ -537,6 +537,7 @@ const isAuthenticated = async (req, res, next) => {
 };
 
 const updatePassword = async (req, res) => {
+  console.log("saaaaaaaaaaaaaaaaaaaaaaaaak")
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
