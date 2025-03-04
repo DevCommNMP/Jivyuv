@@ -111,6 +111,7 @@ const SetNewPassword = ({ params }) => {
                         fontWeight: "bold",
                         display: "block",
                         marginBottom: "5px",
+                        textAlign:"left"
                     }}
                 >
                     New Password
@@ -139,6 +140,7 @@ const SetNewPassword = ({ params }) => {
                         fontWeight: "bold",
                         display: "block",
                         marginBottom: "5px",
+                        textAlign:"left"
                     }}
                 >
                     Confirm Password
