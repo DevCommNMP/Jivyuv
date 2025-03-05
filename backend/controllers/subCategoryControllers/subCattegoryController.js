@@ -4,8 +4,8 @@ const Subcategory = require("../../modal/subCategory/subCategory");
 // Create a new subcategory
 exports.createSubcategory = async (req, res) => {
   try {
-    const { name, isVisibleOnNavbar, category } = req.body;
-    const newSubcategory = new Subcategory({ name, isVisibleOnNavbar, category });
+    const { name, isVisibleOnNavbar, categoryId } = req.body;
+    const newSubcategory = new Subcategory({ name, isVisibleOnNavbar, categoryId });
     await newSubcategory.save();
     res.status(201).json(newSubcategory);
   } catch (error) {
@@ -37,10 +37,10 @@ exports.getSubcategoryById = async (req, res) => {
 // Update a subcategory
 exports.updateSubcategory = async (req, res) => {
   try {
-    const { name, isVisibleOnNavbar, category } = req.body;
+    const { name, isVisibleOnNavbar, categoryId } = req.body;
     const updatedSubcategory = await Subcategory.findByIdAndUpdate(
       req.params.id,
-      { name, isVisibleOnNavbar, category },
+      { name, isVisibleOnNavbar, categoryId },
       { new: true }
     );
     if (!updatedSubcategory) return res.status(404).json({ message: "Subcategory not found" });
