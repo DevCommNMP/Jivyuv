@@ -1,4 +1,5 @@
 // controllers/subcategoryController.js
+const Category = require("../../modal/category/category");
 const Subcategory = require("../../modal/subCategory/subCategory");
 
 // Create a new subcategory
@@ -7,6 +8,7 @@ exports.createSubcategory = async (req, res) => {
     const { name, isVisibleOnNavbar, categoryId } = req.body;
     const newSubcategory = new Subcategory({ name, isVisibleOnNavbar, categoryId });
     await newSubcategory.save();
+    await Category.findByIdAndUpdate(categoryId, { $push: { subCategoryId: newSubcategory._id } });
     res.status(201).json(newSubcategory);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -16,7 +18,7 @@ exports.createSubcategory = async (req, res) => {
 // Get all subcategories
 exports.getAllSubcategories = async (req, res) => {
   try {
-    const subcategories = await Subcategory.find().populate("category");
+    const subcategories = await Subcategory.find().populate("categoryId");
     res.status(200).json(subcategories);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -26,7 +28,7 @@ exports.getAllSubcategories = async (req, res) => {
 // Get a single subcategory by ID
 exports.getSubcategoryById = async (req, res) => {
   try {
-    const subcategory = await Subcategory.findById(req.params.id).populate("category");
+    const subcategory = await Subcategory.findById(req.params.id).populate("categoryId");
     if (!subcategory) return res.status(404).json({ message: "Subcategory not found" });
     res.status(200).json(subcategory);
   } catch (error) {
@@ -44,6 +46,7 @@ exports.updateSubcategory = async (req, res) => {
       { new: true }
     );
     if (!updatedSubcategory) return res.status(404).json({ message: "Subcategory not found" });
+    await Category.findByIdAndUpdate(categoryId, { $push: { subCategoryId: updatedSubcategory._id } });
     res.status(200).json(updatedSubcategory);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -60,6 +63,4 @@ exports.deleteSubcategory = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// routes/subcategoryRoutes.js
 

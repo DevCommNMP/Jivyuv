@@ -5,7 +5,7 @@ const slugify = require('slugify');
 const getAllCategories = async (req, res) => {
   console.log(req.body)
   try {
-    const categories = await Category.find();
+    const categories = await Category.find().populate('subCategoryId');
  
     res.status(200).json(categories);
   } catch (error) {
@@ -17,7 +17,7 @@ const getAllCategories = async (req, res) => {
 // Controller function to get a single category by ID
 const getCategoryById = async (req, res) => {
   try {
-    const category = await Category.findById(req.params.Id);
+    const category = await Category.findById(req.params.Id).populate('subCategoryId');
     if (!category) {
       return res.status(404).json({ error: 'Category not found' });
     }
