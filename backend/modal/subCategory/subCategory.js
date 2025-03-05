@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const subcategorySchema = new mongoose.Schema({
   name: { type: String, required: true },
+ isVisibleOnNavbar: { type: Boolean, default: false },
   category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
 });
 
