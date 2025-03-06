@@ -6,9 +6,10 @@ const googleAuth = passport.authenticate("google", { scope: ["profile", "email"]
 // Google Auth Callback
 const googleCallback = passport.authenticate("google", {
   failureRedirect: `${BASE_URL}/login`,});
-
+console.log("hello");
 // Handle Google Auth Success & Store User in Database
 const handleGoogleCallback = async (req, res) => {
+  console.log("hello1");
   if (!req.user) {
     console.log("12345")
     return res.redirect(`${BASE_URL}/login`,); // Redirect on failure
