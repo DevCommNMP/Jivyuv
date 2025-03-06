@@ -7,6 +7,7 @@ const {
   deleteCategory,
 } = require('../../controllers/categoryControllers/categoryController');
 const uploadCategoryImage = require('../../middleware/multer/categoryImageUploader');
+const { isAuthenticatedAdmin,isAuthenticatedSuperAdmin } = require('../../middleware/isAutheticated'); // Correct import
 
 const router = express.Router();
 
@@ -17,12 +18,12 @@ router.get('/categories', getAllCategories);
 router.get('/categories/:Id', getCategoryById);
 
 // Route to create a new category with an image
-router.post('/categories', uploadCategoryImage.single('image'), createCategory); // Ensure the field name matches
+router.post('/categories', isAuthenticatedAdmin, uploadCategoryImage.single('image'),isAuthenticatedAdmin,createCategory); // Ensure the field name matches
 
 // Route to update a category by ID (with optional image update)
-router.put('/categories/:Id', uploadCategoryImage.single('image'), updateCategory); // Ensure the field name matches
+router.put('/categories/:Id', uploadCategoryImage.single('image'),isAuthenticatedAdmin, updateCategory); // Ensure the field name matches
 
 // Route to delete a category by ID
-router.delete('/categories/:Id', deleteCategory);
+router.delete('/categories/:Id',isAuthenticatedSuperAdmin, deleteCategory);
 
 module.exports = router;
