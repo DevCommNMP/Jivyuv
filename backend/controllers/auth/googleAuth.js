@@ -6,17 +6,19 @@ const googleAuth = passport.authenticate("google", { scope: ["profile", "email"]
 // Google Auth Callback
 const googleCallback = passport.authenticate("google", {
   failureRedirect: `${BASE_URL}/login`,});
-
+console.log("hello");
 // Handle Google Auth Success & Store User in Database
 const handleGoogleCallback = async (req, res) => {
+  console.log("hello1");
   if (!req.user) {
+    console.log("12345")
     return res.redirect(`${BASE_URL}/login`,); // Redirect on failure
   }
 
   try {
     // Extract user data from Google profile
     const { id, displayName, emails, photos } = req.user;
-
+    console.log("jdfjsnjn")
     // Check if user already exists in database
     let user = await User.findOne({ googleId: id });
 

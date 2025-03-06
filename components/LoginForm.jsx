@@ -12,7 +12,6 @@ export default function LoginForm() {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",

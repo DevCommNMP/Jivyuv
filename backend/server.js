@@ -15,7 +15,7 @@ const PORT = 5000;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
-const allowedOrigins = ["http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com"];
+const allowedOrigins = ["https://jivyuv-tan.vercel.app/","https://jivyuv-tan.vercel.app","http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com"];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -32,6 +32,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // Ensure this line is present
+
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 dbConnect();
 // Session Setup
 app.use(
