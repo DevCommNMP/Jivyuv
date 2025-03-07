@@ -12,10 +12,10 @@ const passwordResetMailOptions = require("../../config/mailConfigration/password
 // Controller to register user
 const registerUser = expressAsyncHandler(async (req, res) => {
   try {
-    const {  email, password, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName } = req.body;
 
     // Check if the user already exists
-    const userName=`${firstName} ${lastName}`
+    const userName = `${firstName} ${lastName}`
     const userExist = await User.findOne({ email });
 
     if (userExist) {
@@ -123,7 +123,7 @@ const verifyAccount = expressAsyncHandler(async (req, res) => {
     console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const decodedUser = await User.findById(decoded.id).lean();
-console.log(decodedUser )
+    console.log(decodedUser)
     // Find the user with the given token
     const user = await User.findOne({
       accountVerificationToken: token,
@@ -259,7 +259,7 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
 const login = expressAsyncHandler(async (req, res, next) => {
   try {
     const { email, password } = req.body;
-console.log(email);
+    console.log(email);
     // Find user by email
     const userFound = await User.findOne({ email });
 
@@ -399,7 +399,7 @@ const passwordResetMail = expressAsyncHandler(async (req, res) => {
   }
 });
 
-const resendPasswordResetMail=expressAsyncHandler(async (req, res) => {
+const resendPasswordResetMail = expressAsyncHandler(async (req, res) => {
   const { email } = req.body;
 
   // Check if email is provided
@@ -541,7 +541,7 @@ const updatePassword = async (req, res) => {
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
-console.log(newPassword)
+    console.log(newPassword)
     // Check if the Authorization header is present
     if (!authHeader) {
       return res
@@ -630,7 +630,7 @@ const logout = (req, res) => {
 const registerAdmin = expressAsyncHandler(async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
-    
+
     // Check if the user already exists
     const userExist = await User.findOne({ email });
 
@@ -642,7 +642,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 
     // Create new user
     const user = await User.create({
-     
+
       firstName,
       lastName,
       userName: `${firstName} ${lastName}`, // Corrected field name
@@ -791,7 +791,7 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
         user: req.session.user, // Return session user data
         token: generatenewToken,
       });
-    
+
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -838,7 +838,7 @@ const editUser = expressAsyncHandler(async (req, res) => {
 const deleteUser = expressAsyncHandler(async (req, res) => {
   const { id } = req?.body;
   console.log(id);
-  const user = await User.deleteOne({_id: id});
+  const user = await User.deleteOne({ _id: id });
   res.status(200).json({ success: true, message: "user deleted successfully" });
 });
 

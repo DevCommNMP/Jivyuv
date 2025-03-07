@@ -3,7 +3,7 @@ const Category = require('../../modal/category/category');
 const slugify = require('slugify');
 // Controller function to get all categories
 const getAllCategories = async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   try {
     const categories = await Category.find().populate('subCategoryId');
  
