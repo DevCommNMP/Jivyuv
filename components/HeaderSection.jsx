@@ -5,14 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
+import axios from "axios";
+
+import Swal from "sweetalert2";
+import Preloader from "./Preloader";
+
 
 export default function Header({}) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchSession = async () => {
       const sessionUser = await checkSession();
       setUser(sessionUser);
@@ -21,7 +29,27 @@ export default function Header({}) {
     fetchSession();
   }, []);
  
+    async function fetchCategories() {
+      setIsLoading(true);
+    
+      try{
+      let response=await axios.get(`${SERVER_URL}/api/categories`);
+      setCategories(response.data);
+      console.log("response");
+      console.log(response.data);
 
+      }catch(error){
+        console.log("Error fetching categories", error);
+        Swal.fire({title: "Error", text: "Error fetching categories", icon: "error"});
+
+      }finally{
+        setIsLoading(false);
+      }
+
+    }
+    useEffect(() => {
+      fetchCategories();
+    },[]);
   const handleLogout = () => {
     try {
       localStorage.removeItem("token");
@@ -41,6 +69,7 @@ export default function Header({}) {
 
   return (
     <>
+    {isLoading===true ?<Preloader/>:<>
       <header className="main-header style-one">
         <div className="header-lower">
           <div className="auto-container">
@@ -74,7 +103,39 @@ export default function Header({}) {
                           Home
                         </Link>
                       </li>
-                      <li
+
+                     {categories.map((category,index) =>{
+                        return <li
+                        className={`dropdown ${
+                          activeDropdown === index+1 ? "open" : ""
+                        }`}
+                      >
+                        <Link
+                          href="#"
+                          style={{ color: "grey" }}
+                          onClick={() => toggleDropdown(index+1)}
+                        >
+                         {category.name}
+                        </Link>
+                         <ul>
+                          <li>
+                            <Link href="destination-1">Destinations 01</Link>
+                          </li>
+                          <li>
+                            <Link href="destination-2">Destinations 02</Link>
+                          </li>
+                          <li>
+                            <Link href="destination-details">
+                              Destination Details
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+
+                     } )}
+
+                      
+                      {/* <li
                         className={`dropdown ${
                           activeDropdown === 1 ? "open" : ""
                         }`}
@@ -123,7 +184,7 @@ export default function Header({}) {
                             <Link href="tour-details">Tour Details</Link>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
                       <li
                         className={`dropdown ${
                           activeDropdown === 3 ? "open" : ""
@@ -281,7 +342,7 @@ export default function Header({}) {
                           </li>
                         </ul>
                       </li>
-                      <li>
+                      {/* <li>
                         <Link href="contact" style={{ color: "grey" }}>
                           Contact
                         </Link>
@@ -291,7 +352,7 @@ export default function Header({}) {
                         <Link href="forgot-password" style={{ color: "grey" }}>
                           Forgot-Password
                         </Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </nav>
@@ -424,6 +485,8 @@ export default function Header({}) {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
+      </>
+      }
     </>
   );
 }
