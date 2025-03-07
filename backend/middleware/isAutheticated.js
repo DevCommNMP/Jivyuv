@@ -31,8 +31,8 @@ const  isAuthenticatedAdmin = async (req, res, next) => {
       const userId = decoded.id;
   
       const authenticUser = await User.findById(userId);
-      
-     if (authenticUser.role !== "admin"||"super-admin") {
+      console.log(authenticUser.role);
+    if (authenticUser.role !="admin" && authenticUser.role!="super-admin") {
         return res.status(403).json({ message: "Access denied" });
       }
       // Ensure to call next() to proceed to the next middleware or route handler
