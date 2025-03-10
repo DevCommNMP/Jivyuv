@@ -39,7 +39,7 @@ export default function Header({}) {
       console.log(response.data);
 
       }catch(error){
-      
+        console.log(error);
         Swal.fire({title: "Error", text: "Error fetching categories", icon: "error"});
 
       }finally{
@@ -83,7 +83,7 @@ export default function Header({}) {
                       src="/assets/images/logo/jivyuv-logo.png"
                       alt="image not found"
                       width="200"
-                      height="50"
+                      height="100"
                     />
                   </Link>
                 </figure>
@@ -404,7 +404,7 @@ export default function Header({}) {
                   {user ? (
                     <Link href="" onClick={handleLogout}>
                       <img
-                        src={user?.profilePicture}
+                        src={user?.profilePicture|| user.sessionData.profilePicture}
                         alt=""
                         style={{
                           borderRadius: "50%",

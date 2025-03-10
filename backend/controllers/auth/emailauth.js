@@ -740,6 +740,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 });
 
 const adminLogin = expressAsyncHandler(async (req, res) => {
+  console.log("njdfbjf")
   try {
     const { email, password } = req.body;
 
@@ -764,16 +765,23 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
 
     // Generate JWT token
     const generatenewToken = generateToken(userFound._id);
+    const loginTokenExpiryTime = new Date(Date.now() + 10 * 60 * 1000).getTime();
+ 
+const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
+  loginToken: generatenewToken, 
+  loginTokenExpiryTime: loginTokenExpiryTime,
+});
 
     // Set session user data BEFORE saving the session
     req.session.user = {
-      id: userFound._id,
-      email: userFound.email,
-      profilePhoto: userFound.profilePhoto,
-      firstName: userFound.firstName,
-      lastName: userFound.lastName,
-      token: generatenewToken,
-      role: userFound.role,
+      id: updatedUserData._id,
+      email: updatedUserData.email,
+      profilePhoto: updatedUserData.profilePicture,
+      firstName: updatedUserData.firstName,
+      lastName: updatedUserData.lastName,
+      role: updatedUserData.role,
+      token: updatedUserData.loginToken,
+      loginTokenExpiryTime:updatedUserData.loginTokenExpiryTime
     };
 
     // Save session before responding
@@ -783,7 +791,7 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
         return res.status(500).json({ message: "Session creation failed" });
       }
 
-      console.log("Session after admin login:", req.session); // Debugging
+    
 
       return res.status(200).json({
         success: true,
