@@ -6,10 +6,12 @@ const Subcategory = require("../../modal/subCategory/subCategory");
 exports.createSubcategory = async (req, res) => {
   try {
     const { name, isVisibleOnNavbar, categoryId } = req.body;
+   
     const newSubcategory = new Subcategory({ name, isVisibleOnNavbar, categoryId });
     await newSubcategory.save();
     await Category.findByIdAndUpdate(categoryId, { $push: { subCategoryId: newSubcategory._id } });
-    res.status(201).json(newSubcategory);
+    console.log(newSubcategory);  
+    res.status(200).json({newSubcategory,message:"Subcategory created successfully"});
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

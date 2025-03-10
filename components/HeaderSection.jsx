@@ -35,11 +35,11 @@ export default function Header({}) {
       try{
       let response=await axios.get(`${SERVER_URL}/api/categories`);
       setCategories(response.data);
-      console.log("response");
+      
       console.log(response.data);
 
       }catch(error){
-        console.log("Error fetching categories", error);
+      
         Swal.fire({title: "Error", text: "Error fetching categories", icon: "error"});
 
       }finally{
@@ -70,6 +70,8 @@ export default function Header({}) {
   return (
     <>
     {isLoading===true ?<Preloader/>:<>
+      {categories.length!==0 &&
+      <>
       <header className="main-header style-one">
         <div className="header-lower">
           <div className="auto-container">
@@ -105,7 +107,8 @@ export default function Header({}) {
                       </li>
 
                      {categories.map((category,index) =>{
-                        return <li
+                         
+                        return category.isVisibleOnNavbar==true &&<li
                         className={`dropdown ${
                           activeDropdown === index+1 ? "open" : ""
                         }`}
@@ -116,21 +119,26 @@ export default function Header({}) {
                           onClick={() => toggleDropdown(index+1)}
                         >
                          {category.name}
-                        </Link>
-                         <ul>
-                          <li>
-                            <Link href="destination-1">Destinations 01</Link>
-                          </li>
-                          <li>
-                            <Link href="destination-2">Destinations 02</Link>
-                          </li>
-                          <li>
-                            <Link href="destination-details">
-                              Destination Details
-                            </Link>
-                          </li>
-                        </ul>
+                     </Link>
+                       
+                          {category.subCategoryId.length>0 && category.subCategoryId.map((subCategory,index) =>{
+                            
+                            return <ul><li><Link href="destination-1">{subCategory.name}</Link></li> </ul>
+                          // <li>
+                          //   <Link href="destination-2">Destinations 02</Link>
+                          // </li>
+                          // <li>
+                          //   <Link href="destination-details">
+                          //     Destination Details
+                          //   </Link>
+                          // </li>
+
+                          })
+                          
+                        }
+                       
                       </li>
+
 
                      } )}
 
@@ -485,6 +493,8 @@ export default function Header({}) {
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
       />
+      </>
+          }
       </>
       }
     </>
