@@ -1,3 +1,4 @@
+import { SquareX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,27 +7,28 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu }) => {
     <>
       {/* Mobile Menu */}
       <div
-        className={`mobile-menu ${
-          isMobileMenuOpen ? "mobile-menu-visible open" : ""
-        }`}
+        className={`mobile-menu ${isMobileMenuOpen ? "mobile-menu-visible open" : ""
+          }`}
       >
         <div className="menu-backdrop" onClick={toggleMobileMenu}></div>
         <div className="menu-content">
-          <button className="close-btn" onClick={toggleMobileMenu}>
-            <i className="fas fa-times"></i>
+          <button className="close-btn " onClick={toggleMobileMenu}>
+            {/* <i className="fas fa-times"></i> */}
+            <SquareX />
           </button>
 
           <nav className="menu-box">
-            <div className="nav-logo">
+            <div className="nav-logo flex justify-center">
               <Link href="/">
                 <Image
-                  src="/assets/images/logo-2.png"
+                  src="/assets/images/message-logo/jivyuv-logo.webp"
                   alt="Logo"
                   width={100}
                   height={30}
                 />
               </Link>
             </div>
+            {/* hr */}
 
             <div className="menu-outer">
               <ul>
