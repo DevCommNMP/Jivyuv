@@ -3,34 +3,34 @@ export default function Preloader() {
     <>
       <div className="loader-wrap">
         <div className="preloader">
-          <div className="preloader-close">Preloader Close</div>
+          
           <div id="handle-preloader" className="handle-preloader">
             <div className="animation-preloader">
               <div className="spinner"></div>
               <div className="txt-loading">
-                <span data-text-preloader="t" className="letters-loading">
+                <span data-text-preloader="J" className="letters-loading">
                   {" "}
-                  t{" "}
+                  J{" "}
                 </span>
-                <span data-text-preloader="r" className="letters-loading">
+                <span data-text-preloader="I" className="letters-loading">
                   {" "}
-                  r{" "}
+                  I{" "}
                 </span>
-                <span data-text-preloader="a" className="letters-loading">
+                <span data-text-preloader="V" className="letters-loading">
                   {" "}
-                  a{" "}
+                  V{" "}
                 </span>
-                <span data-text-preloader="v" className="letters-loading">
+                <span data-text-preloader="Y" className="letters-loading">
                   {" "}
-                  v{" "}
+                  Y{" "}
                 </span>
-                <span data-text-preloader="i" className="letters-loading">
+                <span data-text-preloader="U" className="letters-loading">
                   {" "}
-                  i{" "}
+                  U{" "}
                 </span>
-                <span data-text-preloader="o" className="letters-loading">
+                <span data-text-preloader="G" className="letters-loading">
                   {" "}
-                  o{" "}
+                  G{" "}
                 </span>
               </div>
             </div>
