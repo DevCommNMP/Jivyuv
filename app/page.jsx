@@ -9,7 +9,7 @@ import PlaceSection from "@/components/PlaceSection";
 import TourSection from "@/components/TourSection";
 import VideoSection from "@/components/VideoSection";
 import Head from "next/head";
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
 
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";
@@ -42,12 +42,7 @@ export default function Home() {
       <FunfactSection />
       <VideoSection />
       <NewsSection />
-      <Router>
-        <Routes>
-          <Route path="/reset-password-message" element={<ResetPasswordMessage />} />
-          <Route path="/forgot-password" element={<ResetPassword />} />
-        </Routes>
-      </Router>
+
     </>
   );
 }
