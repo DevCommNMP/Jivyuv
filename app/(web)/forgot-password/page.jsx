@@ -1,4 +1,3 @@
-
 "use client";
 import Preloader from "@/components/Preloader";
 import axios from "axios";
@@ -6,13 +5,11 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const ResetPassword = ({ params }) => {
-    const {id}=params;
-    console.log("hii kundna");
-    console.log("id",id);
+    const { id } = params;
     const [email, setEmail] = useState("");
     const [mounted, setMounted] = useState(false);
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-    const [isLoading,setIsloading]=useState(false);
+    const [isLoading, setIsloading] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -31,124 +28,110 @@ const ResetPassword = ({ params }) => {
 
         try {
             setIsloading(true);
-            const response = await axios.post(`${SERVER_URL}/api/auth/password-reset`, {email:email
-               
-                
+            const response = await axios.post(`${SERVER_URL}/api/auth/password-reset`, {
+                email: email
             });
-                 setEmail("");
-               
-               Swal.fire({title:response.data.message || "Password reset link sent to your email!",icon:"success"});
-            
+            setEmail("");
 
-               
-
-
-    
-              
-               
-               
-            }catch (error) {
-           
-            Swal.fire({title:error?.response?.data?.message || error.message || "Something went wrong. Please try again.",icon:"error"});
-            
-        }finally{
+            Swal.fire({ title: response.data.message || "Password reset link sent to your email!", icon: "success" });
+            window.location.href = `/reset-password-message?email=${encodeURIComponent(email)}`;
+        } catch (error) {
+            Swal.fire({ title: error?.response?.data?.message || error.message || "Something went wrong. Please try again.", icon: "error" });
+        } finally {
             setIsloading(false);
-
         }
     };
 
-
     return (
         <>
-       
-        {isLoading==true?<Preloader/>:
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                marginTop: "100px",
-                background: "linear-gradient(grey)",
-            }}
-        >
-            <div
-                style={{
-                    backgroundColor: "white",
-                    padding: "30px",
-                    borderRadius: "10px",
-                    boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-                    textAlign: "center",
-                    width: "500px",
-                    border: "3px solid #ff7c5b",
-                }}
-            >
-                <h1 style={{ color: "#333", fontSize: "30px", marginBottom: "10px" }}>
-                    Forgot Your Password?
-                </h1>
-                <p
+            {isLoading == true ? <Preloader /> :
+                <div
                     style={{
-                        color: "#666",
-                        fontSize: "14px",
-                        marginBottom: "20px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100vh",
+                        marginTop: "-150px",
+                        background: "linear-gradient(grey)",
                     }}
                 >
-                    Not to worry, we got you! Let’s get you a new password. Please enter
-                    your email address.
-                </p>
+                    <div
+                        style={{
+                            backgroundColor: "white",
+                            padding: "30px",
+                            borderRadius: "10px",
+                            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                            textAlign: "center",
+                            width: "500px",
+                            border: "3px solid #ff7c5b",
+                        }}
+                    >
+                        <h1 style={{ color: "#333", fontSize: "30px", marginBottom: "10px" }}>
+                            Forgot Your Password?
+                        </h1>
+                        <p
+                            style={{
+                                color: "#666",
+                                fontSize: "14px",
+                                marginBottom: "20px",
+                            }}
+                        >
+                            Not to worry, we got you! Let’s get you a new password. Please enter
+                            your email address.
+                        </p>
 
-                <label
-                    htmlFor="email"
-                    style={{
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                        display: "block",
-                        marginBottom: "5px",
-                    }}
-                >
-                    Email
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    style={{
-                        width: "100%",
-                        padding: "10px",
-                        marginBottom: "15px",
-                        border: "2px solid #ff7c5b",
-                        borderRadius: "5px",
-                        outline: "none",
-                        fontSize: "14px",
-                    }}
-                />
+                        <label
+                            htmlFor="email"
+                            style={{
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                display: "block",
+                                marginBottom: "5px",
+                            }}
+                        >
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            style={{
+                                width: "100%",
+                                padding: "10px",
+                                marginBottom: "15px",
+                                border: "2px solid #ff7c5b",
+                                borderRadius: "5px",
+                                outline: "none",
+                                fontSize: "14px",
+                            }}
+                        />
 
-                <button
-                    onClick={handleReset}
-                    style={{
-                        backgroundColor: "#ff7c5b",
-                        color: "white",
-                        border: "none",
-                        padding: "10px 20px",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                        fontSize: "16px",
-                        transition: "0.3s",
-                        width: "100%",
-                    }}
-                    onMouseOver={(e) => (e.target.style.backgroundColor = "#b30000")}
-                    onMouseOut={(e) => (e.target.style.backgroundColor = "#ff7c5b")}
-                    disabled={isLoading}
-                >
-                    Reset Password
-                </button>
-            </div>
-        </div>
-     }
+                        <button
+                            onClick={handleReset}
+                            style={{
+                                backgroundColor: "#ff7c5b",
+                                color: "white",
+                                border: "none",
+                                padding: "10px 20px",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                fontSize: "16px",
+                                transition: "0.3s",
+                                width: "100%",
+                            }}
+                            onMouseOver={(e) => (e.target.style.backgroundColor = "#b30000")}
+                            onMouseOut={(e) => (e.target.style.backgroundColor = "#ff7c5b")}
+                            disabled={isLoading}
+                        >
+                            Reset Password
+                        </button>
+
+                    </div>
+                </div>
+            }
         </>
-    
     );
 };
 

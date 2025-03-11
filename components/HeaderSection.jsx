@@ -364,6 +364,8 @@ export default function Header({ }) {
                         </div>
                       </nav>
                     </div>
+
+
                     <ul className="menu-right-content clearfix">
                       <li className="search-box-outer">
                         <div className="dropdown">
