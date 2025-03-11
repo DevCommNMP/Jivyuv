@@ -23,12 +23,14 @@ export default function Header({}) {
   useEffect(() => { 
     const fetchSession = async () => {
       const sessionUser = await checkSession();
+      console.log("Session User:", sessionUser);
       setUser(sessionUser);
     };
 
     fetchSession();
   }, []);
  
+  console.log(user)
     async function fetchCategories() {
       setIsLoading(true);
     
@@ -404,7 +406,7 @@ export default function Header({}) {
                   {user ? (
                     <Link href="" onClick={handleLogout}>
                       <img
-                        src={user?.profilePicture|| user.sessionData.profilePicture}
+                        src={user?.profilePicture}
                         alt=""
                         style={{
                           borderRadius: "50%",
