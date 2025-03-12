@@ -1,5 +1,8 @@
+"use client"
+import { SquareX } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from 'react';
 
 import {
   Facebook,
@@ -10,8 +13,14 @@ import {
   PhoneCall,
   Twitter,
 } from "lucide-react";
+import './Ctaform.css';
 
 export default function Footer() {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
   return (
     <>
       {" "}
@@ -208,6 +217,39 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'fixed', bottom: '55px', right: '35px', width: '7%', height: '4%', zIndex: '1000' }}>
+          <button className='pop-icon' onClick={togglePopup}>Open CTA Form</button>
+          {showPopup && (
+            <div className="popup">
+              <div className="popup-content">
+                <div className="popup-left">
+                  <img src="/assets/img/cta/imag.avif" alt="Description" />
+                </div>
+                <div className="popup-right">
+                  <form>
+                    <h2>Call To Action</h2>
+                    <label>
+                      Name:
+                      <input type="text" name="name" />
+                    </label>
+                    <label>
+                      Email:
+                      <input type="email" name="email" />
+                    </label>
+                    <label>
+                      Message:
+                      <textarea name="message"></textarea>
+                    </label>
+                    <button type="submit">Submit</button>
+                  </form>
+                </div>
+              </div>
+              <button className="close-popup" onClick={togglePopup}><SquareX /></button>
+            </div>
+          )}
+        </div>
+
         <div className="footer-bottom">
           <div className="auto-container">
             <div className="bottom-inner clearfix">
