@@ -76,7 +76,9 @@ export default function Header({}) {
       <>
       <header className="main-header style-one">
         <div className="header-lower">
-          <div className="auto-container">
+          <div className="container-fluid" style={{
+    padding: '0px 30px'
+}}>
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">

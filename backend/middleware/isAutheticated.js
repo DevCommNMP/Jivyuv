@@ -8,7 +8,7 @@ const  isAuthenticatedAdmin = async (req, res, next) => {
   try {
       // Extract the Authorization header
       const authHeader = req.headers.authorization;
-      console.log(authHeader);
+     
       if (!authHeader) {
         return res.status(401).json({
           success: "false",
