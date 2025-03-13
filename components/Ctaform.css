@@ -94,4 +94,27 @@
   .pop-icon {
     z-index: 1000;
   }
+
+  .btn-social {
+    background-color: #007bff;
+    background-color: transparent;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+  }
+
+
+  .btn-social .whatsapp-icon,
   
+  .btn-social .phone-icon,
+  
+  .btn-social .pop-icon {
+    background-color: transparent;
+    width: 48px;
+    margin: 10px 5px ;
+
+
+  }
