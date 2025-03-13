@@ -30,6 +30,10 @@
 
 @media only screen and (max-width: 1200px){
 
+  .menu-right-content.clearfix {
+    display: none;
+  }
+
   .main-menu,
   .sticky-header,
   .main-header.style-one .outer-container:before{
@@ -908,18 +912,18 @@
 
 @media only screen and (max-width: 399px){
 
-  .main-header .outer-box{
+  /* .main-header .outer-box{
     display: block;
-  }
+  } */
 
-  .main-header .logo-box{
+  /* .main-header .logo-box{
     display: block;
     text-align: center;
-  }
+  } */
 
-  .main-header .logo-box .logo{
+  /* .main-header .logo-box .logo{
     margin: 0 auto;
-  }
+  } */
 
   .menu-right-content{
     position: absolute;

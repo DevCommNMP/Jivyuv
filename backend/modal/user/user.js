@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema(
     passwordResetToken: { type: String }, // Password Reset Token (Optional)
     passwordResetTokenExpiry: { type: Date }, // Password Reset Token Expiry (Optional)
     loginToken: { type: String }, // Login Token (Optional)
-    loginTokenExpiryToken: { type: Date },
+    loginTokenExpiryTime: { type: String },
     // Tour-related Fields
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }], // Reference to bookings
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Tour" }], // Saved tours

@@ -23,12 +23,14 @@ export default function Header({}) {
   useEffect(() => { 
     const fetchSession = async () => {
       const sessionUser = await checkSession();
+      console.log("Session User:", sessionUser);
       setUser(sessionUser);
     };
 
     fetchSession();
   }, []);
  
+  console.log(user)
     async function fetchCategories() {
       setIsLoading(true);
     
@@ -39,7 +41,7 @@ export default function Header({}) {
       console.log(response.data);
 
       }catch(error){
-      
+        console.log(error);
         Swal.fire({title: "Error", text: "Error fetching categories", icon: "error"});
 
       }finally{
@@ -74,7 +76,9 @@ export default function Header({}) {
       <>
       <header className="main-header style-one">
         <div className="header-lower">
-          <div className="auto-container">
+          <div className="container-fluid" style={{
+    padding: '0px 30px'
+}}>
             <div className="outer-box">
               <div className="logo-box">
                 <figure className="logo">
@@ -83,7 +87,7 @@ export default function Header({}) {
                       src="/assets/images/logo/jivyuv-logo.png"
                       alt="image not found"
                       width="200"
-                      height="50"
+                      height="100"
                     />
                   </Link>
                 </figure>

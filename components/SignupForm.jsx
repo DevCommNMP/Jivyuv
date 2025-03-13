@@ -24,6 +24,10 @@ export default function SignupForm() {
     });
   };
 
+  const handleGoogleSignup = () => {
+ 
+    window.location.href = `${SERVER_URL}/api/auth/google`;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -102,9 +106,9 @@ export default function SignupForm() {
                     </i>
                   </Link>
                 </li> */}
-                <li>
-                  <Link href="signup">
-                    <span>Sign In with Google</span>
+                <li onClick={handleGoogleSignup}>
+                  <Link href="">
+                    <span>Sign Up with Google</span>
 
                     <i>
                       <svg
