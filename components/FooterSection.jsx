@@ -228,7 +228,7 @@ export default function Footer() {
                 </div>
                 <div className="popup-right">
                   <form>
-                    <h2>Call To Action</h2>
+                    <h2  style={{fontWeight:"800"}}>Please fill the equired Feilds We will get back to you shortly.</h2>
                     <label>
                       Name:
                       <input type="text" name="name" />
