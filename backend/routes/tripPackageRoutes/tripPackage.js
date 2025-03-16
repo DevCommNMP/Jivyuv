@@ -11,18 +11,18 @@ const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require('../../middl
   
 
 // Route to get all packages
-router.get('/trip-package/', PackageController.getAllPackages);
+router.get('/trip-packages/', PackageController.getAllPackages);
 
 // Route to get a package by ID
-router.get('/trip-package/:id', PackageController.getPackageById);
+router.get('/trip-packages/:id', PackageController.getPackageById);
  
 // Route to create a new package
-router.post('/trip-package/',isAuthenticatedAdmin,uploadFields,appendFilePathToFiles, PackageController.createPackage);
+router.post('/trip-packages',isAuthenticatedAdmin,uploadFields,appendFilePathToFiles, PackageController.createPackage);
 
 // Route to update a package by ID
-router.put('/trip-package/:id',isAuthenticatedAdmin, PackageController.updatePackage);
+router.put('/trip-packages/:id',isAuthenticatedAdmin,uploadFields,appendFilePathToFiles, PackageController.updatePackage);
 
 // Route to delete a package by ID
-router.delete('/trip-package/:id',isAuthenticatedSuperAdmin, PackageController.deletePackage);
+router.delete('/trip-packages/:id',isAuthenticatedSuperAdmin, PackageController.deletePackage);
 
 module.exports = router;

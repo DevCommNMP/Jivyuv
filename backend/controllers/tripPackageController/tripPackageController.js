@@ -99,7 +99,64 @@ exports.getPackageById = async (req, res) => {
 // Update a specific Ladakh Bike Expedition package by ID
 exports.updatePackage = async (req, res) => {
   try {
-    const updatedPackage = await Package.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const {
+      title,
+      pickupLocation,
+      dropLocation,
+      numberOfDays,
+      numberOfNights,
+      overview,
+      packagePrice,
+      packagePromotional,
+      isVisaFree,
+      country,
+      categoryId,
+      subCategoryId,
+      tripTagName,
+      startingDate,
+      isPickupAndDropAvailable,
+      activityData,
+    } = req.body;
+
+    // Extract image paths from req.files
+    const packageImage = req.files?.packageImage?.[0]?.path || null;
+    const packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
+
+    // Parse activityData if it's sent as a JSON string
+    let parsedActivityData = [];
+    if (typeof activityData === 'string') {
+      try {
+        parsedActivityData = JSON.parse(activityData);
+      } catch (err) {
+        return res.status(400).json({ message: 'Invalid activityData format' });
+      }
+    } else if (Array.isArray(activityData)) {
+      parsedActivityData = activityData;
+    }
+
+    // Prepare the updated package data
+    const updatedData = {
+      ...(title && { title }),
+      ...(pickupLocation && { pickupLocation }),
+      ...(dropLocation && { dropLocation }),
+      ...(numberOfDays && { numberOfDays }),
+      ...(numberOfNights && { numberOfNights }),
+      ...(overview && { overview }),
+      ...(packagePrice && { packagePrice }),
+      ...(packagePromotional && { packagePromotional }),
+      ...(isVisaFree !== undefined && { isVisaFree: isVisaFree === 'true' }),
+      ...(country && { country }),
+      ...(categoryId && { categoryId }),
+      ...(subCategoryId && { subCategoryId }),
+      ...(tripTagName && { tripTagName }),
+      ...(startingDate && { startingDate: new Date(startingDate.trim()) }),
+      ...(isPickupAndDropAvailable !== undefined && { isPickupAndDropAvailable: isPickupAndDropAvailable === 'true' }),
+      ...(parsedActivityData.length > 0 && { activityData: parsedActivityData }),
+      ...(packageImage && { packageImage }),
+      ...(packageSubImages.length > 0 && { packageSubImages }),
+    };
+
+    const updatedPackage = await Package.findByIdAndUpdate(req.params.id, updatedData, { new: true });
     if (!updatedPackage) {
       return res.status(404).json({ message: 'Package not found' });
     }
