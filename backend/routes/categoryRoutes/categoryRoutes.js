@@ -21,7 +21,7 @@ router.get('/categories/:Id', getCategoryById);
 router.post('/categories', isAuthenticatedAdmin, uploadCategoryImage.single('image'),isAuthenticatedAdmin,createCategory); // Ensure the field name matches
 
 // Route to update a category by ID (with optional image update)
-router.put('/categories/:Id', uploadCategoryImage.single('image'),isAuthenticatedAdmin, updateCategory); // Ensure the field name matches
+router.put('/categories/:Id',isAuthenticatedAdmin, uploadCategoryImage.single('image'),isAuthenticatedAdmin, updateCategory); // Ensure the field name matches
 
 // Route to delete a category by ID
 router.delete('/categories/:Id',isAuthenticatedSuperAdmin, deleteCategory);

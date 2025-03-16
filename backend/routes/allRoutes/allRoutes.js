@@ -9,6 +9,7 @@ const subCategory = require("../subCategoryRoutes/subCategoryRoutes");
 const companyProfileRoutes = require("../companyProfileRoutes/companyProfileRoutes");
 const bannerRoutes = require("../bannerRoutes/bannerRoutes");
 const queryRoutes=require("../queryRoutes/queryRoutes");
+const tripPackageRoutes=require("../tripPackageRoutes/tripPackage")
 // Use Routes
 router.use("/api/auth", googleAuthRoutes); // All Google Auth routes under "/api/auth"
 router.use("/api", emailAuthRoutes); // All Google Auth routes under "/api/auth"
@@ -18,4 +19,5 @@ router.use("/api",subCategory)
 router.use("/api",companyProfileRoutes)
 router.use("/api",bannerRoutes)
 router.use("/api",queryRoutes)
+router.use("/api",tripPackageRoutes)
 module.exports = router;
