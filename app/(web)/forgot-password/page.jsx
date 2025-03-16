@@ -7,8 +7,7 @@ import Swal from "sweetalert2";
 
 const ResetPassword = ({ params }) => {
     const {id}=params;
-    console.log("hii kundna");
-    console.log("id",id);
+    
     const [email, setEmail] = useState("");
     const [mounted, setMounted] = useState(false);
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
