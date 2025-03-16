@@ -7,7 +7,9 @@ const {
     uploadFields,
     appendFilePathToFiles,
   } = require('../../config/multerConfig/packageImagesMulterConfig');
+const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require('@/backend/middleware/isAutheticated');
   
+
 // Route to get all packages
 router.get('/trip-package/', PackageController.getAllPackages);
 
@@ -15,12 +17,12 @@ router.get('/trip-package/', PackageController.getAllPackages);
 router.get('/trip-package/:id', PackageController.getPackageById);
  
 // Route to create a new package
-router.post('/trip-package/',uploadFields,appendFilePathToFiles, PackageController.createPackage);
+router.post('/trip-package/',isAuthenticatedAdmin,uploadFields,appendFilePathToFiles, PackageController.createPackage);
 
 // Route to update a package by ID
-router.put('/trip-package/:id', PackageController.updatePackage);
+router.put('/trip-package/:id',isAuthenticatedAdmin, PackageController.updatePackage);
 
 // Route to delete a package by ID
-router.delete('/trip-package/:id', PackageController.deletePackage);
+router.delete('/trip-package/:id',isAuthenticatedSuperAdmin, PackageController.deletePackage);
 
 module.exports = router;
