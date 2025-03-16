@@ -7,7 +7,7 @@ const {
     uploadFields,
     appendFilePathToFiles,
   } = require('../../config/multerConfig/packageImagesMulterConfig');
-const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require('@/backend/middleware/isAutheticated');
+const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require('../../middleware/isAutheticated');
   
 
 // Route to get all packages
