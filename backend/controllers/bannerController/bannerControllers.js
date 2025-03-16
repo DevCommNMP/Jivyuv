@@ -80,7 +80,6 @@ const editBannerById = async (req, res) => {
     if (title) banner.title = title;
     if (description) banner.description = description;
     if(bannerType) banner.bannerType = bannerType;
-
     if (bannerImg) {
       const tempBannerPath = `temp_${bannerImg.path}`;
       ensureDirectoryExistence(tempBannerPath);
@@ -88,7 +87,7 @@ const editBannerById = async (req, res) => {
         .resize(1200, 400) // Resize to 1200x400
         .toFile(tempBannerPath); // Save to temporary file
       fs.renameSync(tempBannerPath, bannerImg.path); // Move back to original path
-      banner.bannerImg = bannerImg.path.replace('uploads/', '');
+      banner.bannerImg = bannerImg.path;
     }
 
     const updatedBanner = await banner.save();
