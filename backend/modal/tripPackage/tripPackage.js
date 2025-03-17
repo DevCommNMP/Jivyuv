@@ -18,7 +18,7 @@ const packageSchema = new Schema({
   categoryId: { type: String, required: true },
   subCategoryId: { type: String, required: true },
   tripTagName: { type: String, required: true },
-  startingDate: { type: Date },
+  startingDate: { type: String, },
   isPickupAndDropAvailable: { type: Boolean, required: true },
   packageImage: { type: Object},
   packageSubImages: [{ type: String}],
