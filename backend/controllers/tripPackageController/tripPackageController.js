@@ -14,7 +14,7 @@ const resizeImage = async (filePath, width, height) => {
   fs.unlinkSync(filePath); // Remove the original file
   return resizedPath;
 };
-
+  
 // Create a new Ladakh Bike Expedition package
 exports.createPackage = async (req, res) => {
   try {
@@ -157,18 +157,14 @@ exports.updatePackage = async (req, res) => {
       }
     }
 
-    // Extract and resize image paths from req.files
+    // Extract image paths from req.files
     let packageImage = req.files?.packageImage?.[0]?.path || null;
     let packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
 
+    // Resize images if provided
     if (packageImage) {
       packageImage = await resizeImage(packageImage, 400, 400);
     }
-    // if (packageSubImages.length > 0) {
-    //   packageSubImages = await Promise.all(
-    //     packageSubImages.map(async filePath => await resizeImage(filePath, 400, 400))
-    //   );
-    // }
 
     // Parse activityData if it's sent as a JSON string
     let parsedActivityData = [];
@@ -201,8 +197,8 @@ exports.updatePackage = async (req, res) => {
       ...(startingDate && { startingDate: new Date(startingDate.trim()) }),
       ...(isPickupAndDropAvailable !== undefined && { isPickupAndDropAvailable: isPickupAndDropAvailable === 'true' }),
       ...(parsedActivityData.length > 0 && { activityData: parsedActivityData }),
-      ...(packageImage && { packageImage }),
-      ...(packageSubImages.length > 0 && { packageSubImages }),
+      ...(packageImage && { packageImage }), // Only update if a new image is provided
+      ...(packageSubImages.length > 0 && { packageSubImages }), // Only update if new sub-images are provided
     };
 
     const updatedPackage = await Package.findByIdAndUpdate(req.params.id, updatedData, { new: true });

@@ -10,7 +10,7 @@ const NewsSection = () => {
                 <div className="auto-container">
                     <div className="content-box">
                         <h1>Elements</h1>
-                        <p>News Block 01</p>
+                        <p>News Block 02</p>
                     </div>
                 </div>
             </section>
@@ -29,7 +29,7 @@ const NewsSection = () => {
                             >
                                 <div className="inner-box">
                                     <figure className="image-box">
-                                        <a href="blog-details.html">
+                                        <a href="blog-details">
                                             <img src="assets/images/news/news-1.jpg" alt="" />
                                         </a>
                                         <span className="post-date">
@@ -38,10 +38,10 @@ const NewsSection = () => {
                                     </figure>
                                     <div className="lower-content">
                                         <div className="category">
-                                            <a href="blog-details.html">Lifestyle</a>
+                                            <a href="blog-details">Lifestyle</a>
                                         </div>
                                         <h3>
-                                            <a href="blog-details.html">Including animation in your design system</a>
+                                            <a href="blog-details">Including animation in your design system</a>
                                         </h3>
                                         <ul className="post-info clearfix">
                                             <li>
@@ -54,7 +54,7 @@ const NewsSection = () => {
                                             magna aliqua enim.
                                         </p>
                                         <div className="btn-box">
-                                            <a href="blog-details.html" className="theme-btn-two">
+                                            <a href="blog-details" className="theme-btn-two">
                                                 See Details
                                             </a>
                                         </div>
@@ -72,7 +72,7 @@ const NewsSection = () => {
                             >
                                 <div className="inner-box">
                                     <figure className="image-box">
-                                        <a href="blog-details.html">
+                                        <a href="blog-details">
                                             <img src="assets/images/news/news-2.jpg" alt="" />
                                         </a>
                                         <span className="post-date">
@@ -81,10 +81,10 @@ const NewsSection = () => {
                                     </figure>
                                     <div className="lower-content">
                                         <div className="category">
-                                            <a href="blog-details.html">Lifestyle</a>
+                                            <a href="blog-details">Lifestyle</a>
                                         </div>
                                         <h3>
-                                            <a href="blog-details.html">Including animation in your design system</a>
+                                            <a href="blog-details">Including animation in your design system</a>
                                         </h3>
                                         <ul className="post-info clearfix">
                                             <li>
@@ -97,7 +97,7 @@ const NewsSection = () => {
                                             magna aliqua enim.
                                         </p>
                                         <div className="btn-box">
-                                            <a href="blog-details.html" className="theme-btn-two">
+                                            <a href="blog-details" className="theme-btn-two">
                                                 See Details
                                             </a>
                                         </div>
@@ -115,7 +115,7 @@ const NewsSection = () => {
                             >
                                 <div className="inner-box">
                                     <figure className="image-box">
-                                        <a href="blog-details.html">
+                                        <a href="blog-details">
                                             <img src="assets/images/news/news-3.jpg" alt="" />
                                         </a>
                                         <span className="post-date">
@@ -124,10 +124,10 @@ const NewsSection = () => {
                                     </figure>
                                     <div className="lower-content">
                                         <div className="category">
-                                            <a href="blog-details.html">Lifestyle</a>
+                                            <a href="blog-details">Lifestyle</a>
                                         </div>
                                         <h3>
-                                            <a href="blog-details.html">Including animation in your design system</a>
+                                            <a href="blog-details">Including animation in your design system</a>
                                         </h3>
                                         <ul className="post-info clearfix">
                                             <li>
@@ -140,7 +140,7 @@ const NewsSection = () => {
                                             magna aliqua enim.
                                         </p>
                                         <div className="btn-box">
-                                            <a href="blog-details.html" className="theme-btn-two">
+                                            <a href="blog-details" className="theme-btn-two">
                                                 See Details
                                             </a>
                                         </div>
