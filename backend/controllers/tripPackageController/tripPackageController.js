@@ -1,6 +1,19 @@
 // controllers/PackageController.js
 
 const Package = require('../../modal/tripPackage/tripPackage');
+const slugify = require('slugify');
+const sharp = require('sharp');
+const fs = require('fs');
+
+// Helper function to resize images
+const resizeImage = async (filePath, width, height) => {
+  const resizedPath = filePath.replace(/(\.\w+)$/, '_resized$1');
+  await sharp(filePath)
+    .resize(width, height)
+    .toFile(resizedPath);
+  fs.unlinkSync(filePath); // Remove the original file
+  return resizedPath;
+};
 
 // Create a new Ladakh Bike Expedition package
 exports.createPackage = async (req, res) => {
@@ -26,16 +39,27 @@ exports.createPackage = async (req, res) => {
       activityData,
     } = req.body;
 
+    // Generate titleSlug
+    const titleSlug = slugify(title, { lower: true, strict: true });
 
-    console.log(activityData)
-    // Extract image paths from req.files
-    const packageImage = req.files?.packageImage?.[0]?.path || null;
-    const packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
-
-    // Validate required fields
-    if (!title || !numberOfDays || !numberOfNights || !packagePrice || !country) {
-      return res.status(400).json({ message: 'Missing required fields' });
+    // Check if slug already exists
+    const existingPackage = await Package.findOne({ titleSlug });
+    if (existingPackage) {
+      return res.status(400).json({ message: 'A package with this title already exists' });
     }
+
+    // Extract and resize image paths from req.files
+    let packageImage = req.files?.packageImage?.[0]?.path || null;
+    let packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
+
+    if (packageImage) {
+      packageImage = await resizeImage(packageImage, 400, 400);
+    }
+    // if (packageSubImages.length > 0) {
+    //   packageSubImages = await Promise.all(
+    //     packageSubImages.map(async filePath => await resizeImage(filePath, 400, 400))
+    //   );
+    // }
 
     // Parse activityData if it's sent as a JSON string
     let parsedActivityData = [];
@@ -51,6 +75,7 @@ exports.createPackage = async (req, res) => {
 
     const newPackage = new Package({
       title,
+      titleSlug,
       pickupLocation,
       dropLocation,
       numberOfDays,
@@ -65,7 +90,7 @@ exports.createPackage = async (req, res) => {
       tripTagName,
       startingDate: new Date(startingDate.trim()),
       isPickupAndDropAvailable: isPickupAndDropAvailable === 'true',
-      activityData: parsedActivityData, // Save parsed activityData
+      activityData: parsedActivityData,
       packageImage,
       packageSubImages,
     });
@@ -123,9 +148,30 @@ exports.updatePackage = async (req, res) => {
       activityData,
     } = req.body;
 
-    // Extract image paths from req.files
-    const packageImage = req.files?.packageImage?.[0]?.path || null;
-    const packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
+    // Generate titleSlug if title is updated
+    let titleSlug;
+    if (title) {
+      titleSlug = slugify(title, { lower: true, strict: true });
+
+      // Check if slug already exists for another package
+      const existingPackage = await Package.findOne({ titleSlug, _id: { $ne: req.params.id } });
+      if (existingPackage) {
+        return res.status(400).json({ message: 'A package with this title already exists' });
+      }
+    }
+
+    // Extract and resize image paths from req.files
+    let packageImage = req.files?.packageImage?.[0]?.path || null;
+    let packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
+
+    if (packageImage) {
+      packageImage = await resizeImage(packageImage, 400, 400);
+    }
+    // if (packageSubImages.length > 0) {
+    //   packageSubImages = await Promise.all(
+    //     packageSubImages.map(async filePath => await resizeImage(filePath, 400, 400))
+    //   );
+    // }
 
     // Parse activityData if it's sent as a JSON string
     let parsedActivityData = [];
@@ -142,6 +188,7 @@ exports.updatePackage = async (req, res) => {
     // Prepare the updated package data
     const updatedData = {
       ...(title && { title }),
+      ...(titleSlug && { titleSlug }),
       ...(pickupLocation && { pickupLocation }),
       ...(dropLocation && { dropLocation }),
       ...(numberOfDays && { numberOfDays }),
