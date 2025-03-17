@@ -35,7 +35,9 @@ app.use(express.urlencoded({ extended: true })); // Ensure this line is present
 
 // Serve static files from the "uploads" directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/banners', express.static(path.join(__dirname, 'uploads', 'banners')));
+app.use('/categories', express.static(path.join(__dirname, 'uploads', 'categories')));
+app.use('/packagesImages', express.static(path.join(__dirname, 'uploads', 'packagesImages')));
 dbConnect();
 // Session Setup
 app.use(
