@@ -29,8 +29,7 @@ export default function Header({}) {
 
     fetchSession();
   }, []);
- 
-  console.log(user)
+
     async function fetchCategories() {
       setIsLoading(true);
     
@@ -38,7 +37,7 @@ export default function Header({}) {
       let response=await axios.get(`${SERVER_URL}/api/categories`);
       setCategories(response.data);
       
-      console.log(response.data);
+  
 
       }catch(error){
         console.log(error);
@@ -496,7 +495,7 @@ export default function Header({}) {
       <MobileMenu
         isMobileMenuOpen={isMobileMenuOpen}
         toggleMobileMenu={toggleMobileMenu}
-      />
+        categories={categories} />
       </>
           }
       </>
