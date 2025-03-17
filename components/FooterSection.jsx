@@ -1,8 +1,10 @@
-"use client"
-import { SquareX } from 'lucide-react';
+"use client";
+import { SquareX, MessageSquareMore } from "lucide-react"; // Import the message icon
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from 'react';
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 import {
   Facebook,
@@ -13,17 +15,49 @@ import {
   PhoneCall,
   Twitter,
 } from "lucide-react";
-import './Ctaform.css';
+import "./Ctaform.css";
 
-export default function Footer() {
+export default function Footer({ companyData }) {
   const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      await axios.post(`${SERVER_URL}/api/queries`, formData);
+      Swal.fire({
+        title: "Success",
+        text: "Your query has been submitted successfully!",
+        icon: "success",
+      });
+      setShowPopup(false); // Hide the popup on success
+      setFormData({ name: "", email: "", message: "" }); // Reset form
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Failed to submit your query. Please try again later.",
+        icon: "error",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
-      {" "}
       <footer className="main-footer bg-color-2">
         <div className="footer-top">
           <div
@@ -34,49 +68,67 @@ export default function Footer() {
           ></div>
           <div className="auto-container">
             <div className="row clearfix">
+              {/* Logo and Description */}
               <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
                 <div className="footer-widget logo-widget">
                   <figure className="footer-logo">
-                    <Link href="index.html">
+                    <Link href="/">
                       <Image
-                        src="/assets/img/footer/footer-logo.png"
+                        src={
+                          companyData?.logo_image
+                            ? `${SERVER_URL}/${companyData.logo_image}`
+                            : "/assets/images/logo.png"
+                        }
                         width={100}
                         height={30}
-                        alt=""
+                        alt="Company Logo"
                       />
                     </Link>
                   </figure>
                   <div className="text">
                     <p>
-                      Lorem ipsum dolor amet consetetur adi pisicing elit sed
-                      eiusm tempor in cididunt ut labore dolore magna aliqua
-                      enim.
+                      {companyData?.company_description ||
+                        "Your trusted travel partner."}
                     </p>
                   </div>
                   <ul className="social-links clearfix">
                     <li>
-                      <Link href="index.html">
+                      <Link
+                        href={companyData?.social_media_links?.facebook || "#"}
+                        target="_blank"
+                      >
                         <Facebook />
                       </Link>
                     </li>
                     <li>
-                      <Link href="index.html">
+                      <Link
+                        href={companyData?.social_media_links?.twitter || "#"}
+                        target="_blank"
+                      >
                         <Twitter />
                       </Link>
                     </li>
                     <li>
-                      <Link href="index.html">
+                      <Link
+                        href={companyData?.social_media_links?.instagram || "#"}
+                        target="_blank"
+                      >
                         <Instagram />
                       </Link>
                     </li>
                     <li>
-                      <Link href="index.html">
+                      <Link
+                        href={companyData?.social_media_links?.linkedin || "#"}
+                        target="_blank"
+                      >
                         <Linkedin />
                       </Link>
                     </li>
                   </ul>
                 </div>
               </div>
+
+              {/* Services */}
               <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
                 <div className="footer-widget links-widget">
                   <div className="widget-title">
@@ -85,27 +137,29 @@ export default function Footer() {
                   <div className="widget-content">
                     <ul className="links-list clearfix">
                       <li>
-                        <Link href="index.html">About Us</Link>
+                        <Link href="/about-us">About Us</Link>
                       </li>
                       <li>
-                        <Link href="index.html">Listing</Link>
+                        <Link href="/listing">Listing</Link>
                       </li>
                       <li>
-                        <Link href="index.html">How It Works</Link>
+                        <Link href="/how-it-works">How It Works</Link>
                       </li>
                       <li>
-                        <Link href="index.html">Our Services</Link>
+                        <Link href="/services">Our Services</Link>
                       </li>
                       <li>
-                        <Link href="index.html">Our Blog</Link>
+                        <Link href="/blog">Our Blog</Link>
                       </li>
                       <li>
-                        <Link href="index.html">Contact Us</Link>
+                        <Link href="/contact-us">Contact Us</Link>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
+
+              {/* Gallery */}
               <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
                 <div className="footer-widget gallery-widget">
                   <div className="widget-title">
@@ -113,82 +167,26 @@ export default function Footer() {
                   </div>
                   <div className="widget-content">
                     <ul className="image-list clearfix">
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-1.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-2.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-3.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-4.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-5.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
-                      <li>
-                        <figure className="image-box">
-                          <Link href="gallery-1.html">
-                            <Image
-                              src="/assets/img/footer/footer-gallery-6.jpg"
-                              alt=""
-                              width={90}
-                              height={90}
-                            />
-                          </Link>
-                        </figure>
-                      </li>
+                      {companyData?.footer_sub_images?.map((image, index) => (
+                        <li key={`footer-gallery-${index}`}>
+                          <figure className="image-box">
+                            <Link href="/gallery">
+                              <Image
+                                src={`${SERVER_URL}/${image}`}
+                                alt={`Gallery Image ${index + 1}`}
+                                width={90}
+                                height={90}
+                              />
+                            </Link>
+                          </figure>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
               </div>
+
+              {/* Contact Information */}
               <div className="col-lg-3 col-md-6 col-sm-12 footer-column">
                 <div className="footer-widget contact-widget">
                   <div className="widget-title">
@@ -197,17 +195,25 @@ export default function Footer() {
                   <div className="widget-content">
                     <ul className="info-list clearfix">
                       <li>
-                        <MapPinCheckInside /> Flat 20, Reynolds Neck, North
-                        Helenaville, FV77 8WS
+                        <MapPinCheckInside />{" "}
+                        {companyData?.address
+                          ? `${companyData.address.street}, ${companyData.address.city}, ${companyData.address.state}, ${companyData.address.postal_code}, ${companyData.address.country}`
+                          : "Address not available"}
                       </li>
                       <li>
                         <PhoneCall />
-                        <Link href="tel:23055873407">+2(305) 587-3407</Link>
+                        <Link
+                          href={`tel:${companyData?.phone_number || "#"}`}
+                        >
+                          {companyData?.phone_number || "Phone not available"}
+                        </Link>
                       </li>
                       <li>
                         <Mail />
-                        <Link href="mailto:info@example.com">
-                          info@example.com
+                        <Link
+                          href={`mailto:${companyData?.email_id || "#"}`}
+                        >
+                          {companyData?.email_id || "Email not available"}
                         </Link>
                       </li>
                     </ul>
@@ -218,53 +224,95 @@ export default function Footer() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'fixed', bottom: '55px', right: '35px', width: '7%', height: '4%', zIndex: '1000' }}>
-          <button className='pop-icon' onClick={togglePopup}>Open CTA Form</button>
+        {/* Popup CTA Form */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            bottom: "55px",
+            right: "20px",
+            width: "7%",
+            height: "4%",
+            zIndex: "1000",
+          }}
+        >
+          <button className="pop-icon" onClick={togglePopup}>
+            <MessageSquareMore color="blue" size={24} /> {/* Corrected icon usage */}
+          </button>
           {showPopup && (
             <div className="popup">
               <div className="popup-content">
                 <div className="popup-left">
-                  <img src="/assets/images/cta/ctaimage.avif" alt="Description" />
+                  <img
+                    src="/assets/images/cta/ctaimage.avif"
+                    alt="Description"
+                  />
                 </div>
                 <div className="popup-right">
-                  <form>
-                    <h2  style={{fontWeight:"800"}}>Please fill the equired Feilds We will get back to you shortly.</h2>
+                  <form onSubmit={handleSubmit}>
+                    <h2 style={{ fontWeight: "800" }}>
+                      Please fill the required fields. We will get back to you
+                      shortly.
+                    </h2>
                     <label>
                       Name:
-                      <input type="text" name="name" />
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                      />
                     </label>
                     <label>
                       Email:
-                      <input type="email" name="email" />
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                      />
                     </label>
                     <label>
                       Message:
-                      <textarea name="message"></textarea>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                      ></textarea>
                     </label>
-                    <button type="submit">Submit</button>
+                    <button type="submit" disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
                   </form>
                 </div>
               </div>
-              <button className="close-popup" onClick={togglePopup}><SquareX /></button>
+              <button className="close-popup" onClick={togglePopup}>
+                <SquareX />
+              </button>
             </div>
           )}
         </div>
 
+        {/* Footer Bottom */}
         <div className="footer-bottom">
           <div className="auto-container">
             <div className="bottom-inner clearfix">
               <div className="copyright pull-left">
                 <p>
-                  <Link href="index.html">JivYuv</Link> &copy; 2025 All Right
-                  Reserved
+                  <Link href="/">JivYuv</Link> &copy; 2025 All Rights Reserved
                 </p>
               </div>
               <ul className="footer-nav pull-right">
                 <li>
-                  <Link href="index.html">Terms of Service</Link>
+                  <Link href="/terms-of-service">Terms of Service</Link>
                 </li>
                 <li>
-                  <Link href="index.html">Privacy Policy</Link>
+                  <Link href="/privacy-policy">Privacy Policy</Link>
                 </li>
               </ul>
             </div>

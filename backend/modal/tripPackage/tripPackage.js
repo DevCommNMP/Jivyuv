@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 // Define the schema for the Ladakh Bike Expedition package
 const packageSchema = new Schema({
   title: { type: String, required: true },
+  titleSlug: { type: String, required: true },
   pickupLocation: { type: String, default: "" },
   dropLocation: { type: String, default: "" },
   numberOfDays: { type: String, required: true },
@@ -16,7 +17,7 @@ const packageSchema = new Schema({
   isVisaFree: { type: Boolean, required: true },
   country: { type: String, required: true },
   categoryId: { type: String, required: true },
-  subCategoryId: { type: String, required: true },
+  subCategoryId: { type: String, },
   tripTagName: { type: String, required: true },
   startingDate: { type: String, },
   isPickupAndDropAvailable: { type: Boolean, required: true },

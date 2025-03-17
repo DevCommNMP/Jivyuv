@@ -14,6 +14,10 @@ const companyProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  company_description:{
+type: String,
+required: true,
+  },
   social_media_links: {
     youtube: {
       type: String,
