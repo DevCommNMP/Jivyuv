@@ -29,7 +29,8 @@ const packageSchema = new Schema({
       activityTitle: { type: String, required: true },
       activityDescription: [{ type: String, required: true }]
     }
-  ]
+  ],
+  createdAt: { type: Date, default: Date.now } // Add createdAt field
 });
 
 // Export the schema as a model

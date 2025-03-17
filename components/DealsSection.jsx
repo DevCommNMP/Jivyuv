@@ -24,7 +24,7 @@ export default function DealsSection() {
                 Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod
                 tempor ux incidunt labore dolore magna aliqua Quis ipsum suspen.
               </p>
-              <Link href="tour-details.html" className="theme-btn">
+              <Link href="tour-deals" className="theme-btn">
                 See Details
               </Link>
             </div>

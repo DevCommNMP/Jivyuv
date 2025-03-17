@@ -116,7 +116,7 @@ export default function PlaceSection() {
                   Find All <br />
                   Destination
                 </h3>
-                <a href="destination.html" className="theme-btn">
+                <a href="tour-grid" className="theme-btn">
                   Find Now
                 </a>
               </div>

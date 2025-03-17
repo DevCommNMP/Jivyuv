@@ -92,7 +92,7 @@ export default function AboutSection() {
                     </li>
                   </ul>
                   <div className="btn-box">
-                    <a href="tour-1.html" className="theme-btn">
+                    <a href="tour-grid" className="theme-btn">
                       Find Tours
                     </a>
                   </div>
