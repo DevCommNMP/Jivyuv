@@ -30,7 +30,7 @@ export default function TourSection() {
                       width={370}
                       height={270}
                     />
-                    <Link href="tour-details.html">
+                    <Link href="tour-details">
                       <i className="fas fa-link"></i>
                     </Link>
                   </figure>
@@ -41,7 +41,7 @@ export default function TourSection() {
                       </span>
                     </div>
                     <h3>
-                      <Link href="tour-details.html">Moscow Red City Land</Link>
+                      <Link href="tour-details">Moscow Red City Land</Link>
                     </h3>
                     <h4>
                       $170.00<span> / Per person</span>
@@ -56,7 +56,7 @@ export default function TourSection() {
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>
                     <div className="btn-box">
-                      <Link href="tour-details.html">See Details</Link>
+                      <Link href="tour-details">See Details</Link>
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ export default function TourSection() {
                       width={370}
                       height={270}
                     />
-                    <Link href="tour-details.html">
+                    <Link href="tour-details">
                       <i className="fas fa-link"></i>
                     </Link>
                   </figure>
@@ -87,7 +87,7 @@ export default function TourSection() {
                       </span>
                     </div>
                     <h3>
-                      <Link href="tour-details.html">Moscow Red City Land</Link>
+                      <Link href="tour-details">Moscow Red City Land</Link>
                     </h3>
                     <h4>
                       $170.00<span> / Per person</span>
@@ -102,7 +102,7 @@ export default function TourSection() {
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>
                     <div className="btn-box">
-                      <Link href="tour-details.html">See Details</Link>
+                      <Link href="tour-details">See Details</Link>
                     </div>
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export default function TourSection() {
                       width={370}
                       height={270}
                     />
-                    <Link href="tour-details.html">
+                    <Link href="tour-details">
                       <i className="fas fa-link"></i>
                     </Link>
                   </figure>
@@ -133,7 +133,7 @@ export default function TourSection() {
                       </span>
                     </div>
                     <h3>
-                      <Link href="tour-details.html">Moscow Red City Land</Link>
+                      <Link href="tour-details">Moscow Red City Land</Link>
                     </h3>
                     <h4>
                       $170.00<span> / Per person</span>
@@ -148,7 +148,7 @@ export default function TourSection() {
                     </ul>
                     <p>Lorem ipsum dolor amet consectetur adipiscing sed.</p>
                     <div className="btn-box">
-                      <Link href="tour-details.html">See Details</Link>
+                      <Link href="tour-details">See Details</Link>
                     </div>
                   </div>
                 </div>

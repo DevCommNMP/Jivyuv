@@ -232,15 +232,32 @@ export default function Footer({ companyData }) {
             alignItems: "center",
             position: "fixed",
             bottom: "55px",
-            right: "20px",
+            right: "35px",
             width: "7%",
             height: "4%",
             zIndex: "1000",
           }}
         >
-          <button className="pop-icon" onClick={togglePopup}>
-            <MessageSquareMore color="blue" size={24} /> {/* Corrected icon usage */}
+        <div className="btn-social">
+        <button className="pop-icon" onClick={togglePopup} >
+            <MessageSquareMore color="blue" size={50} /> {/* Corrected icon usage */}
           </button>
+          <button
+           className="whatsapp-icon"
+           onClick={() => window.open("https://wa.me/8368088945", "_blank")}
+         >
+           <img src="/assets/images/cta/whatsapp.jpeg" alt="whatsapp" style={{borderRadius:"100%"}}/>
+         </button>
+         {/* Phone Button */}
+         <button
+           className="phone-icon"
+           onClick={() => (window.location.href = "tel:8368088945")}
+         >
+           {/* <i className="fas fa-phone-alt"></i> */}
+           <img src="/assets/images/cta/telephone.jpeg" alt="telephone" style={{borderRadius:"100%"}} />
+         </button>
+
+        </div>
           {showPopup && (
             <div className="popup">
               <div className="popup-content">

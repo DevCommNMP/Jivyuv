@@ -125,7 +125,7 @@ export default function Header({ categories, companyData }) {
                                               <li
                                                 key={`subcategory-${subIndex}`} // Add unique key
                                               >
-                                                <Link href="destination-1">
+                                                <Link href="tour-grid">
                                                   {subCategory.name}
                                                 </Link>
                                               </li>
@@ -292,7 +292,7 @@ export default function Header({ categories, companyData }) {
                                 </div>
                               </li>
                               <li className="dropdown">
-                                <Link href="/" style={{ color: "grey" }}>
+                                <Link href="/blog-grid" style={{ color: "grey" }}>
                                   Blog
                                 </Link>
                                 <ul>
