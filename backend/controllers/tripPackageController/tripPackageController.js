@@ -4,6 +4,8 @@ const Package = require('../../modal/tripPackage/tripPackage');
 
 // Create a new Ladakh Bike Expedition package
 exports.createPackage = async (req, res) => {
+
+
   try {
     const {
       title,
@@ -24,6 +26,8 @@ exports.createPackage = async (req, res) => {
       activityData,
     } = req.body;
 
+
+    console.log(activityData)
     // Extract image paths from req.files
     const packageImage = req.files?.packageImage?.[0]?.path || null;
     const packageSubImages = req.files?.packageSubImages?.map(file => file.path) || [];
@@ -69,6 +73,7 @@ exports.createPackage = async (req, res) => {
     const savedPackage = await newPackage.save();
     res.status(201).json(savedPackage);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ message: 'Error creating package', error: err });
   }
 };
