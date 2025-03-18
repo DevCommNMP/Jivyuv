@@ -1,13 +1,23 @@
 // controllers/subcategoryController.js
 const Category = require("../../modal/category/category");
 const Subcategory = require("../../modal/subCategory/subCategory");
+const slugify = require("slugify"); // Import slugify
 
 // Create a new subcategory
 exports.createSubcategory = async (req, res) => {
   try {
     const { name, isVisibleOnNavbar, categoryId } = req.body;
-   
-    const newSubcategory = new Subcategory({ name, isVisibleOnNavbar, categoryId });
+
+    // Generate slugName
+    const slugName = slugify(name, { lower: true, strict: true });
+
+    // Check if slugName already exists
+    const existingSubcategory = await Subcategory.findOne({ slugName });
+    if (existingSubcategory) {
+      return res.status(400).json({ message: "A subcategory with this slug already exists" });
+    }
+
+    const newSubcategory = new Subcategory({ name, slugName, isVisibleOnNavbar, categoryId });
     await newSubcategory.save();
     await Category.findByIdAndUpdate(categoryId, { $push: { subCategoryId: newSubcategory._id } });
     console.log(newSubcategory);  
@@ -42,9 +52,22 @@ exports.getSubcategoryById = async (req, res) => {
 exports.updateSubcategory = async (req, res) => {
   try {
     const { name, isVisibleOnNavbar, categoryId } = req.body;
+
+    // Generate slugName if name is updated
+    let slugName;
+    if (name) {
+      slugName = slugify(name, { lower: true, strict: true });
+
+      // Check if slugName already exists for another subcategory
+      const existingSubcategory = await Subcategory.findOne({ slugName, _id: { $ne: req.params.id } });
+      if (existingSubcategory) {
+        return res.status(400).json({ message: "A subcategory with this slug already exists" });
+      }
+    }
+
     const updatedSubcategory = await Subcategory.findByIdAndUpdate(
       req.params.id,
-      { name, isVisibleOnNavbar, categoryId },
+      { ...(name && { name }), ...(slugName && { slugName }), isVisibleOnNavbar, categoryId },
       { new: true }
     );
     if (!updatedSubcategory) return res.status(404).json({ message: "Subcategory not found" });
