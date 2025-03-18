@@ -13,7 +13,7 @@ export default function NewsSection() {
           <div className="sec-title">
             <p>News & Articles</p>
             <h2>Stay Update with JivYuv Tips</h2>
-            <a href="blog.html" className="theme-btn-two">
+            <a href="/blog-grid" className="theme-btn-two">
               All Blog Posts
             </a>
           </div>

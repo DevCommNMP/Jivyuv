@@ -178,6 +178,17 @@ exports.updatePackage = async (req, res) => {
       parsedActivityData = activityData;
     }
 
+    // Fetch the existing package to preserve existing sub-images if no new ones are provided
+    const existingPackage = await Package.findById(req.params.id);
+    if (!existingPackage) {
+      return res.status(404).json({ message: 'Package not found' });
+    }
+
+    // Preserve existing sub-images if no new ones are provided
+    if (packageSubImages.length === 0) {
+      packageSubImages = existingPackage.packageSubImages;
+    }
+
     // Prepare the updated package data
     const updatedData = {
       ...(title && { title }),
@@ -198,7 +209,7 @@ exports.updatePackage = async (req, res) => {
       ...(isPickupAndDropAvailable !== undefined && { isPickupAndDropAvailable: isPickupAndDropAvailable === 'true' }),
       ...(parsedActivityData.length > 0 && { activityData: parsedActivityData }),
       ...(packageImage && { packageImage }), // Only update if a new image is provided
-      ...(packageSubImages.length > 0 && { packageSubImages }), // Only update if new sub-images are provided
+      ...(packageSubImages.length > 0 && { packageSubImages }), // Preserve or update sub-images
     };
 
     const updatedPackage = await Package.findByIdAndUpdate(req.params.id, updatedData, { new: true });
