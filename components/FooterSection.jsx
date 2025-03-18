@@ -326,7 +326,7 @@ export default function Footer({ companyData }) {
               </div>
               <ul className="footer-nav pull-right">
                 <li>
-                  <Link href="/terms-of-service">Terms of Service</Link>
+                  <Link href="/terms-and-services">Terms of Services</Link>
                 </li>
                 <li>
                   <Link href="/privacy-policy">Privacy Policy</Link>
