@@ -1231,7 +1231,7 @@ img {
 .mobile-menu .nav-logo {
   position: relative;
   padding: 50px 25px;
-  text-align: left;
+  text-align: center;
   padding-bottom: 100px;
 }
 
@@ -1457,7 +1457,7 @@ div#mCSB_1_container {
 .mobile-menu .contact-info h4 {
   position: relative;
   font-size: 20px;
-  color: #ffffff;
+  color: #ffffff !important;
   font-weight: 700;
   margin-bottom: 20px;
 }

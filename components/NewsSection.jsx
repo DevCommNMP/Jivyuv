@@ -26,7 +26,7 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details.html">
+                    <a href="blog-details">
                       <Image
                         src="/assets/img/home/news-1.jpg"
                         alt=""
@@ -40,10 +40,10 @@ export default function NewsSection() {
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details.html">Lifestyle</a>
+                      <a href="blog-details">Lifestyle</a>
                     </div>
                     <h3>
-                      <a href="blog-details.html">
+                      <a href="blog-details">
                         Including animation in your design system
                       </a>
                     </h3>
@@ -58,7 +58,7 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details.html" className="theme-btn-two">
+                      <a href="blog-details" className="theme-btn-two">
                         See Details
                       </a>
                     </div>
@@ -74,7 +74,7 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details.html">
+                    <a href="blog-details">
                       <Image
                         src="/assets/img/home/news-2.jpg"
                         alt=""
@@ -88,10 +88,10 @@ export default function NewsSection() {
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details.html">Lifestyle</a>
+                      <a href="blog-details">Lifestyle</a>
                     </div>
                     <h3>
-                      <a href="blog-details.html">
+                      <a href="blog-details">
                         Strategic & commercial with issues.
                       </a>
                     </h3>
@@ -106,7 +106,7 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details.html" className="theme-btn-two">
+                      <a href="blog-details" className="theme-btn-two">
                         See Details
                       </a>
                     </div>
@@ -122,7 +122,7 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details.html">
+                    <a href="blog-details">
                       <Image
                         src="/assets/img/home/news-3.jpg"
                         alt=""
@@ -136,10 +136,10 @@ export default function NewsSection() {
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details.html">Lifestyle</a>
+                      <a href="blog-details">Lifestyle</a>
                     </div>
                     <h3>
-                      <a href="blog-details.html">
+                      <a href="blog-details">
                         Best interior design idea for your home.
                       </a>
                     </h3>
@@ -154,7 +154,7 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details.html" className="theme-btn-two">
+                      <a href="blog-details" className="theme-btn-two">
                         See Details
                       </a>
                     </div>

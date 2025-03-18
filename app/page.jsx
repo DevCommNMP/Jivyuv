@@ -33,7 +33,7 @@ export default function Home() {
 
       <BannerSection />
       <FeatureSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <TourSection />
       <DealsSection />
       <PlaceSection />
