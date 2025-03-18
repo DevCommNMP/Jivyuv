@@ -143,13 +143,13 @@ export default function Header({ categories, companyData }) {
                                 }`}
                               >
                                 <Link
-                                  href="#"
+                                  href="/about-us"
                                   style={{ color: "grey" }}
                                   onClick={() => toggleDropdown(3)}
                                 >
-                                  Pages
+                                 About Us
                                 </Link>
-                                <ul>
+                                {/* <ul>
                                   <li>
                                     <Link
                                       href="about-us"
@@ -187,9 +187,9 @@ export default function Header({ categories, companyData }) {
                                   <li>
                                     <Link href="error">404</Link>
                                   </li>
-                                </ul>
+                                </ul> */}
                               </li>
-                              <li
+                              {/* <li
                                 className={`dropdown ${
                                   activeDropdown === 4 ? "open" : ""
                                 }`}
@@ -290,12 +290,12 @@ export default function Header({ categories, companyData }) {
                                     </div>
                                   </div>
                                 </div>
-                              </li>
+                              </li> */}
                               <li className="dropdown">
                                 <Link href="/blog-grid" style={{ color: "grey" }}>
                                   Blog
                                 </Link>
-                                <ul>
+                                {/* <ul>
                                   <li>
                                     <Link href="blog-1">Blog Grid</Link>
                                   </li>
@@ -305,7 +305,7 @@ export default function Header({ categories, companyData }) {
                                   <li>
                                     <Link href="blog-details">Blog Details</Link>
                                   </li>
-                                </ul>
+                                </ul> */}
                               </li>
                             </ul>
                           </div>

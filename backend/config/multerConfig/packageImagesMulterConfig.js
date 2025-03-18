@@ -59,13 +59,13 @@ const uploadFields = uploadImages.fields([
 // Middleware to append full URLs to files
 const appendFilePathToFiles = (req, res, next) => {
   if (req.files) {
-    if (req.files.packageImage) {
+    if (req?.files?.packageImage) {
       req.files.packageImage = req.files.packageImage.map(file => ({
         ...file,
         path: file.path.replace(/\\/g, '/'), // Normalize slashes
       }));
     }
-    if (req.files.packageSubImages) {
+    if (req?.files?.packageSubImages) {
       req.files.packageSubImages = req.files.packageSubImages.map(file => ({
         ...file,
         path: file.path.replace(/\\/g, '/'), // Normalize slashes

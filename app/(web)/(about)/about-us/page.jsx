@@ -1,3 +1,5 @@
+import AboutSection from "@/components/AboutSection";
+import VideoSection from "@/components/VideoSection";
 import { Play } from "lucide-react";
 export default function about() {
     return (
@@ -16,7 +18,7 @@ export default function about() {
 
 
             {/* -- about-style-two --> */}
-            <section className="about-style-two">
+            {/* <section className="about-style-two">
                 <div className="pattern-layer" style={{ backgroundImage: 'url(assets/img/about-us/page-title.jpg)' }}></div>
                 <div className="auto-container">
                     <div className="row clearfix">
@@ -50,12 +52,13 @@ export default function about() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <AboutSection/>
             {/* -- about-style-two end --> */}
 
 
             {/* -- place-style-three --> */}
-            <section className="place-style-three bg-color-1 sec-pad">
+            {/* <section className="place-style-three bg-color-1 sec-pad">
                 <div className="anim-icon">
                     <div className="icon anim-icon-1" style={{ backgroundImage: 'url(assets/img/home/page-title.jpg)' }}></div>
                     <div className="icon anim-icon-2" style={{ backgroundImage: 'url(assets/img/home/page-title.jpg)' }}></div>
@@ -142,12 +145,12 @@ export default function about() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
             {/* -- place-style-three end --> */}
 
 
             {/* -- video-section --> */}
-            <section className="video-section centred" style={{ backgroundImage: 'url(assets/images/background/page-title.jpg)' }}>
+            {/* <section className="video-section centred" style={{ backgroundImage: 'url(assets/images/background/page-title.jpg)' }}>
                 <div className="auto-container">
                     <div className="inner-box">
                         <h2>Explore Your Travel</h2>
@@ -163,12 +166,13 @@ export default function about() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            <VideoSection/>
             {/* -- video-section end --> */}
 
 
             {/* -- testimonial-section --> */}
-            <section className="testimonial-section sec-pad centred">
+            {/* <section className="testimonial-section sec-pad centred">
                 <div className="auto-container">
                     <div className="sec-title centred">
                         <p>Review & Testimonials</p>
@@ -357,7 +361,8 @@ export default function about() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
+            
 
 
 
