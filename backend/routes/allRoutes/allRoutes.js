@@ -10,6 +10,7 @@ const companyProfileRoutes = require("../companyProfileRoutes/companyProfileRout
 const bannerRoutes = require("../bannerRoutes/bannerRoutes");
 const queryRoutes=require("../queryRoutes/queryRoutes");
 const tripPackageRoutes=require("../tripPackageRoutes/tripPackage")
+const blogRoutes = require("../blogRoutes/blogRoutes");
 // Use Routes
 router.use("/api/auth", googleAuthRoutes); // All Google Auth routes under "/api/auth"
 router.use("/api", emailAuthRoutes); // All Google Auth routes under "/api/auth"
@@ -20,4 +21,5 @@ router.use("/api",companyProfileRoutes)
 router.use("/api",bannerRoutes)
 router.use("/api",queryRoutes)
 router.use("/api",tripPackageRoutes)
+router.use("api",blogRoutes)
 module.exports = router;
