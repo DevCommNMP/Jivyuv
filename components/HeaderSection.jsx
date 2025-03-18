@@ -441,6 +441,7 @@ export default function Header({ categories, companyData }) {
               </header>
 
               <MobileMenu
+              companyData={companyData}
                 isMobileMenuOpen={isMobileMenuOpen}
                 toggleMobileMenu={toggleMobileMenu}
                 categories={categories}
