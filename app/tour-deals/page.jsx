@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function TourDeals() {
+  const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [deals, setDeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,6 +13,7 @@ export default function TourDeals() {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/trip-packages`);
         setDeals(response.data);
+        console.log("Tour deals fetched:", response.data);
       } catch (error) {
         console.error("Error fetching tour deals:", error);
       } finally {
@@ -20,6 +22,9 @@ export default function TourDeals() {
     }
     fetchDeals();
   }, []);
+
+  const domesticDeals = deals.filter((deal) => deal.country === "india");
+  const internationalDeals = deals.filter((deal) => deal.country !== "india");
 
   if (isLoading) {
     return <div className="loader">Loading...</div>; // Simple loader
@@ -41,15 +46,15 @@ export default function TourDeals() {
       </section>
       {/* End Page Title */}
 
-      {/* Offer Section */}
+      {/* Domestic Deals Section */}
       <section className="offer-section sec-pad before-none tour-deals-page">
         <div className="auto-container">
           <div className="sec-title centred">
-            <p>Deals & Offers</p>
-            <h2>Last Minute Amazing Deals</h2>
+            <p>Domestic Deals</p>
+            <h2>Explore India</h2>
           </div>
           <div className="row clearfix">
-            {deals.map((deal, index) => (
+            {domesticDeals.map((deal, index) => (
               <div
                 key={deal.id}
                 className="col-lg-4 col-md-6 col-sm-12 offer-block"
@@ -61,12 +66,12 @@ export default function TourDeals() {
                 >
                   <div className="inner-box">
                     <figure className="image-box">
-                      <img src={deal.image} alt={deal.title} />
+                      <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
                     </figure>
                     <div className="content-box">
                       <span>{deal.discount}</span>
                       <h3>
-                        <a href={`/destination/${deal.slug}`}>{deal.title}</a>
+                        <a href={`/india-packages/${deal.slug}`}>{deal.title}</a>
                       </h3>
                       <h4>${deal.price}</h4>
                     </div>
@@ -77,7 +82,43 @@ export default function TourDeals() {
           </div>
         </div>
       </section>
-      {/* Offer Section End */}
+
+      {/* International Deals Section */}
+      <section className="offer-section sec-pad before-none tour-deals-page">
+        <div className="auto-container">
+          <div className="sec-title centred">
+            <p>International Deals</p>
+            <h2>Explore the World</h2>
+          </div>
+          <div className="row clearfix">
+            {internationalDeals.map((deal, index) => (
+              <div
+                key={deal.id}
+                className="col-lg-4 col-md-6 col-sm-12 offer-block"
+              >
+                <div
+                  className="offer-block-one wow fadeInUp animated"
+                  data-wow-delay={`${index * 300}ms`}
+                  data-wow-duration="1500ms"
+                >
+                  <div className="inner-box">
+                    <figure className="image-box">
+                      <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
+                    </figure>
+                    <div className="content-box">
+                      <span>{deal.discount}</span>
+                      <h3>
+                        <a href={`/international-packages/${deal.slug}`}>{deal.title}</a>
+                      </h3>
+                      <h4>${deal.price}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Map Section */}
       <section className="map-section bg-color-1">
