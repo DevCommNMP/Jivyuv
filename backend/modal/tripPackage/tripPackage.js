@@ -16,7 +16,7 @@ const packageSchema = new Schema({
   packagePromotional: { type: String, required: true },
   isVisaFree: { type: Boolean, required: true },
   country: { type: String, required: true },
-  categoryId: { type: String, required: true },
+  categoryId: { type: String, required: true },                                                 
   subCategoryId: { type: String, },
   tripTagName: { type: String, required: true },
   startingDate: { type: String, },

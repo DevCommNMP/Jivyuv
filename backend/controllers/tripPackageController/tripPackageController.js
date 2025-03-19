@@ -17,6 +17,8 @@ const resizeImage = async (filePath, width, height) => {
   
 // Create a new Ladakh Bike Expedition package
 exports.createPackage = async (req, res) => {
+
+
   try {
     const {
       title,
@@ -96,6 +98,7 @@ exports.createPackage = async (req, res) => {
     const savedPackage = await newPackage.save();
     res.status(201).json(savedPackage);
   } catch (err) {
+    console.log(err);
     res.status(400).json({ message: 'Error creating package', error: err });
   }
 };
@@ -139,6 +142,7 @@ exports.getPackageBySlug = async (req, res) => {
 
 // Update a specific Ladakh Bike Expedition package by ID
 exports.updatePackage = async (req, res) => {
+ 
   try {
     const {
       title,
