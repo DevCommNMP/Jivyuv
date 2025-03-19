@@ -128,6 +128,7 @@ exports.getPackageById = async (req, res) => {
 
 // Update a specific Ladakh Bike Expedition package by ID
 exports.updatePackage = async (req, res) => {
+ 
   try {
     const {
       title,
