@@ -17,6 +17,9 @@ export default function Header({ categories, companyData }) {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchToggle,setSearchToggle]=useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
 
 
   useEffect(() => {
@@ -48,6 +51,53 @@ export default function Header({ categories, companyData }) {
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
   };
+
+  const suggestionStyles = {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    backgroundColor: "white",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    zIndex: 1000,
+    maxHeight: "300px",
+    overflowY: "auto",
+  };
+
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchQuery.trim().length > 3) {
+        setIsLoadingSuggestions(true);
+        try {
+          const response = await axios.get(
+            `${SERVER_URL}/api/trip-packages`
+          );
+          setSuggestions(response.data);
+        } catch (error) {
+          console.error("Error fetching suggestions:", error);
+          setSuggestions([]);
+        }
+        setIsLoadingSuggestions(false);
+      }
+    };
+
+    const debounceTimer = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery]);
+
+ // Handle suggestion click
+ const handleSuggestionClick = (suggestion) => {
+  console.log(suggestion);
+  setSearchQuery("");
+  setSuggestions([]);
+  setSearchToggle(false);
+  // Navigate to suggested item's page
+  router.push(suggestion.titleSlug); // You'll need to use next/router
+};
+
 
   return (
     <>
@@ -332,8 +382,11 @@ export default function Header({ categories, companyData }) {
                             <div
                               className="dropdown-menu search-panel"
                               aria-labelledby="dropdownMenu3"
-                            >
-                              <div className="form-container" >
+                            style={
+                              {width:"800px"}
+                              
+                            }>
+                              {/* <div className="form-container" >
                                 <form method="post" action="blog.html">
                                   <div className="form-group">
                                     <input
@@ -350,7 +403,68 @@ export default function Header({ categories, companyData }) {
                                     </button>
                                   </div>
                                 </form>
-                              </div>
+                              </div> */}
+                              
+                              <div className="form-container">
+    <form method="post" action="/search">
+      <div className="form-group" style={{ position: "relative",width:"750px" }}>
+        <input
+          type="search"
+          name="search-field"
+          placeholder="Search...."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          required
+          style={{
+            width: "100%",
+            padding: "12px 20px", 
+            fontSize: "16px",
+            height:"6ch"      
+          }}
+        />
+        <button type="submit" className="search-btn">
+          <span className="fas fa-search"></span>
+        </button>
+        
+        {/* Suggestions dropdown */}
+        {searchQuery && (
+          <div  style={{
+            ...suggestionStyles,
+            width: "100%",          
+            maxHeight: "400px",     
+            fontSize: "14px"       
+          }}>
+            {isLoadingSuggestions ? (
+              <div className="p-2 text-muted">Loading suggestions...</div>
+            ) : suggestions.length > 0 ? (
+              suggestions.map((suggestion) => (
+                <div
+                  key={suggestion.id}
+                  className="suggestion-item p-3 hover-bg-gray-100 cursor-pointer"
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  style={{ borderBottom: "1px solid #eee",cursor:"pointer" }} 
+                >
+                  {suggestion.title}
+                  
+
+
+                  
+                </div>
+              ))
+            ) : (
+              <div className="p-2 text-muted">No suggestions found</div>
+            )}
+          </div>
+        )}
+      </div>
+    </form>
+  </div>
+
+
+
+
+
+
                             </div>
                           </div>
                         </li>
