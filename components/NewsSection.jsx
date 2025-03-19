@@ -1,5 +1,6 @@
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NewsSection() {
   return (
@@ -13,9 +14,9 @@ export default function NewsSection() {
           <div className="sec-title">
             <p>News & Articles</p>
             <h2>Stay Update with JivYuv Tips</h2>
-            <a href="/blog-grid" className="theme-btn-two">
+            <Link href="/blogs" className="theme-btn-two">
               All Blog Posts
-            </a>
+            </Link>
           </div>
           <div className="row clearfix">
             <div className="col-lg-4 col-md-6 col-sm-12 news-block">
@@ -26,26 +27,28 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details">
+                    <Link href="/blogs/interior-design-ideas" as="/blogs/animation-design-system">
                       <Image
                         src="/assets/img/home/news-1.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
-                    </a>
+                    </Link>
                     <span className="post-date">
                       <CalendarDays /> 5 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details">Lifestyle</a>
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/animation-design-system">
+                        Lifestyle
+                      </Link>
                     </div>
                     <h3>
-                      <a href="blog-details">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/animation-design-system">
                         Including animation in your design system
-                      </a>
+                      </Link>
                     </h3>
                     <ul className="post-info clearfix">
                       <li>
@@ -58,9 +61,9 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details" className="theme-btn-two">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/animation-design-system" className="theme-btn-two">
                         See Details
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -74,26 +77,28 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details">
+                    <Link href="/blogs/interior-design-ideas" as="/blogs/strategic-issues">
                       <Image
                         src="/assets/img/home/news-2.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
-                    </a>
+                    </Link>
                     <span className="post-date">
                       <CalendarDays /> 4 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details">Lifestyle</a>
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/strategic-issues">
+                        Lifestyle
+                      </Link>
                     </div>
                     <h3>
-                      <a href="blog-details">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/strategic-issues">
                         Strategic & commercial with issues.
-                      </a>
+                      </Link>
                     </h3>
                     <ul className="post-info clearfix">
                       <li>
@@ -106,9 +111,9 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details" className="theme-btn-two">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/strategic-issues" className="theme-btn-two">
                         See Details
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -122,26 +127,28 @@ export default function NewsSection() {
               >
                 <div className="inner-box">
                   <figure className="image-box">
-                    <a href="blog-details">
+                    <Link href="/blogs/interior-design-ideas" as="/blogs/interior-design-ideas">
                       <Image
                         src="/assets/img/home/news-3.jpg"
                         alt=""
                         width={370}
                         height={270}
                       />
-                    </a>
+                    </Link>
                     <span className="post-date">
                       <CalendarDays /> 3 Oct, 2020
                     </span>
                   </figure>
                   <div className="lower-content">
                     <div className="category">
-                      <a href="blog-details">Lifestyle</a>
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/interior-design-ideas">
+                        Lifestyle
+                      </Link>
                     </div>
                     <h3>
-                      <a href="blog-details">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/interior-design-ideas">
                         Best interior design idea for your home.
-                      </a>
+                      </Link>
                     </h3>
                     <ul className="post-info clearfix">
                       <li>
@@ -154,9 +161,9 @@ export default function NewsSection() {
                       eiusmod tempor incididunt labore dolore magna aliqua enim.
                     </p>
                     <div className="btn-box">
-                      <a href="blog-details" className="theme-btn-two">
+                      <Link href="/blogs/interior-design-ideas" as="/blogs/interior-design-ideas" className="theme-btn-two">
                         See Details
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>

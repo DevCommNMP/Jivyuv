@@ -292,7 +292,7 @@ export default function Header({ categories, companyData }) {
                                 </div>
                               </li> */}
                               <li className="dropdown">
-                                <Link href="/blog-grid" style={{ color: "grey" }}>
+                                <Link href="/blogs" style={{ color: "grey" }}>
                                   Blog
                                 </Link>
                                 {/* <ul>
