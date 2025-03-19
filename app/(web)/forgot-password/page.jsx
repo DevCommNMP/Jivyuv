@@ -1,6 +1,6 @@
 
 "use client";
-import Preloader from "@/components/Preloader";
+import Preloader from "../../../components/Preloader";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
