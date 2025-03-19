@@ -14,12 +14,12 @@ export default function tourDeals() {
             {/* <!-- End Page Title --> */}
 
 
-            {/* <!-- offer-section --> */}
+            {/* <!-- offer-section 1--> */}
             <section className="offer-section sec-pad before-none tour-deals-page">
                 <div className="auto-container">
                     <div className="sec-title centred">
                         <p>Deals & Offers</p>
-                        <h2>Last Minute Amazing Deals</h2>
+                        <h2>Last Minute International Amazing Deals</h2>
                     </div>
                     <div className="row clearfix">
                         <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
@@ -99,6 +99,90 @@ export default function tourDeals() {
             </section>
             {/* <!-- offer-section end --> */}
 
+  {/* <!-- offer-section 2 --> */}
+  <section className="offer-section sec-pad before-none tour-deals-page">
+                <div className="auto-container">
+                    <div className="sec-title centred">
+                        <p>Deals & Offers</p>
+                        <h2>Last Minute India's Amazing Deals</h2>
+                    </div>
+                    <div className="row clearfix">
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-1.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">New York City</a></h3>
+                                        <h4>$150</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="300ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-2.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">Vietnam</a></h3>
+                                        <h4>$170</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-3.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">Norway Lake</a></h3>
+                                        <h4>$190</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-4.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">New York City</a></h3>
+                                        <h4>$150</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="300ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-5.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">Vietnam</a></h3>
+                                        <h4>$170</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-12 offer-block">
+                            <div className="offer-block-one wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
+                                <div className="inner-box">
+                                    <figure className="image-box"><img src="assets/images/resource/offer-6.jpg" alt="" /></figure>
+                                    <div className="content-box">
+                                        <span>Get 50% Off</span>
+                                        <h3><a href="destination-details.html">Norway Lake</a></h3>
+                                        <h4>$190</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {/* <!-- offer-section end --> */}
 
             {/* <!-- map-section --> */}
             <section className="map-section bg-color-1">
