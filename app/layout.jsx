@@ -1,13 +1,13 @@
 "use client"; // Mark this file as a Client Component
 
-import Footer from "@/components/FooterSection";
-import Header from "@/components/HeaderSection";
+import Footer from "../components/FooterSection";
+import Header from "../components/HeaderSection";
 import "./custom.css";
 import "./globals.css";
 import * as Lucide from 'lucide-react';
-import { fetchCategoriesAndCompanyProfile } from "@/app/uitls/categoryAndCompanyprofiledata";
-import { useEffect, useState } from "react";
-import Preloader from "@/components/Preloader";
+import { fetchCategoriesAndCompanyProfile } from "../app/uitls/categoryAndCompanyprofiledata";
+import { useEffect, useState } from "react"; ""
+import Preloader from "../components/Preloader";
 
 export const metadata = {
   title: "Tour & Travel",

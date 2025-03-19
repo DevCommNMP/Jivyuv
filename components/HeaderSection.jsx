@@ -1,5 +1,5 @@
 "use client";
-import { checkSession } from "@/app/uitls/authFunctions";
+import { checkSession } from "../app/uitls/authFunctions";
 import { LucideSearch, LucideUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,7 +74,7 @@ export default function Header({ categories, companyData }) {
                               width="200"
                               height="100"
                             />
-                          </Link>
+                      </Link>
                         </figure>
                       </div>
                       <div className="menu-area clearfix">
@@ -110,7 +110,7 @@ export default function Header({ categories, companyData }) {
                                       }`}
                                     >
                                       <Link
-                                        href="#"
+                                       href={`/${category.slugName}`}
                                         style={{ color: "grey" }}
                                         onClick={() =>
                                           toggleDropdown(index + 1)
@@ -125,7 +125,7 @@ export default function Header({ categories, companyData }) {
                                               <li
                                                 key={`subcategory-${subIndex}`} // Add unique key
                                               >
-                                                <Link href="tour-grid">
+                                                <Link href={`/${category.slugName}/${subCategory.slugName}`}>
                                                   {subCategory.name}
                                                 </Link>
                                               </li>

@@ -16,8 +16,8 @@ router.get('/trip-packages/', PackageController.getAllPackages);
 // Route to get a package by ID
 router.get('/trip-packages/:id', PackageController.getPackageById);
 
-// Route to get a package by slug
-router.get('/trip-packages/slug/:slug', PackageController.getPackageBySlug);
+// Route to get a package by Slug
+router.get('/packages/trip-packages/:slug', PackageController.getPackageBySlug);
 
 // Route to create a new package
 router.post('/trip-packages',isAuthenticatedAdmin,uploadFields,appendFilePathToFiles, PackageController.createPackage);
@@ -27,5 +27,8 @@ router.put('/trip-packages/:id',isAuthenticatedAdmin,uploadFields,appendFilePath
 
 // Route to delete a package by ID
 router.delete('/trip-packages/:id',isAuthenticatedSuperAdmin, PackageController.deletePackage);
+
+// Route to get a category by slug
+router.get('/categories/slug/:slug', CategoryController.getCategoryBySlug);
 
 module.exports = router;

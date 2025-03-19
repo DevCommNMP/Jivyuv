@@ -1,14 +1,14 @@
 import Head from "next/head";
-import AboutSection from "@/components/AboutSection";
-import BannerSection from "@/components/BannerSection";
-import DealsSection from "@/components/DealsSection";
-import FeatureSection from "@/components/FeatureSection";
-import FunfactSection from "@/components/FunfactSection";
-import MapSection from "@/components/MapSection";
-import NewsSection from "@/components/NewsSection";
-import PlaceSection from "@/components/PlaceSection";
-import TourSection from "@/components/TourSection";
-import VideoSection from "@/components/VideoSection";
+import AboutSection from "../components/AboutSection";
+import BannerSection from "../components/BannerSection";
+import DealsSection from "../components/DealsSection";
+import FeatureSection from "../components/FeatureSection";
+import FunfactSection from "../components/FunfactSection";
+import MapSection from "../components/MapSection";
+import NewsSection from "../components/NewsSection";
+import PlaceSection from "../components/PlaceSection";
+import TourSection from "../components/TourSection";
+import VideoSection from "../components/VideoSection";
 
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";

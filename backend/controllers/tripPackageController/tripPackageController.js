@@ -81,7 +81,7 @@ exports.createPackage = async (req, res) => {
       overview,
       packagePrice,
       packagePromotional,
-      isVisaFree: isVisaFree === 'true',
+      isVisaFree,
       country,
       categoryId,
       subCategoryId,
@@ -103,7 +103,7 @@ exports.createPackage = async (req, res) => {
 // Get all Ladakh Bike Expedition packages
 exports.getAllPackages = async (req, res) => {
   try {
-    const packages = await Package.find();
+    const packages = await Package.find().populate('categoryId');
     res.status(200).json(packages);
   } catch (err) {
     res.status(400).json({ message: 'Error fetching packages', error: err });
@@ -119,6 +119,20 @@ exports.getPackageById = async (req, res) => {
     }
     res.status(200).json(package);
   } catch (err) {
+    res.status(400).json({ message: 'Error fetching package', error: err });
+  }
+};
+exports.getPackageBySlug = async (req, res) => {
+  try {
+    console.log('Received slug:', req.params.slug); // Debugging log
+    const package = await Package.findOne({ titleSlug: req.params.slug });
+    if (!package) {
+      console.log('Package not found for slug:', req.params.slug); // Debugging log
+      return res.status(404).json({ message: 'Package not found' });
+    }
+    res.status(200).json(package);
+  } catch (err) {
+    console.error('Error fetching package by slug:', err); // Debugging log
     res.status(400).json({ message: 'Error fetching package', error: err });
   }
 };

@@ -27,6 +27,22 @@ const getCategoryById = async (req, res) => {
     res.status(500).json({ error: 'Internal server error',message:error.message });
   }
 };
+// Get a specific category by slug
+const getCategoryBySlug = async (req, res) => {
+  try {
+    console.log('Received slug:', req.params.slug); // Debugging log
+    const category = await Category.findOne({ slugName: req.params.slug }).populate('subCategoryId');
+    if (!category) {
+      console.log('Category not found for slug:', req.params.slug); // Debugging log
+      return res.status(404).json({ message: 'Category not found' });
+    }
+    res.status(200).json(category);
+  } catch (err) {
+    console.error('Error fetching category by slug:', err); // Debugging log
+    res.status(400).json({ message: 'Error fetching category', error: err });
+  }
+};
+
 
 // Controller function to create a new category
 const createCategory = async (req, res) => {
@@ -108,5 +124,6 @@ module.exports = {
   getCategoryById,
   createCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getCategoryBySlug
 };
