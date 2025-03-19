@@ -106,7 +106,7 @@ exports.createPackage = async (req, res) => {
 // Get all Ladakh Bike Expedition packages
 exports.getAllPackages = async (req, res) => {
   try {
-    const packages = await Package.find().populate('categoryId');
+    const packages = await Package.find();
     res.status(200).json(packages);
   } catch (err) {
     res.status(400).json({ message: 'Error fetching packages', error: err });

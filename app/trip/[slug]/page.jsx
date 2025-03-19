@@ -219,7 +219,7 @@ export default function TourDetails({params}) {
                   <div className="widget-content">
                     <ul className="download-links clearfix">
                       <li>
-                        <Link href="/destination-details">
+                        <Link href={`/trip/${slug}/details`}>
                           Travel Direction<i className="fas fa-download"></i>
                         </Link>
                       </li>
