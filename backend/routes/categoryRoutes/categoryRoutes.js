@@ -5,6 +5,7 @@ const {
   createCategory,
   updateCategory,
   deleteCategory,
+  getCategoryBySlug,
 } = require('../../controllers/categoryControllers/categoryController');
 const uploadCategoryImage = require('../../middleware/multer/categoryImageUploader');
 const { isAuthenticatedAdmin,isAuthenticatedSuperAdmin } = require('../../middleware/isAutheticated'); // Correct import
@@ -16,6 +17,8 @@ router.get('/categories', getAllCategories);
 
 // Route to get a category by ID
 router.get('/categories/:Id', getCategoryById);
+
+router.get('/categories/slug/:slug',getCategoryBySlug); // This route is for
 
 // Route to create a new category with an image
 router.post('/categories', isAuthenticatedAdmin, uploadCategoryImage.single('image'),isAuthenticatedAdmin,createCategory); // Ensure the field name matches

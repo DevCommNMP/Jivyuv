@@ -1,5 +1,5 @@
-import AboutSection from "@/components/AboutSection";
-import VideoSection from "@/components/VideoSection";
+import AboutSection from "../../../../components/AboutSection";
+import VideoSection from "../../../../components/VideoSection";
 import { Play } from "lucide-react";
 export default function about() {
     return (

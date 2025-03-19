@@ -1,5 +1,5 @@
 "use client";
-import { checkSession } from "@/app/uitls/authFunctions";
+import { checkSession } from "../app/uitls/authFunctions";
 import { LucideSearch, LucideUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import axios from "axios";
 
 import Swal from "sweetalert2";
 import Preloader from "./Preloader";
+import { useRouter } from "next/navigation"
 
 export default function Header({ categories, companyData }) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -20,7 +21,7 @@ export default function Header({ categories, companyData }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
-
+  const router=useRouter();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -95,7 +96,7 @@ export default function Header({ categories, companyData }) {
   setSuggestions([]);
   setSearchToggle(false);
   // Navigate to suggested item's page
-  router.push(suggestion.titleSlug); // You'll need to use next/router
+  router.push(`/trip/${suggestion.titleSlug}`); // You'll need to use next/router
 };
 
 
@@ -129,7 +130,7 @@ export default function Header({ categories, companyData }) {
                               width="200"
                               height="100"
                             />
-                          </Link>
+                      </Link>
                         </figure>
                       </div>
                       <div className="menu-area clearfix">
@@ -165,7 +166,7 @@ export default function Header({ categories, companyData }) {
                                       }`}
                                     >
                                       <Link
-                                        href="#"
+                                       href={`/${category.slugName}`}
                                         style={{ color: "grey" }}
                                         onClick={() =>
                                           toggleDropdown(index + 1)
@@ -180,7 +181,7 @@ export default function Header({ categories, companyData }) {
                                               <li
                                                 key={`subcategory-${subIndex}`} // Add unique key
                                               >
-                                                <Link href="tour-grid">
+                                                <Link href={`/${category.slugName}/${subCategory.slugName}`}>
                                                   {subCategory.name}
                                                 </Link>
                                               </li>

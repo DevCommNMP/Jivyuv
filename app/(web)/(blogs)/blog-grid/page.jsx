@@ -1,4 +1,4 @@
-import NewsSectionBox from "@/components/NewsSection";
+import NewsSectionBox from "../../../../components/NewsSection";
 
 const NewsSection = () => {
     return (
