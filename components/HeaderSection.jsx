@@ -16,6 +16,8 @@ export default function Header({ categories, companyData }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchToggle,setSearchToggle]=useState(false);
+
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -26,6 +28,9 @@ export default function Header({ categories, companyData }) {
 
     fetchSession();
   }, []);
+  function handleSearch(){
+    setSearchToggle(!searchToggle);
+  }
 
   const handleLogout = () => {
     try {
@@ -313,22 +318,22 @@ export default function Header({ categories, companyData }) {
                       </div>
                       <ul className="menu-right-content clearfix">
                         <li className="search-box-outer">
-                          <div className="dropdown">
+                          <div className={`dropdown ${searchToggle===true && "show"}`}>
                             <button
                               className="search-box-btn"
                               type="button"
                               id="dropdownMenu3"
                               data-toggle="dropdown"
                               aria-haspopup="true"
-                              aria-expanded="false"
-                            >
+                              aria-expanded={`${searchToggle}`}
+                             onClick={handleSearch}>
                               <LucideSearch />
                             </button>
                             <div
                               className="dropdown-menu search-panel"
                               aria-labelledby="dropdownMenu3"
                             >
-                              <div className="form-container">
+                              <div className="form-container" >
                                 <form method="post" action="blog.html">
                                   <div className="form-group">
                                     <input
