@@ -15,11 +15,7 @@ export default function TourDetails({params}) {
   const [packageData, setPackageData] = useState(
    
 );
-let x={
-  trending:[],
-  popular:[],
-  
-}
+
 
  async function fetchPackageData() {
     setIsLoading(true);
