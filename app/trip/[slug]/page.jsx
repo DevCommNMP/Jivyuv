@@ -54,7 +54,7 @@ export default function TourDetails({params}) {
                 <i className="fas fa-star"></i>8.0 Superb
               </span>
             </div>
-            <h2>Moscow Red City Land</h2>
+            <h2>{packageData?.title}</h2>
             <h3>
               {packageData?.packagePrice}<span> / Per person</span>
             </h3>
@@ -195,10 +195,13 @@ export default function TourDetails({params}) {
                       <input type="text" name="phone" placeholder="Phone" required />
                     </div>
                     <div className="form-group">
-                      <input type="text" name="tickets" placeholder="Tickets" required />
+                      <input type="text" name="totalMembers" placeholder="Total members in numbers" required />
                     </div>
                     <div className="form-group">
-                      <input type="text" name="date" placeholder="dd/mm/yy" />
+                      <input type="text" name="totalMembers" placeholder="Tour Name" value={packageData?.titleSlug} readOnly required  />
+                    </div>
+                    <div className="form-group">
+                      <input type="text" name="tripDate" placeholder="dd/mm/yy" />
                     </div>
                     <div className="form-group">
                       <textarea name="message" placeholder="Message"></textarea>
@@ -218,11 +221,11 @@ export default function TourDetails({params}) {
                   </div>
                   <div className="widget-content">
                     <ul className="download-links clearfix">
-                      <li>
+                      {/* <li>
                         <Link href={`/trip/${slug}/details`}>
                           Travel Direction<i className="fas fa-download"></i>
                         </Link>
-                      </li>
+                      </li> */}
                       {/* ...repeat for other downloads... */}
                     </ul>
                   </div>
