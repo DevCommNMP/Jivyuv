@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { MapPin, Phone, Mail ,SquareX,Twitter, Facebook,Instagram, Youtube} from "lucide-react";
 
-const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData}) => {
+const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories, companyData, user,handleLogout }) => {
+  console.log(user)
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   console.log("mobile cateogory");
   console.log(categories);
@@ -12,6 +13,9 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
     setActiveDropdown(activeDropdown === index ? null : index);
   };
 
+  const handleMenuItemClick = () => {
+    toggleMobileMenu(); // Close the mobile menu on click
+  };
 
    const menuItemStyle = {
     padding: "12px 20px",
@@ -64,7 +68,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
 
         <nav className="menu-box">
           <div className="nav-logo">
-            <Link href="/">
+            <Link href="/" onClick={handleMenuItemClick}>
             <Image
   src={
     companyData?.logo_image
@@ -88,8 +92,8 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
                     ...menuItemStyle,
                     borderTop: "1px solid #e2e8f0"
                   }}
+                  onClick={handleMenuItemClick}
                 >
-                  {console.log(companyData,"tushar")}
                   Home
                 </Link>
               </li>
@@ -102,7 +106,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
                     style={{ position: "relative" }}
                   >
                     <Link
-                      href="#"
+                        href={`/${category.slugName}`}
                       style={{
                         ...menuItemStyle,
                         backgroundColor: activeDropdown === index ? "#f0f4f8" : "#ffffff"
@@ -129,7 +133,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
                         {category.subCategoryId.map((subCategory) => (
                           <li key={subCategory._id}>
                             <Link
-                              href={`/category/${subCategory.slug}`}
+                              href={`/${category.slugName}/${subCategory.slugName}`}
                               style={{
                                 ...subMenuItemStyle,
                                 ":hover": {
@@ -137,6 +141,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
                                   paddingLeft: "30px"
                                 }
                               }}
+                              onClick={handleMenuItemClick}
                             >
                               {subCategory.name}
                             </Link>
@@ -149,11 +154,12 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
               ))}
 
              { /* Other Links */}
-                      {['About', 'Services', 'Contact'].map((item, index) => (
+                      {['About Us', 'Services', 'Contact'].map((item, index) => (
                       <li key={index}>
                         <Link 
-                        href={`/${item.toLowerCase()}`} 
+                        href={`/${item.toLowerCase().replace(/\s+/g, "-")}`} 
                         style={menuItemStyle}
+                        onClick={handleMenuItemClick}
                         >
                         {item}
                         </Link>
@@ -163,37 +169,53 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories,companyData
                     </div>
 
                      {/* Profile Details */} 
-                    <div style={{ padding: "20px", borderTop: "1px solid #e2e8f0" }}>
+                    <div style={{  borderTop: "1px solid #e2e8f0" }}>
                       
                       <ul style={{ listStyle: "none", padding: 0 }}>
-                      <li style={{ ...subMenuItemStyle, color: "#718096" }}>
-                        <Link
-                        href="#"
+                      {user ? (
+                  <li style={{ ...subMenuItemStyle, color: "#718096" }}>
+                    <Link
+                      href="#"
+                      style={{
+                        ...menuItemStyle,
+                        backgroundColor: activeDropdown === "profile" ? "#f0f4f8" : "#ffffff",
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleDropdown("profile");
+                      }}
+                    >
+                     <img src={user.profilePicture} style={{width:50,height:50}} /> {user?.firstName} {user?.lastName}
+                      <span
                         style={{
-                          ...menuItemStyle,
-                          backgroundColor: activeDropdown === 'profile' ? "#f0f4f8" : "#ffffff"
-                        }}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toggleDropdown('profile');
-                        }}
-                        >
-                        Log-in
-                        <span style={{
                           ...dropdownIconStyle,
-                          transform: activeDropdown === 'profile' ? "rotate(180deg)" : "none"
-                        }}>
-                          ▼
-                        </span>
+                          transform: activeDropdown === "profile" ? "rotate(180deg)" : "none",
+                        }}
+                      >
+                        ▼
+                      </span>
+                    </Link>
+                    {activeDropdown === "profile" && (
+                      <ul style={{ paddingLeft: "20px", marginTop: "10px" }}>
+                        <Link href="/" onClick={() => { handleLogout(); handleMenuItemClick(); }}>
+                        <li style={{ ...subMenuItemStyle, color: "white" }}>Profile</li>
+
                         </Link>
-                        {activeDropdown === 'profile' && (
-                        <ul style={{ paddingLeft: "20px", marginTop: "10px" }}>
-                          <li style={{ ...subMenuItemStyle, color: "white" }}>User-details</li>
-                          <li style={{ ...subMenuItemStyle, color: "white" }}>Profile-image</li>
-                          <li style={{ ...subMenuItemStyle, color: "white" }}>Contact-number</li>
-                        </ul>
-                        )}
-                      </li>
+                        <Link href="#" onClick={() => { handleLogout(); handleMenuItemClick(); }}>
+                        <li style={{ ...subMenuItemStyle, color: "white" }}>
+                            Logout
+                        </li>
+                        </Link>
+                      </ul>
+                    )}
+                  </li>
+                ) : (
+                  <li>
+                    <Link href="/sign-in" style={menuItemStyle} onClick={handleMenuItemClick}>
+                      Log-in
+                    </Link>
+                  </li>
+                )}
                       </ul>
                     </div>
 
