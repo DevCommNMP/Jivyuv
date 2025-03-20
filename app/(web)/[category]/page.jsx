@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Preloader from "../../../components/Preloader";
+import { Key } from "lucide-react";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
@@ -13,6 +14,8 @@ export default function CategoryPage({ params }) {
     const [originalPackageData,setOriginalPackageData]=useState();
     const [isLoading,setIsLoading]=useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [subCategoryName,setSubCategoryName]=useState([]);
+    const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
     const router = useRouter();
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -22,19 +25,44 @@ export default function CategoryPage({ params }) {
 
     async function fetchPackageData(){
         setIsLoading(true);
+        let subCategoryName=[];
         try{
       
             let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
+            if(category==="trips"){
+                setOriginalPackageData(response.data.reverse());
+                setPackageData(response.data.reverse());
+
+                response.data.reverse().forEach((trip) => {
+                    // First check if subCategoryId exists and has a name
+                    if (trip.subCategoryId && trip.subCategoryId.name) {
+                      if (!subCategoryName.includes(trip.subCategoryId.name)) {
+                        subCategoryName.push(trip.subCategoryId.name);
+                      }
+                    }
+                  });
+                
+                  setSubCategoryName(subCategoryName);
+            }else{
             let data=response.data.filter((item)=>{
                 if(item.categoryId.slugName===category){
                     return item;
                 }
 
-            });
-
-         setPackageData(data.reverse());
-         setOriginalPackageData(data.reverse());
-    
+            }).reverse();
+            data.forEach((trip) => {
+                // First check if subCategoryId exists and has a name
+                if (trip.subCategoryId && trip.subCategoryId.name) {
+                  if (!subCategoryName.includes(trip.subCategoryId.name)) {
+                    subCategoryName.push(trip.subCategoryId.name);
+                  }
+                }
+              });
+            
+        setSubCategoryName(subCategoryName);
+         setPackageData(data);
+         setOriginalPackageData(data);
+        }
         }catch(error){
           console.log(error);
           Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
@@ -54,8 +82,9 @@ export default function CategoryPage({ params }) {
 
       }
       function handleSearch(event){
-      
+        
         if(event.target.value.length>0){
+            
       let filteredPackages = originalPackageData.filter((item) =>{
         return item.title.toLowerCase().includes(event.target.value.toLowerCase())
       }
@@ -68,10 +97,85 @@ export default function CategoryPage({ params }) {
 }
 }
 
+
+// function handleSelectedCategoryName(name){
+//     if(selectedSubCategoryName && selectedSubCategoryName.includes(name)){
+//         let data=selectedSubCategoryName.filter((subName)=>{
+//             if(subName!==name){
+//                 return true;
+//             }
+//         });
+//        setSelectedSubCategoryName(data);
+//     }else{
+//         setSelectedSubCategoryName([...selectedSubCategoryName,name]);
+//     }
+
+// }
+
+// function handleSelectedCategoryName(name) {
+//     let data=[];
+//     setSelectedSubCategoryName(prev => {
+//       if (prev.includes(name)) {
+       
+//         data= prev.filter(subName => subName !== name);
+//         return data;
+
+//       } else {
+        
+//         data=[...prev, name];
+//         return data;
+//       }
+//     });
+//     filterSubCategoriesByPackage(data);
+   
+//   }
+  
+function handleSelectedCategoryName(name) {
+    setSelectedSubCategoryName(prev => 
+        prev.includes(name) 
+            ? prev.filter(sub => sub !== name) 
+            : [...prev, name]
+    );
+}
+
+function filterSubCategoriesByPackage(selectedSubCategories) {
+    if (selectedSubCategories.length === 0) {
+        setPackageData(originalPackageData);
+        return;
+    }
+    const filtered = originalPackageData.filter(trip => 
+        selectedSubCategories.includes(trip.subCategoryId?.name)
+    );
+    setPackageData(filtered);
+}
+
+useEffect(() => {
+    filterSubCategoriesByPackage(selectedSubCategoryName);
+}, [selectedSubCategoryName]);
+
+// function filterSubCategoriesByPackage(selectedSubCategoryName){
+//    console.log(selectedSubCategoryName);
+//    let data=originalPackageData.filter((trip)=>{
+//     if (trip.subCategoryId && trip.subCategoryId.name) {
+//         if (selectedSubCategoryName.includes(trip.subCategoryId.name)) {
+//             return trip;
+//         }
+//       }
+
+//    });
+//    if(data.length>0){
+
+//    setPackageData(data); 
+//    }else{
+//     setPackageData(originalPackageData);
+//    }
+
+// }
+
     return (
         <>
         {/* <!-- Page Title --> */}
-        <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData.packageImage});` }}>
+        <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -114,7 +218,7 @@ export default function CategoryPage({ params }) {
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div class="item-shorting clearfix">
                             <div class="left-column pull-left">
-                                <h3>Showing {packageData.length} Results</h3>
+                                <h3>Showing {packageData?.length} Results</h3>
                             </div>
                             <div class="right-column pull-right clearfix">
                                 <div class="short-box clearfix">
@@ -324,8 +428,8 @@ export default function CategoryPage({ params }) {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
-                                {packageData.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
-                             {packageData.map((item)=>{
+                                {packageData?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
+                             {packageData?.map((item)=>{
                                  return <div class="tour-block-two">
                                  <div class="inner-box">
                                      <figure class="image-box" style={{width:"190px",height:"227px"}}>
@@ -341,7 +445,7 @@ export default function CategoryPage({ params }) {
                                          <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
                                          <h3> <Link href="#" onClick={(event)=>{
                                             event.preventDefault();
-                                            handleNavigation(item.titleSlug);
+                                            handleNavigation(item?.titleSlug);
 
 
                                          }}>{item.title}</Link></h3>
@@ -350,7 +454,7 @@ export default function CategoryPage({ params }) {
                                          <div class="btn-box">
                                          <Link href="#" onClick={(event)=>{
                                             event.preventDefault();
-                                            handleNavigation(item.titleSlug);
+                                            handleNavigation(item?.titleSlug);
 
 
                                          }}>See Details</Link>
@@ -411,51 +515,43 @@ export default function CategoryPage({ params }) {
                                 </div>
                                 <div class="widget-content">
                                     <ul class="category-list clearfix">
-                                        <li class="custom-check-box">
+                                        
+                                        {/* {subCategoryName.map((name,index)=>{
+                                            return   <li class="custom-check-box"  key={index}>
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
+                                                    <input type="checkbox" class="material-control-input" onChange={()=>{
+                                                handleSelectedCategoryName(name);
+                                               
+                                            }}/>
                                                     <span class="material-control-indicator"></span>
-                                                    <span class="description">Adventure Tours</span>
+                                                    <span class="description">{name}</span>
                                                 </label>
                                             </div>
                                         </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" checked="checked" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">City Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Couple Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Group Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Hosted Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
+
+                                        })
+                                      
+                                        } */}
+
+{subCategoryName.map((name, index) => (
+                            <li class="custom-check-box" key={index}>
+                                <div class="custom-controls-stacked">
+                                    <label class="custom-control material-checkbox">
+                                        <input
+                                            type="checkbox"
+                                            class="material-control-input"
+                                            checked={selectedSubCategoryName.includes(name)}
+                                            onChange={() => handleSelectedCategoryName(name)}
+                                        />
+                                        <span class="material-control-indicator"></span>
+                                        <span class="description">{name}</span>
+                                    </label>
+                                </div>
+                            </li>
+                        ))}
+
+                                      
                                     </ul>
                                 </div>
                             </div>
