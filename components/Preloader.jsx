@@ -28,9 +28,9 @@ export default function Preloader() {
                   {" "}
                   U{" "}
                 </span>
-                <span data-text-preloader="G" className="letters-loading">
+                <span data-text-preloader="V" className="letters-loading">
                   {" "}
-                  G{" "}
+                  V{" "}
                 </span>
               </div>
             </div>

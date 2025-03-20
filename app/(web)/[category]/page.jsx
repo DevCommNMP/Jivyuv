@@ -59,7 +59,7 @@ export default function CategoryPage({ params }) {
                     <p>Discover your next great adventure</p>
                 </div>
                 <div class="form-inner">
-                    <form action="index.html" method="post" class="booking-form clearfix">
+                    <form action="" method="post" class="booking-form clearfix">
                         <div class="form-group">
                             <input type="text" name="service" placeholder="Where to?" required="" />
                         </div>
