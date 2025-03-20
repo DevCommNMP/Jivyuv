@@ -37,7 +37,7 @@ export default function BlogDetails({ params }) {
     <div className="blog-details">
       <section
         className="page-title style-two centred"
-        style={{ backgroundImage: "url()" }}
+        style={{ backgroundImage: "url(/assets/images/banner/pp.avif)" ,height:'400px'}}
       >
         <div className="auto-container">
           <div className="content-box">
