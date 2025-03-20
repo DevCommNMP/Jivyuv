@@ -15,6 +15,8 @@ export default function Header({ categories, companyData }) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchToggle,setSearchToggle]=useState(false);
@@ -48,6 +50,11 @@ export default function Header({ categories, companyData }) {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const openPanel=()=>{
+    setIsPanelOpen(!isPanelOpen);
+    console.log(isPanelOpen);
+  }
 
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);
@@ -471,7 +478,7 @@ export default function Header({ categories, companyData }) {
                         </li>
                         <li className="user-link">
                           {user ? (
-                            <Link href="" onClick={handleLogout}>
+                            <Link href="" onClick={openPanel}>
                               <img
                                 src={user?.profilePicture}
                                 alt=""
@@ -487,6 +494,8 @@ export default function Header({ categories, companyData }) {
                             </Link>
                           )}
                         </li>
+
+                        {isPanelOpen ? <div onClick={handleLogout} style={{color:'white',marginRight:'end',textAlign:'center',backgroundColor:'#ff7c5b',zIndex:'1000', marginTop:'15px', borderRadius:'2px 2px 2px 2px'}}>Logout</div> : ""}
                       </ul>
                     </div>
                   </div>
