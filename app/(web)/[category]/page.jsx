@@ -220,23 +220,7 @@ useEffect(() => {
                             <div class="left-column pull-left">
                                 <h3>Showing {packageData?.length} Results</h3>
                             </div>
-                            <div class="right-column pull-right clearfix">
-                                <div class="short-box clearfix">
-                                    <div class="select-box">
-                                        <select class="wide">
-                                            <option data-display="Sort by">Sort by</option>
-                                            <option value="1">Sort 01</option>
-                                            <option value="2">Sort 02</option>
-                                            <option value="3">Sort 03</option>
-                                            <option value="3">Sort 04</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="menu-box">
-                                    <button class="list-view on"><i class="icon-List"></i></button>
-                                    <button class="grid-view"><i class="icon-Grid"></i></button>
-                                </div>
-                            </div>
+                           
                         </div>
                         <div class="wrapper list">
                             <div class="tour-grid-content">
@@ -625,90 +609,7 @@ useEffect(() => {
                                     </ul>
                                 </div>
                             </div>
-                            <div class="sidebar-widget review-widget">
-                                <div class="widget-title">
-                                    <h3>Review Score</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="category-list clearfix">
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                           
                             <div class="advice-widget">
                                 <div class="inner-box" style={{ backgroundImage: 'url(assets/images/resource/advice-1.jpg);' }}>
                                     <div class="text">
