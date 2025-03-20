@@ -20,7 +20,7 @@ exports.createBlog = async (req, res) => {
 
     // Create a new blog
     const newBlog = new Blog({
-      blogImage: path.join("uploads/blogsImages", req.file.filename), // Store the file path
+      blogImage: path.join("uploads/blogImages", req.file.filename), // Store the file path
       blogTitle,
       blogDescription,
       createdBy,

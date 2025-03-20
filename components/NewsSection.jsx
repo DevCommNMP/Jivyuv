@@ -2,7 +2,8 @@ import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function NewsSection() {
+export default function NewsSection({packageData}) {
+  console.log(packageData);
   return (
     <>
       <section className="news-section sec-pad pb-220">

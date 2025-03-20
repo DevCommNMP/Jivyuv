@@ -73,7 +73,7 @@ export default function Home() {
       <MapSection />
       <FunfactSection />
       <VideoSection />
-      <NewsSection />
+      <NewsSection packageData={packageData}/>
       </>
     }
     </>
