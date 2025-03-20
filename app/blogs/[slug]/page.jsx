@@ -61,13 +61,21 @@ export default function BlogDetails({ params }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
     if (!validateForm()) {
       Swal.fire("Error", "Please fix the errors in the form.", "error");
       return;
     }
     try {
-      await axios.post(`${BASE_URL}/api/tour-queries`, formData);
+      await axios.post(
+        `${BASE_URL}/api/tour-queries`,
+        JSON.stringify(formData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       Swal.fire("Success", "Your inquiry has been submitted!", "success");
       setFormData({
         name: "",
@@ -97,7 +105,7 @@ export default function BlogDetails({ params }) {
       {/* Blog Details Section */}
       <section
         className="page-title style-two centred"
-        style={{ backgroundImage: "url(/assets/images/background/page-title-2.jpg)" }}
+        style={{ backgroundImage: "url(/assets/images/background/page-title-2.jpg/assets/images/banner/pp.avif)" ,height:'400px'}}
       >
         <div className="auto-container">
           <div className="content-box">
@@ -131,93 +139,87 @@ export default function BlogDetails({ params }) {
         </div>
       </section>
 
-      {/* Inquiry Form Section */}
-      <section className="inquiry-form sec-pad">
-        <div className="auto-container">
-          <h2>Send Your Inquiry</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.name && <p className="error-text">{errors.name}</p>}
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.email && <p className="error-text">{errors.email}</p>}
-            </div>
-            <div className="form-group">
-              <label>Phone</label>
-              <input
-                type="text"
-                name="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.phone && <p className="error-text">{errors.phone}</p>}
-            </div>
-            <div className="form-group">
-              <label>Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-              ></textarea>
-              {errors.message && <p className="error-text">{errors.message}</p>}
-            </div>
-            <div className="form-group">
-              <label>Tour Name</label>
-              <input
-                type="text"
-                name="tourName"
-                value={formData.tourName}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.tourName && <p className="error-text">{errors.tourName}</p>}
-            </div>
-            <div className="form-group">
-              <label>Tour Date</label>
-              <input
-                type="date"
-                name="tourDate"
-                value={formData.tourDate}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.tourDate && <p className="error-text">{errors.tourDate}</p>}
-            </div>
-            <div className="form-group">
-              <label>Total Members</label>
-              <input
-                type="number"
-                name="totalMembers"
-                value={formData.totalMembers}
-                onChange={handleInputChange}
-                required
-              />
-              {errors.totalMembers && <p className="error-text">{errors.totalMembers}</p>}
-            </div>
-            <button className="theme-btn-two" type="submit">
-              Submit Inquiry
-            </button>
-          </form>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.name && <p className="error-text">{errors.name}</p>}
         </div>
-      </section>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.email && <p className="error-text">{errors.email}</p>}
+        </div>
+        <div className="form-group">
+          <label>Phone</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.phone && <p className="error-text">{errors.phone}</p>}
+        </div>
+        <div className="form-group">
+          <label>Message</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+          {errors.message && <p className="error-text">{errors.message}</p>}
+        </div>
+        <div className="form-group">
+          <label>Tour Name</label>
+          <input
+            type="text"
+            name="tourName"
+            value={formData.tourName}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.tourName && <p className="error-text">{errors.tourName}</p>}
+        </div>
+        <div className="form-group">
+          <label>Tour Date</label>
+          <input
+            type="date"
+            name="tourDate"
+            value={formData.tourDate}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.tourDate && <p className="error-text">{errors.tourDate}</p>}
+        </div>
+        <div className="form-group">
+          <label>Total Members</label>
+          <input
+            type="number"
+            name="totalMembers"
+            value={formData.totalMembers}
+            onChange={handleInputChange}
+            required
+          />
+          {errors.totalMembers && <p className="error-text">{errors.totalMembers}</p>}
+        </div>
+        <button className="theme-btn-two" type="submit">
+          Submit Inquiry
+        </button>
+      </form>
     </div>
   );
 }

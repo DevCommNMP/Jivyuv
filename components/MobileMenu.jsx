@@ -154,7 +154,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories, companyDat
               ))}
 
              { /* Other Links */}
-                      {['About Us', 'Services', 'Contact'].map((item, index) => (
+                      {['About Us', 'Blogs', 'Contact'].map((item, index) => (
                       <li key={index}>
                         <Link 
                         href={`/${item.toLowerCase().replace(/\s+/g, "-")}`} 
