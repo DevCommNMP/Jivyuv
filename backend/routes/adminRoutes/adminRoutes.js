@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {deleteAllUsers, getAllUsers,getUserByEmail,activateAccount, deactivateParticularUser,} = require('../../controllers/adminControllers/adminControllers')
+const {deleteAllUsers, getAllUsers,getUserByEmail,activateAccount, deactivateParticularUser} = require('../../controllers/adminControllers/adminControllers')
 
 
 // Admin routes 
