@@ -54,7 +54,7 @@ export default function TourDetails({params}) {
                 <i className="fas fa-star"></i>8.0 Superb
               </span>
             </div>
-            <h2>Moscow Red City Land</h2>
+            <h2>{packageData?.title}</h2>
             <h3>
               {packageData?.packagePrice}<span> / Per person</span>
             </h3>

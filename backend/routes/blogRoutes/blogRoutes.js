@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const blogController = require("../../controllers/blogs/blogControllers/blogConytrollers");
+const blogController = require("../../controllers/blogs/blogControllers/blogControllers");
 const upload = require("../../config/multerConfig/blogImagesmulterConfig"); // Import Multer config
 
 // Blog Routes

@@ -68,7 +68,7 @@ export default function TourSection() {
           <div className="sec-title text-center" style={{display:"flex",gap:"20px",justifyContent:"center"}}>
             
             <h2>Our Most Popular Adventures</h2>
-            <Link href="/blogs" className="theme-btn-two">
+            <Link href="/trip/events/popular" className="theme-btn-two">
               View All
             </Link>
           </div>
@@ -157,7 +157,7 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
 <div className="sec-title text-center" style={{display:"flex",gap:"20px",justifyContent:"center"}}>
          
             <h2>Our Most Trending Adventures</h2>
-            <Link href="/blogs" className="theme-btn-two">
+            <Link href="/trip/events/trending" className="theme-btn-two">
               View All
             </Link>
           </div>

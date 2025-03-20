@@ -1,9 +1,33 @@
 "use client";
 
-import NewsSection from "../../components/NewsSection";
+import { useState, useEffect } from "react";
+import BlogSection from "../../components/BlogSection";
 import Link from "next/link";
+import axios from "axios";
 
 export default function BlogsPage() {
+    const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+    const [blogs, setBlogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchBlogs() {
+            try {
+                const response = await axios.get(`${BASE_URL}/api/blogs`);
+                setBlogs(response.data.data); // Use response.data.data to access the blogs
+            } catch (error) {
+                console.error("Error fetching blogs:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchBlogs();
+    }, []);
+
+    if (isLoading) {
+        return <div className="loader">Loading...</div>;
+    }
+
     return (
         <div className="blogs-page">
             {/* Page Title */}
@@ -20,7 +44,7 @@ export default function BlogsPage() {
             </section>
 
             {/* Blog List */}
-           <NewsSection />
+            <BlogSection blogs={blogs} />
         </div>
     );
 }
