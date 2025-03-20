@@ -62,9 +62,14 @@ export default function TourSection() {
           style={{ backgroundImage: "url(/assets/images/shape/shape-4.png)" }}
         ></div>
         <div className="auto-container">
-          <div className="sec-title text-center">
-            <p>Modern & Beautiful</p>
+      
+
+          <div className="sec-title text-center" style={{display:"flex",gap:"20px",justifyContent:"center"}}>
+            
             <h2>Our Most Popular Adventures</h2>
+            <Link href="/blogs" className="theme-btn-two">
+              View All
+            </Link>
           </div>
           <div className="row clearfix">
           
@@ -144,19 +149,16 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
         
 
 
-        <div className="text-center" style={{ marginTop: "20px" }}>
-            <button
-              className="btn btn-primary"
-             
-            >
-               Show More
-            </button>
-          </div>
 
         <div className="auto-container" style={{marginTop:"40px"}}>
-          <div className="sec-title text-center">
-            <p>Modern & Beautiful</p>
+         
+
+<div className="sec-title text-center" style={{display:"flex",gap:"20px",justifyContent:"center"}}>
+         
             <h2>Our Most Trending Adventures</h2>
+            <Link href="/blogs" className="theme-btn-two">
+              View All
+            </Link>
           </div>
           <div className="row clearfix">
           
@@ -236,14 +238,7 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
         </div>
 
 
-        <div className="text-center" style={{ marginTop: "20px" }}>
-            <button
-              className="btn btn-primary"
-             
-            >
-               Show More
-            </button>
-          </div>
+        
 
         
 

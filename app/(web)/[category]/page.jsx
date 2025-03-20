@@ -1,11 +1,45 @@
 "use client";
 
+import { useState } from "react";
+
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
+    const [packageData,setPackageData]=useState([]);
+    
 
     if (!category) {
         return <p>Loading...</p>; // Handle cases where the parameter is not yet available
     }
+
+    // async function fetchPackageData(){
+     
+    //     try{
+    //    let [categoriesResponse,packageResponse]=await axios.all([axios.get(`${SERVER_URL}/api/subcategories/`),axios.get(`${SERVER_URL}/api/trip-packages`)]);
+         
+
+    //    categoriesResponse.find((cateogry)=>{
+    //     if(category.slung)
+
+    //    });
+    //    packageResponse.data.filter((item)=>{
+    //     if(item.)
+
+        
+    //    });
+    //       setPackageData(response.data.reverse());
+    
+    //     }catch(error){
+    //       console.log(error);
+    //       Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
+    
+    //     }finally{
+    
+    //     }
+    //   }
+    //   useEffect(()=>{
+    //     fetchPackageData();
+    
+    //   },[])
 
     return (
         <>
