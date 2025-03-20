@@ -1,45 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import axios from "axios";
+import { useState,useEffect } from "react";
+import Swal from "sweetalert2";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
-    
+    const router = useRouter();
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
     if (!category) {
         return <p>Loading...</p>; // Handle cases where the parameter is not yet available
     }
 
-    // async function fetchPackageData(){
+    async function fetchPackageData(){
      
-    //     try{
-    //    let [categoriesResponse,packageResponse]=await axios.all([axios.get(`${SERVER_URL}/api/subcategories/`),axios.get(`${SERVER_URL}/api/trip-packages`)]);
+        try{
+      
+            let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
+            let data=response.data.filter((item)=>{
+                if(item.categoryId.slugName===category){
+                    return item;
+                }
+
+            });
+
+         setPackageData(data.reverse());
          
-
-    //    categoriesResponse.find((cateogry)=>{
-    //     if(category.slung)
-
-    //    });
-    //    packageResponse.data.filter((item)=>{
-    //     if(item.)
-
+    
+        }catch(error){
+          console.log(error);
+          Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
+    
+        }finally{
+    
+        }
+      }
+      useEffect(()=>{
+        fetchPackageData();
+    
+      },[category])
+      function handleNavigation(slug){
         
-    //    });
-    //       setPackageData(response.data.reverse());
-    
-    //     }catch(error){
-    //       console.log(error);
-    //       Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
-    
-    //     }finally{
-    
-    //     }
-    //   }
-    //   useEffect(()=>{
-    //     fetchPackageData();
-    
-    //   },[])
+        router.push("/trip/"+slug);
+
+      }
 
     return (
         <>
@@ -297,24 +305,44 @@ export default function CategoryPage({ params }) {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-4.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$170.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
+                             {packageData.map((item)=>{
+                                 return <div class="tour-block-two">
+                                 <div class="inner-box">
+                                     <figure class="image-box" style={{width:"190px",height:"227px"}}>
+                                         <img src={`${SERVER_URL}/${item.packageImage}`} alt="" style={{objectFit:"contain"}}/>
+                                         <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item.titleSlug);
+
+
+                                         }}><i class="fas fa-link"></i></Link>
+                                     </figure>
+                                     <div class="content-box">
+                                         <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                         <h3> <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item.titleSlug);
+
+
+                                         }}>{item.title}</Link></h3>
+                                         <h4>₹ {item.packagePrice}<span> / Per person</span></h4>
+                                         {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
+                                         <div class="btn-box">
+                                         <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item.titleSlug);
+
+
+                                         }}>See Details</Link>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             })
+                               
+                            }
+                                {/* <div class="tour-block-two">
                                     <div class="inner-box">
                                         <figure class="image-box">
                                             <img src="assets/images/tour/tour-5.jpg" alt="" />
@@ -330,109 +358,8 @@ export default function CategoryPage({ params }) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-6.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$155.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-7.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$130.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-13.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$160.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-14.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$190.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-15.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$150.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-16.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$170.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> */}
+                                
                             </div>
                         </div>
                         <div class="pagination-wrapper">

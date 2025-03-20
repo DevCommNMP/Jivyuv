@@ -16,6 +16,7 @@ export default function TourSection() {
       const router = useRouter();
   
   async function fetchPackageData(){
+    
     let tagName={popular:[],trending:[],offer:[]}
     try{
    let response=await axios.get(`${SERVER_URL}/api/trip-packages`);

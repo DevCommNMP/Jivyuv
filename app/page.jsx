@@ -1,3 +1,4 @@
+"use client"
 import Head from "next/head";
 import AboutSection from "../components/AboutSection";
 import BannerSection from "../components/BannerSection";
@@ -9,18 +10,50 @@ import NewsSection from "../components/NewsSection";
 import PlaceSection from "../components/PlaceSection";
 import TourSection from "../components/TourSection";
 import VideoSection from "../components/VideoSection";
+import { useState,useEffect} from "react";
+import Preloader from "../components/Preloader";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";
   const description = "Discover amazing travel deals and destinations.";
   const image = "https://example.com/featured-image.jpg";
   const url = "https://yourwebsite.com";
+ const [packageData,setPackageData]=useState();
+ 
 
+ const [isLoading,setIsLoading]=useState(false);
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+   async function fetchPackageData() {
+      setIsLoading(true);
+      try {
+        let response =await  axios.get(`${SERVER_URL}/api/trip-packages`);
+    
+
+        setPackageData(response.data.reverse());
+      } catch (error) {
+      
+        Swal.fire({
+          icon:"error",
+          text:error.response.data.message || "Something went wrong"
+        })
+      }finally{
+        setIsLoading(false);
+      }
+    }
+    useEffect(()=>{
+      fetchPackageData();
+  
+    },[]);
+  
+   
 
   
 
   return (
     <>
+    {isLoading===true? <Preloader/> :<>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -34,13 +67,15 @@ export default function Home() {
       <BannerSection />
       <FeatureSection />
       {/* <AboutSection /> */}
-      <TourSection />
+      <TourSection packageAllData={packageData} />
       <DealsSection />
       <PlaceSection />
       <MapSection />
       <FunfactSection />
       <VideoSection />
       <NewsSection />
+      </>
+    }
     </>
   );
 }
