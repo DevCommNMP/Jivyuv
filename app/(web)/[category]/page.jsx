@@ -5,10 +5,14 @@ import { useState,useEffect } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Preloader from "../../../components/Preloader";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
+    const [originalPackageData,setOriginalPackageData]=useState();
+    const [isLoading,setIsLoading]=useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const router = useRouter();
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -17,7 +21,7 @@ export default function CategoryPage({ params }) {
     }
 
     async function fetchPackageData(){
-     
+        setIsLoading(true);
         try{
       
             let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
@@ -29,13 +33,14 @@ export default function CategoryPage({ params }) {
             });
 
          setPackageData(data.reverse());
-         
+         setOriginalPackageData(data.reverse());
     
         }catch(error){
           console.log(error);
           Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
     
         }finally{
+            setIsLoading(false);
     
         }
       }
@@ -48,11 +53,25 @@ export default function CategoryPage({ params }) {
         router.push("/trip/"+slug);
 
       }
+      function handleSearch(event){
+      
+        if(event.target.value.length>0){
+      let filteredPackages = originalPackageData.filter((item) =>{
+        return item.title.toLowerCase().includes(event.target.value.toLowerCase())
+      }
+    );
+
+    setPackageData(filteredPackages)
+
+}else{
+    setPackageData(originalPackageData);
+}
+}
 
     return (
         <>
         {/* <!-- Page Title --> */}
-        <section class="page-title style-two centred" style={{ backgroundImage: 'url(assets/images/background/page-title-2.jpg);' }}>
+        <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData.packageImage});` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -95,7 +114,7 @@ export default function CategoryPage({ params }) {
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div class="item-shorting clearfix">
                             <div class="left-column pull-left">
-                                <h3>Showing 1-6 of 20 Results</h3>
+                                <h3>Showing {packageData.length} Results</h3>
                             </div>
                             <div class="right-column pull-right clearfix">
                                 <div class="short-box clearfix">
@@ -305,6 +324,7 @@ export default function CategoryPage({ params }) {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
+                                {packageData.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
                              {packageData.map((item)=>{
                                  return <div class="tour-block-two">
                                  <div class="inner-box">
@@ -379,7 +399,8 @@ export default function CategoryPage({ params }) {
                                 </div>
                                 <form action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
-                                        <input type="search" name="search-field" placeholder="Search" required="" />
+                                        <input type="search" name="search-field" placeholder="Search" required=""  
+                    onChange={handleSearch} />
                                         <button type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
@@ -605,6 +626,8 @@ export default function CategoryPage({ params }) {
             </div>
         </section>
         {/* <!-- tours-page-section end --> */}
+        
     </>
+    
     );
 }
