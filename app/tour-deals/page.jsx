@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 export default function TourDeals() {
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [deals, setDeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+console.log(deals)
   useEffect(() => {
     async function fetchDeals() {
       try {
@@ -69,11 +70,11 @@ export default function TourDeals() {
                       <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
                     </figure>
                     <div className="content-box">
-                      <span>{deal.discount}</span>
+                      <span style={{textDecoration:"line-through"}}>Rs.{deal.packagePromotional}</span>
                       <h3>
-                        <a href={`/india-packages/${deal.slug}`}>{deal.title}</a>
+                        <a href={`/india-packages/${deal?.subCategoryId?.slugName}`}>{deal.title}</a>
                       </h3>
-                      <h4>${deal.price}</h4>
+                      <h4>${deal.packagePrice}</h4>
                     </div>
                   </div>
                 </div>
@@ -106,11 +107,11 @@ export default function TourDeals() {
                       <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
                     </figure>
                     <div className="content-box">
-                      <span>{deal.discount}</span>
+                      <span style={{textDecoration:"line-through"}}>RS.{deal?.packagePromotional}</span>
                       <h3>
-                        <a href={`/international-packages/${deal.slug}`}>{deal.title}</a>
+                        <a href={`/international-packages/${deal?.subCategoryId?.slugName}`}>{deal.title}</a>
                       </h3>
-                      <h4>${deal.price}</h4>
+                      <h4>RS.{deal.packagePrice}</h4>
                     </div>
                   </div>
                 </div>
