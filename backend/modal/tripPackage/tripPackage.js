@@ -17,7 +17,7 @@ const packageSchema = new Schema({
   isVisaFree: { type: Boolean, required: true },
   country: { type: String, required: true },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
-  subCategoryId: { type: mongoose.Schema.Types.ObjectId, ref: "SubCategory" },
+  subCategoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Subcategory" },
   tripTagName: { type: String, required: true },
   startingDate: { type: String, },
   isPickupAndDropAvailable: { type: Boolean, required: true },

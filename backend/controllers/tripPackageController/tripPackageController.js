@@ -94,7 +94,6 @@ exports.createPackage = async (req, res) => {
       packageImage,
       packageSubImages,
     });
-console.log(newPackage);
     const savedPackage = await newPackage.save();
     res.status(201).json(savedPackage);
   } catch (err) {
@@ -106,7 +105,7 @@ console.log(newPackage);
 // Get all Ladakh Bike Expedition packages
 exports.getAllPackages = async (req, res) => {
   try {
-    const packages = await Package.find().populate('categoryId');
+    const packages = await Package.find().populate('subCategoryId').populate('categoryId');
     res.status(200).json(packages);
   } catch (err) {
     res.status(400).json({ message: 'Error fetching packages', error: err });
