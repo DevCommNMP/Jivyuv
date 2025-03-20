@@ -1,24 +1,172 @@
 "use client";
+import axios from "axios";
+import { useState,useEffect } from "react";
+import Swal from "sweetalert2";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+import { Key } from "lucide-react";
+
+
 
 export default function SubcategoryPage({ params }) {
     const {type} = params; // Access the dynamic category and subcategory parameters
+
+
+ 
+    const [packageData,setPackageData]=useState([]);
+    const [originalPackageData,setOriginalPackageData]=useState();
+    const [isLoading,setIsLoading]=useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [subCategoryName,setSubCategoryName]=useState([]);
+    const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
+    const router = useRouter();
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
     if (!type) {
         return <p>Loading...</p>; // Handle cases where the parameters are not yet available
     }
 
-    console.log(type)
+    
+ async function fetchPackageData(){
+        setIsLoading(true);
+        let subCategoryName=[];
+        try{
+      
+            let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
+        
+            let data=response.data.filter((item)=>{
+                if(item.tripTagName===type){
+                    return item;
+                }
+
+            }).reverse();
+           
+         setPackageData(data);
+         setOriginalPackageData(data);
+      
+        }catch(error){
+          console.log(error);
+          Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
+    
+        }finally{
+            setIsLoading(false);
+    
+        }
+      }
+      useEffect(()=>{
+        fetchPackageData();
+    
+      },[type])
+      function handleNavigation(slug){
+        
+        router.push("/trip/"+slug);
+
+      }
+      function handleSearch(event){
+        
+        if(event.target.value.length>0){
+            
+      let filteredPackages = originalPackageData.filter((item) =>{
+        return item.title.toLowerCase().includes(event.target.value.toLowerCase())
+      }
+    );
+
+    setPackageData(filteredPackages)
+
+}else{
+    setPackageData(originalPackageData);
+}
+}
+
+
+// function handleSelectedCategoryName(name){
+//     if(selectedSubCategoryName && selectedSubCategoryName.includes(name)){
+//         let data=selectedSubCategoryName.filter((subName)=>{
+//             if(subName!==name){
+//                 return true;
+//             }
+//         });
+//        setSelectedSubCategoryName(data);
+//     }else{
+//         setSelectedSubCategoryName([...selectedSubCategoryName,name]);
+//     }
+
+// }
+
+// function handleSelectedCategoryName(name) {
+//     let data=[];
+//     setSelectedSubCategoryName(prev => {
+//       if (prev.includes(name)) {
+       
+//         data= prev.filter(subName => subName !== name);
+//         return data;
+
+//       } else {
+        
+//         data=[...prev, name];
+//         return data;
+//       }
+//     });
+//     filterSubCategoriesByPackage(data);
+   
+//   }
+  
+function handleSelectedCategoryName(name) {
+    setSelectedSubCategoryName(prev => 
+        prev.includes(name) 
+            ? prev.filter(sub => sub !== name) 
+            : [...prev, name]
+    );
+}
+
+function filterSubCategoriesByPackage(selectedSubCategories) {
+    if (selectedSubCategories.length === 0) {
+        setPackageData(originalPackageData);
+        return;
+    }
+    const filtered = originalPackageData.filter(trip => 
+        selectedSubCategories.includes(trip.subCategoryId?.name)
+    );
+    setPackageData(filtered);
+}
+
+useEffect(() => {
+    filterSubCategoriesByPackage(selectedSubCategoryName);
+}, [selectedSubCategoryName]);
+
+// function filterSubCategoriesByPackage(selectedSubCategoryName){
+//    console.log(selectedSubCategoryName);
+//    let data=originalPackageData.filter((trip)=>{
+//     if (trip.subCategoryId && trip.subCategoryId.name) {
+//         if (selectedSubCategoryName.includes(trip.subCategoryId.name)) {
+//             return trip;
+//         }
+//       }
+
+//    });
+//    if(data.length>0){
+
+//    setPackageData(data); 
+//    }else{
+//     setPackageData(originalPackageData);
+//    }
+
+// }
+
+
     return (
         <>
-        {/* <!-- Page Title --> */}
-        <section class="page-title style-two centred" style={{ backgroundImage: 'url(assets/images/background/page-title-2.jpg);' }}>
+            {/* <!-- Page Title --> */}
+            <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
                     <p>Discover your next great adventure</p>
                 </div>
                 <div class="form-inner">
-                    <form action="index.html" method="post" class="booking-form clearfix">
+                    <form action="" method="post" class="booking-form clearfix">
                         <div class="form-group">
                             <input type="text" name="service" placeholder="Where to?" required="" />
                         </div>
@@ -54,25 +202,9 @@ export default function SubcategoryPage({ params }) {
                     <div class="col-lg-8 col-md-12 col-sm-12 content-side">
                         <div class="item-shorting clearfix">
                             <div class="left-column pull-left">
-                                <h3>Showing 1-6 of 20 Results</h3>
+                                <h3>Showing {packageData?.length} Results</h3>
                             </div>
-                            <div class="right-column pull-right clearfix">
-                                <div class="short-box clearfix">
-                                    <div class="select-box">
-                                        <select class="wide">
-                                            <option data-display="Sort by">Sort by</option>
-                                            <option value="1">Sort 01</option>
-                                            <option value="2">Sort 02</option>
-                                            <option value="3">Sort 03</option>
-                                            <option value="3">Sort 04</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="menu-box">
-                                    <button class="list-view on"><i class="icon-List"></i></button>
-                                    <button class="grid-view"><i class="icon-Grid"></i></button>
-                                </div>
-                            </div>
+                           
                         </div>
                         <div class="wrapper list">
                             <div class="tour-grid-content">
@@ -264,24 +396,45 @@ export default function SubcategoryPage({ params }) {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-4.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$170.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
+                                {packageData?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
+                             {packageData?.map((item)=>{
+                                 return <div class="tour-block-two">
+                                 <div class="inner-box">
+                                     <figure class="image-box" style={{width:"190px",height:"227px"}}>
+                                         <img src={`${SERVER_URL}/${item.packageImage}`} alt="" style={{objectFit:"contain"}}/>
+                                         <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item.titleSlug);
+
+
+                                         }}><i class="fas fa-link"></i></Link>
+                                     </figure>
+                                     <div class="content-box">
+                                         <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                         <h3> <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item?.titleSlug);
+
+
+                                         }}>{item.title}</Link></h3>
+                                         <h4>₹ {item.packagePrice}<span> / Per person</span></h4>
+                                         {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
+                                         <div class="btn-box">
+                                         <Link href="#" onClick={(event)=>{
+                                            event.preventDefault();
+                                            handleNavigation(item?.titleSlug);
+
+
+                                         }}>See Details</Link>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             })
+                               
+                            }
+                                {/* <div class="tour-block-two">
                                     <div class="inner-box">
                                         <figure class="image-box">
                                             <img src="assets/images/tour/tour-5.jpg" alt="" />
@@ -297,109 +450,8 @@ export default function SubcategoryPage({ params }) {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-6.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$155.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-7.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$130.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-13.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$160.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-14.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$190.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-15.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$150.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-16.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$170.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> */}
+                                
                             </div>
                         </div>
                         <div class="pagination-wrapper">
@@ -419,65 +471,13 @@ export default function SubcategoryPage({ params }) {
                                 </div>
                                 <form action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
-                                        <input type="search" name="search-field" placeholder="Search" required="" />
+                                        <input type="search" name="search-field" placeholder="Search" required=""  
+                    onChange={handleSearch} />
                                         <button type="submit"><i class="fas fa-search"></i></button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="sidebar-widget category-widget">
-                                <div class="widget-title">
-                                    <h3>Category</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="category-list clearfix">
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Adventure Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" checked="checked" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">City Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Couple Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Group Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">Hosted Tours</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                           
                             <div class="sidebar-widget price-filter">
                                 <div class="widget-title">
                                     <h3>Price Range</h3>
@@ -548,90 +548,7 @@ export default function SubcategoryPage({ params }) {
                                     </ul>
                                 </div>
                             </div>
-                            <div class="sidebar-widget review-widget">
-                                <div class="widget-title">
-                                    <h3>Review Score</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="category-list clearfix">
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li class="custom-check-box">
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">
-                                                        <i class="icon-Star"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                        <i class="icon-Star light"></i>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                           
                             <div class="advice-widget">
                                 <div class="inner-box" style={{ backgroundImage: 'url(assets/images/resource/advice-1.jpg);' }}>
                                     <div class="text">
