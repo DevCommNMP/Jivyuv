@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import Preloader from "../../components/Preloader";
 
 
 const BlogStandard = () => {
@@ -75,6 +76,7 @@ const BlogStandard = () => {
 
   return (
     <>
+    {isLoading===true? <Preloader/>:<>
       {/* Page Title */}
       <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/background/page-title-5.jpg)' }}>
         <div className="auto-container">
@@ -201,6 +203,8 @@ const BlogStandard = () => {
         </div>
       </section>
       {/* sidebar-page-container end */}
+      </>
+      }
     </>
   );
 };

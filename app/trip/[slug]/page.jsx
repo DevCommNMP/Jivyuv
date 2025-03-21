@@ -71,13 +71,7 @@ export default function TourDetails({params}) {
               <div className="tour-details-content">
                 <div className="inner-box">
                   <div className="text">
-                    {/* <h2>Overview</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.
-                    </p> */}
+                   
                     <ul className="info-list clearfix">
                       <li>
                         <span style={{fontWeight:"bolder"}}>Pickup & Drop</span><br/>
@@ -109,12 +103,9 @@ export default function TourDetails({params}) {
                     return <div className="content-box">
                     <div className="single-box">
                       <span>{activity?.activityDay}</span>
-                      {/* <h4>8:00 am to 10:00 am</h4> */}
+                     
                       <h3>{activity?.activityTitle}</h3>
-                      {/* <p>
-                        Aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.
-                      </p> */}
+                     
                       <ul className="list clearfix">
                         {activity?.activityDescription?.map((list)=>{
                           return  <li style={{textAlign:"justify"}}>{list}</li>
@@ -157,20 +148,12 @@ export default function TourDetails({params}) {
 
                     })
                   
-                    // <figure className="image">
-                      
-                      
-                    //   <Image
-                    //     src="/assets/images/resource/destination-4.jpg"
-                    //     alt="Gallery Image"
-                    //     width={300}
-                    //     height={200}
-                    //   />
+                   
                    
                     
-                    // </figure>
+                 
                    }
-                    {/* ...repeat for other images... */}
+                   
                   </div>
                 </div>
               </div>
@@ -221,12 +204,7 @@ export default function TourDetails({params}) {
                   </div>
                   <div className="widget-content">
                     <ul className="download-links clearfix">
-                      {/* <li>
-                        <Link href={`/trip/${slug}/details`}>
-                          Travel Direction<i className="fas fa-download"></i>
-                        </Link>
-                      </li> */}
-                      {/* ...repeat for other downloads... */}
+                   
                     </ul>
                   </div>
                 </div>
