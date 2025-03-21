@@ -1,7 +1,7 @@
 import { CirclePlay, SquareCheckBig } from "lucide-react";
 import Image from "next/image";
 
-export default function AboutSection() {
+export default function AboutSection({contactInfo}) {
   return (
     <>
       <section className="about-section">
@@ -70,14 +70,11 @@ export default function AboutSection() {
                 <div className="content-box">
                   <div className="sec-title">
                     <p>About JivYuv</p>
-                    <h2>World Best Travel Agency Company Since 2008.</h2>
+                    <h2>World Best Travel Agency Company Since 2025.</h2>
                   </div>
                   <div className="text">
                     <p>
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit sed
-                      do eiu smod tempor incididunt ut labore dolore magna
-                      aliqua.Quis ipsum suspen disse ultrices gravida Risus
-                      commodo viverra maecenas accumsan lacus vel facilisis.
+                    {contactInfo.company_description || "Loading..."}
                     </p>
                   </div>
                   <ul className="list clearfix">
@@ -92,7 +89,7 @@ export default function AboutSection() {
                     </li>
                   </ul>
                   <div className="btn-box">
-                    <a href="tour-grid" className="theme-btn">
+                    <a href="/trips" className="theme-btn">
                       Find Tours
                     </a>
                   </div>

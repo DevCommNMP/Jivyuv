@@ -40,6 +40,97 @@ export default function TourDetails({params}) {
   },[slug]);
 
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (!SERVER_URL) {
+    console.error("SERVER_URL is not defined. Please check your environment variables.");
+  }
+console.log(packageData)
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    totalMembers: "",
+    tourName: packageData?.titleSlug || "",
+    tripDate: "",
+    message: "",
+  });
+
+  useEffect(() => {
+    if (packageData?.titleSlug) {
+      setFormData((prevData) => ({
+        ...prevData,
+        tourName: packageData.titleSlug,
+      }));
+    }
+  }, [packageData]);
+
+  const [errors, setErrors] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Valid email is required.";
+    if (!formData.phone.trim() || !/^\d{10}$/.test(formData.phone))
+      newErrors.phone = "Valid 10-digit phone number is required.";
+    if (!formData.totalMembers.trim() || isNaN(formData.totalMembers))
+      newErrors.totalMembers = "Valid number of members is required.";
+    if (!formData.tripDate.trim()) newErrors.tripDate = "Trip date is required.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    console.log(formData);
+    if (!validateForm()) {
+      Swal.fire("Error", "Please fix the errors in the form.", "error");
+      return;
+    }
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+      tourName: formData.tourName,
+      tourDate: formData.tripDate, // Changed key from "tripDate" to "tourDate"
+      totalMembers: formData.totalMembers,
+    };
+
+    try {
+      await axios.post(
+        `${SERVER_URL}/api/tour-queries`,
+        payload, // Send the updated payload
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      Swal.fire("Success", "Your inquiry has been submitted!", "success");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        totalMembers: "",
+        tourName: packageData?.titleSlug || "",
+        tripDate: "", // Reset tripDate
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting inquiry:", error.response || error.message);
+      Swal.fire("Error", error.response?.data?.message || "Failed to submit your inquiry. Please try again.", "error");
+    }
+  };
+
   return (
     <div className="tour-details-page">
       {/* Page Title */}
@@ -98,32 +189,22 @@ export default function TourDetails({params}) {
                     </p>
                   </div>
                   
-                 {packageData?.activityData?.map((activity)=>{
-
-                    return <div className="content-box">
-                    <div className="single-box">
-                      <span>{activity?.activityDay}</span>
-                     
-                      <h3>{activity?.activityTitle}</h3>
-                     
-                      <ul className="list clearfix">
-                        {activity?.activityDescription?.map((list)=>{
-                          return  <li style={{textAlign:"justify"}}>{list}</li>
-
-                        })
-                       
-                      }
-                      
-                      </ul>
-                      <br/>
+                 {packageData?.activityData?.map((activity, index) => (
+                    <div className="content-box" key={`activity-${index}`}>
+                      <div className="single-box">
+                        <span>{activity?.activityDay}</span>
+                        <h3>{activity?.activityTitle}</h3>
+                        <ul className="list clearfix">
+                          {activity?.activityDescription?.map((list, idx) => (
+                            <li key={`description-${index}-${idx}`} style={{ textAlign: "justify" }}>
+                              {list}
+                            </li>
+                          ))}
+                        </ul>
+                        <br />
+                      </div>
                     </div>
-                    </div>
-
-                 })
-                
-                   
-                  
-                   }
+                  ))}
                 </div>
                 
 
@@ -135,25 +216,16 @@ export default function TourDetails({params}) {
                   </div>
                   <div className="image-box clearfix">
                  
-                    {packageData?.packageSubImages?.map((img)=>{
-                      return  <figure className="image"> <Image
-                        src={`${SERVER_URL}/${img}`}
-                        alt="Gallery Image"
-                        width={300}
-                        height={200}
-                      />
-                   
-                   </figure>
-                   
-
-                    })
-                  
-                   
-                   
-                    
-                 
-                   }
-                   
+                    {packageData?.packageSubImages?.map((img, index) => (
+                      <figure className="image" key={`gallery-img-${index}`}>
+                        <Image
+                          src={`${SERVER_URL}/${img}`}
+                          alt="Gallery Image"
+                          width={300}
+                          height={200}
+                        />
+                      </figure>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -167,27 +239,81 @@ export default function TourDetails({params}) {
                   <div className="widget-title">
                     <h3>Book This Tour</h3>
                   </div>
-                  <form className="tour-form">
+                  <form className="tour-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                      <input type="text" name="name" placeholder="Your Name" required />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Your Name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      {errors.name && <p className="error-text" style={{color:"red"}}>{errors.name}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="email" name="email" placeholder="Your Email" required />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Your Email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      {errors.email && <p className="error-text" style={{color:"red"}}>{errors.email}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="text" name="phone" placeholder="Phone" required />
+                      <input
+                        type="text"
+                        name="phone"
+                        placeholder="Phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      {errors.phone && <p className="error-text" style={{color:"red"}}>{errors.phone}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="text" name="totalMembers" placeholder="Total members in numbers" required />
+                      <input
+                        type="text"
+                        name="totalMembers"
+                        placeholder="Total members in numbers"
+                        value={formData.totalMembers}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      {errors.totalMembers && <p className="error-text" style={{color:"red"}}>{errors.totalMembers}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="text" name="totalMembers" placeholder="Tour Name" value={packageData?.titleSlug} readOnly required  />
+                      <input
+                        type="text"
+                        name="tourName"
+                        placeholder="Tour Name"
+                        value={formData.tourName}
+                        readOnly
+                        required
+                      />
                     </div>
                     <div className="form-group">
-                      <input type="text" name="tripDate" placeholder="dd/mm/yy" />
+                      <input
+                        type="date"
+                        name="tripDate"
+                        placeholder="dd/mm/yy"
+                        value={formData.tripDate}
+                        onChange={handleInputChange}
+                        style={{padding:"10px",width:"100%",borderRadius:"10px", color:"grey",paddingLeft:"20px"}}
+                        
+                        required
+                      />
+                      {errors.tripDate && <p className="error-text" style={{color:"red"}}>{errors.tripDate}</p>}
                     </div>
                     <div className="form-group">
-                      <textarea name="message" placeholder="Message"></textarea>
+                      <textarea
+                        name="message"
+                        placeholder="Message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                      ></textarea>
                     </div>
                     <div className="form-group message-btn">
                       <button type="submit" className="theme-btn">

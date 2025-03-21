@@ -115,3 +115,12 @@
     width: 48px;
     margin: 10px 5px ;
   }
+
+
+  @media screen and (max-width: 425px) {
+    .popup-left{
+      display: none;
+    }
+    
+
+  }

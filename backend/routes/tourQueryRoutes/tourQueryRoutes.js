@@ -10,7 +10,7 @@ const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require("../../middl
 
 
 // Route to create a new tour query
-router.post("/tour-queries",isAuthenticatedAdmin, createTourQuery);
+router.post("/tour-queries",createTourQuery);
 
 // Route to get all tour queries
 router.get("/tour-queries", getAllTourQueries);
