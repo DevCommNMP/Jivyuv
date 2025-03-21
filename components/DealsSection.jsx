@@ -13,19 +13,18 @@ export default function DealsSection() {
           <div className="content_block_2">
             <div className="content-box">
               <h3>
-                Group Travel <br />
-                to New Zealand
+              Exclusive Group Travel Package <br />
+              
               </h3>
               <div className="price">
-                <h4>$150</h4>
-                <del>$300</del>
+                <h4>30% Off</h4>
+                <del>50% off</del>
               </div>
               <p>
-                Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod
-                tempor ux incidunt labore dolore magna aliqua Quis ipsum suspen.
+              Embark on an unforgettable journey filled with adventure, culture, and relaxation. Experience breathtaking landscapes and create lasting memories.
               </p>
               <Link href="tour-deals" className="theme-btn">
-                See Details
+                View Offers
               </Link>
             </div>
           </div>

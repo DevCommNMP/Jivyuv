@@ -72,9 +72,9 @@ console.log(deals)
                     <div className="content-box">
                       <span style={{textDecoration:"line-through"}}>Rs.{deal.packagePromotional}</span>
                       <h3>
-                        <a href={`/india-packages/${deal?.subCategoryId?.slugName}`}>{deal.title}</a>
+                        <a href={`/india-packages/${deal?.subCategoryId?.slugName}`}>{deal?.subCategoryId?.slugName}</a>
                       </h3>
-                      <h4>${deal.packagePrice}</h4>
+                      <h4>Rs.{deal.packagePrice}</h4>
                     </div>
                   </div>
                 </div>
@@ -109,7 +109,7 @@ console.log(deals)
                     <div className="content-box">
                       <span style={{textDecoration:"line-through"}}>RS.{deal?.packagePromotional}</span>
                       <h3>
-                        <a href={`/international-packages/${deal?.subCategoryId?.slugName}`}>{deal.title}</a>
+                        <a href={`/international-packages/${deal?.subCategoryId?.slugName}`}>{deal?.subCategoryId?.slugName}</a>
                       </h3>
                       <h4>RS.{deal.packagePrice}</h4>
                     </div>
