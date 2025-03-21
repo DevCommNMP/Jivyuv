@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import {CalendarDays,Search,MoveRight } from 'lucide-react'
 
 
 const BlogStandard = () => {
@@ -73,10 +74,11 @@ const BlogStandard = () => {
 
 
 
+      // <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
   return (
     <>
       {/* Page Title */}
-      <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/background/page-title-5.jpg)' }}>
+      <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
         <div className="auto-container">
           <div className="content-box">
             <h1>Blog Standard</h1>
@@ -106,7 +108,7 @@ const BlogStandard = () => {
                             <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.title} width={800} height={400} />
                           </a>
                         </Link>
-                        <span className="post-date"><i className="icon-Calendar"></i>{new Date(blog.createdAt).toLocaleDateString()}</span>
+                        <span className="post-date"><CalendarDays />{new Date(blog.createdAt).toLocaleDateString()}</span>
                       </figure>
                       <div className="lower-content">
                         <div style={{display:"flex", gap:"10px"}}>
@@ -138,7 +140,7 @@ const BlogStandard = () => {
                     <li><a href="#" className="current">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
-                    <li><a href="#"><i className="icon-Right-Arrow"></i></a></li>
+                    <li><a href="#"><MoveRight /></a></li>
                   </ul>
                 </div>
               </div>
@@ -152,7 +154,7 @@ const BlogStandard = () => {
                   <form action="/search" method="post" className="search-form">
                     <div className="form-group">
                       <input type="search" name="search-field" placeholder="Search" required onChange={handleSearchQuery} value={searchQuery} />
-                      <button type="submit"><i className="fas fa-search"></i></button>
+                      <button type="submit"><Search /></button>
                     </div>
                   </form>
                 </div>
@@ -178,7 +180,7 @@ const BlogStandard = () => {
                         <figure className="post-thumb">
                           <Link href={`/blogs/${blog.slugName}`} legacyBehavior>
                             <a>
-                              <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.title} width={100} height={100} />
+                              <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.title} width={50} height={50} />
                             </a>
                           </Link>
                         </figure>

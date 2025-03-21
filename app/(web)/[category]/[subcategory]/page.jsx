@@ -5,6 +5,7 @@ import { useState,useEffect } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
 
 import { Key } from "lucide-react";
 
@@ -92,10 +93,11 @@ export default function SubcategoryPage({ params }) {
                 <div class="form-inner">
                     <form action="index.html" method="post" class="booking-form clearfix">
                         <div class="form-group">
+                        <MapPin />
                             <input type="text" name="service" placeholder="Where to?" required="" />
                         </div>
                         <div class="form-group input-date">
-                            <i class="far fa-angle-down"></i>
+                        <CalendarDays />
                             <input type="text" name="date" placeholder="When?" id="datepicker" />
                         </div>
                         <div class="form-group">
@@ -110,7 +112,7 @@ export default function SubcategoryPage({ params }) {
                             </div>
                         </div>
                         <div class="message-btn">
-                            <button type="submit" class="theme-btn"><i class="far fa-search"></i>Find Now</button>
+                            <button type="submit" class="theme-btn"><Search />Find Now</button>
                         </div>
                     </form>
                 </div>
@@ -141,7 +143,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$160.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -164,7 +166,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$170.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -187,7 +189,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$170.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -210,7 +212,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$190.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -233,7 +235,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$150.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -256,7 +258,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$180.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -279,7 +281,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$145.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -302,7 +304,7 @@ export default function SubcategoryPage({ params }) {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$160.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -334,7 +336,7 @@ export default function SubcategoryPage({ params }) {
                                          }}><i class="fas fa-link"></i></Link>
                                      </figure>
                                      <div class="content-box">
-                                         <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                         <div class="rating"><span><Star />8.0 Superb</span></div>
                                          <h3> <Link href="#" onClick={(event)=>{
                                             event.preventDefault();
                                             handleNavigation(item?.titleSlug);
@@ -365,7 +367,7 @@ export default function SubcategoryPage({ params }) {
                                             <a href="tour-details"><i class="fas fa-link"></i></a>
                                         </figure>
                                         <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                            <div class="rating"><span><Star />8.0 Superb</span></div>
                                             <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                             <h4>$180.00<span> / Per person</span></h4>
                                             <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
@@ -383,7 +385,7 @@ export default function SubcategoryPage({ params }) {
                                 <li><a href="tour-2.html" class="current">1</a></li>
                                 <li><a href="tour-2.html">2</a></li>
                                 <li><a href="tour-2.html">3</a></li>
-                                <li><a href="tour-2.html"><i class="icon-Right-Arrow"></i></a></li>
+                                <li><a href="tour-2.html"><MoveRight /></a></li>
                             </ul>
                         </div>
                     </div>
@@ -397,7 +399,7 @@ export default function SubcategoryPage({ params }) {
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
                     onChange={handleSearch} />
-                                        <button type="submit"><i class="fas fa-search"></i></button>
+                                        <button type="submit"><Search /></button>
                                     </div>
                                 </form>
                             </div>
@@ -428,7 +430,7 @@ export default function SubcategoryPage({ params }) {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">0 - 24 hours</span>
                                                 </label>
                                             </div>
@@ -437,7 +439,7 @@ export default function SubcategoryPage({ params }) {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">1 - 2 days</span>
                                                 </label>
                                             </div>
@@ -446,7 +448,7 @@ export default function SubcategoryPage({ params }) {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">2 - 3 days</span>
                                                 </label>
                                             </div>
@@ -455,7 +457,7 @@ export default function SubcategoryPage({ params }) {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">3 - 4 days</span>
                                                 </label>
                                             </div>
@@ -464,7 +466,7 @@ export default function SubcategoryPage({ params }) {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">4 - 5 days</span>
                                                 </label>
                                             </div>
