@@ -170,7 +170,7 @@ const BlogStandard = () => {
                 </div> */}
                 <div className="sidebar-widget post-widget">
                   <div className="widget-title">
-                    <h3>Latest News</h3>
+                    <h3>Latest Blogs</h3>
                   </div>
                   <div className="post-inner">
                     {latestNews.map((blog) => {return (
