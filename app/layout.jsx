@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header categories={categories} companyData={companyData} />
         {children}
-        <Footer companyData={companyData} />
+        <Footer companyData={companyData} categories={categories} />
       </body>
     </html>
   );

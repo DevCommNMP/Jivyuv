@@ -15,6 +15,10 @@ const querySchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  subject: {  
+    type: String,
+    default:"Query"
+  },
   message: {
     type: String,
     required: true,
