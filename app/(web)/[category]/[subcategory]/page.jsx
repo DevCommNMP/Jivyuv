@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Key } from "lucide-react";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 
 export default function SubcategoryPage({ params }) {
     const { category, subcategory } = params;
@@ -17,6 +19,8 @@ export default function SubcategoryPage({ params }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [subCategoryName,setSubCategoryName]=useState([]);
     const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
+    const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
     const router = useRouter();
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -38,11 +42,15 @@ export default function SubcategoryPage({ params }) {
                 }
 
             }).reverse();
+            const prices = data.map(pkg => Number(pkg.packagePrice));
+            const min = data.length ? Math.min(...prices) : 0;
+            const max = data.length ? Math.max(...prices) : 0;
           
-            
+            setPriceRange({ min, max });
+            setSelectedPrice({ min, max });
        
-         setPackageData(data);
-         setOriginalPackageData(data);
+            setPackageData(data);
+           setOriginalPackageData(data);
      
         }catch(error){
           console.log(error);
@@ -57,6 +65,31 @@ export default function SubcategoryPage({ params }) {
         fetchPackageData();
     
       },[category])
+
+
+
+      useEffect(() => {
+        const applyFilters = () => {
+            if (!originalPackageData) return;
+            
+            let filtered = originalPackageData.filter(pkg => {
+                const price = Number(pkg.packagePrice);
+                return price >= selectedPrice.min && 
+                       price <= selectedPrice.max &&
+                       (selectedSubCategoryName.length === 0 || 
+                        selectedSubCategoryName.includes(pkg.subCategoryId?.name)) &&
+                       pkg.title.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+    
+            setPackageData(filtered);
+        };
+    
+        applyFilters();
+    }, [selectedPrice, originalPackageData, searchQuery]);
+
+
+
+
       function handleNavigation(slug){
         
         router.push("/trip/"+slug);
@@ -402,7 +435,7 @@ export default function SubcategoryPage({ params }) {
                                 </form>
                             </div>
                           
-                            <div class="sidebar-widget price-filter">
+                            {/* <div class="sidebar-widget price-filter">
                                 <div class="widget-title">
                                     <h3>Price Range</h3>
                                 </div>
@@ -417,7 +450,45 @@ export default function SubcategoryPage({ params }) {
                                     </div>
                                     <div class="price-range-slider"></div>
                                 </div>
-                            </div>
+
+
+
+                            </div> */}
+
+     <div class="sidebar-widget price-filter">
+      <div class="widget-title">
+        <h3>Price Range</h3>
+      </div>
+      <div class="range-slider clearfix">
+        <div class="value-box clearfix">
+          <div class="min-value pull-left">
+            <p>₹ {selectedPrice.min}</p>
+          </div>
+          <div class="max-value pull-right">
+            <p>₹ {selectedPrice.max}</p>
+          </div>
+        </div>
+        <div class="price-range-slider">
+          <Slider
+            range
+            min={priceRange.min}
+            max={priceRange.max}
+            value={[selectedPrice.min, selectedPrice.max]}
+            onChange={([min, max]) => setSelectedPrice({ min, max })}
+            trackStyle={[{ backgroundColor: "#00a8ff" }]}
+            handleStyle={[
+              { borderColor: "#00a8ff", boxShadow: "none" },
+              { borderColor: "#00a8ff", boxShadow: "none" }
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+
+
+
+
+
                             <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
