@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Preloader from "../../../components/Preloader";
 import { Key } from "lucide-react";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
@@ -17,65 +19,144 @@ export default function CategoryPage({ params }) {
     const [subCategoryName,setSubCategoryName]=useState([]);
     const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
     const router = useRouter();
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
+  const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
     if (!category) {
         return <p>Loading...</p>; // Handle cases where the parameter is not yet available
     }
 
-    async function fetchPackageData(){
-        setIsLoading(true);
-        let subCategoryName=[];
-        try{
+    // async function fetchPackageData(){
+    //     setIsLoading(true);
+    //     let subCategoryName=[];
+    //     try{
       
-            let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
-            if(category==="trips"){
-                setOriginalPackageData(response.data.reverse());
-                setPackageData(response.data.reverse());
+    //         let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
+    //         if(category==="trips"){
+    //             setOriginalPackageData(response.data.reverse());
+    //             setPackageData(response.data.reverse());
 
-                response.data.reverse().forEach((trip) => {
-                    // First check if subCategoryId exists and has a name
-                    if (trip.subCategoryId && trip.subCategoryId.name) {
-                      if (!subCategoryName.includes(trip.subCategoryId.name)) {
-                        subCategoryName.push(trip.subCategoryId.name);
-                      }
-                    }
-                  });
+    //             response.data.reverse().forEach((trip) => {
+    //                 // First check if subCategoryId exists and has a name
+    //                 if (trip.subCategoryId && trip.subCategoryId.name) {
+    //                   if (!subCategoryName.includes(trip.subCategoryId.name)) {
+    //                     subCategoryName.push(trip.subCategoryId.name);
+    //                   }
+    //                 }
+    //               });
                 
-                  setSubCategoryName(subCategoryName);
-            }else{
-            let data=response.data.filter((item)=>{
-                if(item.categoryId.slugName===category){
-                    return item;
-                }
 
-            }).reverse();
-            data.forEach((trip) => {
-                // First check if subCategoryId exists and has a name
-                if (trip.subCategoryId && trip.subCategoryId.name) {
-                  if (!subCategoryName.includes(trip.subCategoryId.name)) {
-                    subCategoryName.push(trip.subCategoryId.name);
-                  }
-                }
-              });
+
+    //               setSubCategoryName(subCategoryName);
+
+    //               const prices = data.map(pkg => Number(pkg.packagePrice));
+    //               const min = data.length ? Math.min(...prices) : 0;
+    //               const max = data.length ? Math.max(...prices) : 0;
+                  
+    //               setPriceRange({ min, max });
+    //               setSelectedPrice({ min, max });
+
+    //         }else{
+    //         let data=response.data.filter((item)=>{
+    //             if(item.categoryId.slugName===category){
+    //                 return item;
+    //             }
+
+    //         }).reverse();
+    //         data.forEach((trip) => {
+    //             // First check if subCategoryId exists and has a name
+    //             if (trip.subCategoryId && trip.subCategoryId.name) {
+    //               if (!subCategoryName.includes(trip.subCategoryId.name)) {
+    //                 subCategoryName.push(trip.subCategoryId.name);
+    //               }
+    //             }
+    //           });
             
-        setSubCategoryName(subCategoryName);
-         setPackageData(data);
-         setOriginalPackageData(data);
-        }
-        }catch(error){
-          console.log(error);
-          Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
+    //     setSubCategoryName(subCategoryName);
+    //      setPackageData(data);
+    //      setOriginalPackageData(data);
+    //     }
+    //     }catch(error){
+    //       console.log(error);
+    //       Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
     
-        }finally{
+    //     }finally{
+    //         setIsLoading(false);
+    
+    //     }
+    //   }
+
+
+    async function fetchPackageData() {
+        setIsLoading(true);
+        let subCategoryName = [];
+        try {
+            let response = await axios.get(`${SERVER_URL}/api/trip-packages`);
+            let data = response.data;
+    
+            // Process data based on category
+            if (category === "trips") {
+                data = data.reverse();
+            } else {
+                data = data.filter(item => item.categoryId.slugName === category).reverse();
+            }
+    
+            // Set package data
+            setOriginalPackageData(data);
+            setPackageData(data);
+    
+            // Calculate price range
+            const prices = data.map(pkg => Number(pkg.packagePrice));
+            const min = data.length ? Math.min(...prices) : 0;
+            const max = data.length ? Math.max(...prices) : 0;
+    
+            setPriceRange({ min, max });
+            setSelectedPrice({ min, max });
+    
+            // Extract subcategories
+            data.forEach((trip) => {
+                if (trip.subCategoryId?.name && !subCategoryName.includes(trip.subCategoryId.name)) {
+                    subCategoryName.push(trip.subCategoryId.name);
+                }
+            });
+    
+            setSubCategoryName(subCategoryName);
+    
+        } catch (error) {
+            console.log(error);
+            Swal.fire({ icon: "error", title: error?.response?.message || "Data fetch error" });
+        } finally {
             setIsLoading(false);
-    
         }
-      }
+    }
+    
       useEffect(()=>{
         fetchPackageData();
     
       },[category])
+      useEffect(() => {
+        const applyFilters = () => {
+            if (!originalPackageData) return;
+            
+            let filtered = originalPackageData.filter(pkg => {
+                const price = Number(pkg.packagePrice);
+                return price >= selectedPrice.min && 
+                       price <= selectedPrice.max &&
+                       (selectedSubCategoryName.length === 0 || 
+                        selectedSubCategoryName.includes(pkg.subCategoryId?.name)) &&
+                       pkg.title.toLowerCase().includes(searchQuery.toLowerCase());
+            });
+    
+            setPackageData(filtered);
+        };
+    
+        applyFilters();
+    }, [selectedPrice, selectedSubCategoryName, originalPackageData, searchQuery]);
+
+
+
       function handleNavigation(slug){
         
         router.push("/trip/"+slug);
@@ -98,37 +179,7 @@ export default function CategoryPage({ params }) {
 }
 
 
-// function handleSelectedCategoryName(name){
-//     if(selectedSubCategoryName && selectedSubCategoryName.includes(name)){
-//         let data=selectedSubCategoryName.filter((subName)=>{
-//             if(subName!==name){
-//                 return true;
-//             }
-//         });
-//        setSelectedSubCategoryName(data);
-//     }else{
-//         setSelectedSubCategoryName([...selectedSubCategoryName,name]);
-//     }
 
-// }
-
-// function handleSelectedCategoryName(name) {
-//     let data=[];
-//     setSelectedSubCategoryName(prev => {
-//       if (prev.includes(name)) {
-       
-//         data= prev.filter(subName => subName !== name);
-//         return data;
-
-//       } else {
-        
-//         data=[...prev, name];
-//         return data;
-//       }
-//     });
-//     filterSubCategoriesByPackage(data);
-   
-//   }
   
 function handleSelectedCategoryName(name) {
     setSelectedSubCategoryName(prev => 
@@ -153,24 +204,7 @@ useEffect(() => {
     filterSubCategoriesByPackage(selectedSubCategoryName);
 }, [selectedSubCategoryName]);
 
-// function filterSubCategoriesByPackage(selectedSubCategoryName){
-//    console.log(selectedSubCategoryName);
-//    let data=originalPackageData.filter((trip)=>{
-//     if (trip.subCategoryId && trip.subCategoryId.name) {
-//         if (selectedSubCategoryName.includes(trip.subCategoryId.name)) {
-//             return trip;
-//         }
-//       }
 
-//    });
-//    if(data.length>0){
-
-//    setPackageData(data); 
-//    }else{
-//     setPackageData(originalPackageData);
-//    }
-
-// }
 
     return (
         <>
@@ -208,10 +242,7 @@ useEffect(() => {
                 </div>
             </div>
         </section>
-        {/* <!-- End Page Title --> */}
-
-
-        {/* <!-- tours-page-section --> */}
+       
         <section class="tours-page-section">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -450,23 +481,7 @@ useEffect(() => {
                              })
                                
                             }
-                                {/* <div class="tour-block-two">
-                                    <div class="inner-box">
-                                        <figure class="image-box">
-                                            <img src="assets/images/tour/tour-5.jpg" alt="" />
-                                            <a href="tour-details"><i class="fas fa-link"></i></a>
-                                        </figure>
-                                        <div class="content-box">
-                                            <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
-                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
-                                            <h4>$180.00<span> / Per person</span></h4>
-                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
-                                            <div class="btn-box">
-                                                <a href="tour-details">See Details</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
+                               
                                 
                             </div>
                         </div>
@@ -500,23 +515,7 @@ useEffect(() => {
                                 <div class="widget-content">
                                     <ul class="category-list clearfix">
                                         
-                                        {/* {subCategoryName.map((name,index)=>{
-                                            return   <li class="custom-check-box"  key={index}>
-                                            <div class="custom-controls-stacked">
-                                                <label class="custom-control material-checkbox">
-                                                    <input type="checkbox" class="material-control-input" onChange={()=>{
-                                                handleSelectedCategoryName(name);
-                                               
-                                            }}/>
-                                                    <span class="material-control-indicator"></span>
-                                                    <span class="description">{name}</span>
-                                                </label>
-                                            </div>
-                                        </li>
-
-                                        })
                                       
-                                        } */}
 
 {subCategoryName.map((name, index) => (
                             <li class="custom-check-box" key={index}>
@@ -539,7 +538,38 @@ useEffect(() => {
                                     </ul>
                                 </div>
                             </div>
+
                             <div class="sidebar-widget price-filter">
+      <div class="widget-title">
+        <h3>Price Range</h3>
+      </div>
+      <div class="range-slider clearfix">
+        <div class="value-box clearfix">
+          <div class="min-value pull-left">
+            <p>₹ {selectedPrice.min}</p>
+          </div>
+          <div class="max-value pull-right">
+            <p>₹ {selectedPrice.max}</p>
+          </div>
+        </div>
+        <div class="price-range-slider">
+          <Slider
+            range
+            min={priceRange.min}
+            max={priceRange.max}
+            value={[selectedPrice.min, selectedPrice.max]}
+            onChange={([min, max]) => setSelectedPrice({ min, max })}
+            trackStyle={[{ backgroundColor: "#00a8ff" }]}
+            handleStyle={[
+              { borderColor: "#00a8ff", boxShadow: "none" },
+              { borderColor: "#00a8ff", boxShadow: "none" }
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+
+                            {/* <div class="sidebar-widget price-filter">
                                 <div class="widget-title">
                                     <h3>Price Range</h3>
                                 </div>
@@ -554,7 +584,7 @@ useEffect(() => {
                                     </div>
                                     <div class="price-range-slider"></div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
@@ -622,7 +652,7 @@ useEffect(() => {
                 </div>
             </div>
         </section>
-        {/* <!-- tours-page-section end --> */}
+        
         
     </>
     
