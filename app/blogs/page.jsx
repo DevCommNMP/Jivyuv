@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import {CalendarDays,Search,MoveRight } from 'lucide-react'
+import Preloader from "../../components/Preloader";
 
 
 const BlogStandard = () => {
@@ -77,6 +78,7 @@ const BlogStandard = () => {
       // <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
   return (
     <>
+    {isLoading===true? <Preloader/>:<>
       {/* Page Title */}
       <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
         <div className="auto-container">
@@ -203,6 +205,8 @@ const BlogStandard = () => {
         </div>
       </section>
       {/* sidebar-page-container end */}
+      </>
+      }
     </>
   );
 };

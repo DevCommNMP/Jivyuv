@@ -162,13 +162,7 @@ console.log(packageData)
               <div className="tour-details-content">
                 <div className="inner-box">
                   <div className="text">
-                    {/* <h2>Overview</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.
-                    </p> */}
+                   
                     <ul className="info-list clearfix">
                       <li>
                         <span style={{fontWeight:"bolder"}}>Pickup & Drop</span><br/>
@@ -336,12 +330,7 @@ console.log(packageData)
                   </div>
                   <div className="widget-content">
                     <ul className="download-links clearfix">
-                      {/* <li>
-                        <Link href={`/trip/${slug}/details`}>
-                          Travel Direction<i className="fas fa-download"></i>
-                        </Link>
-                      </li> */}
-                      {/* ...repeat for other downloads... */}
+                   
                     </ul>
                   </div>
                 </div>

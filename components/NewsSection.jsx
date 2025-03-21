@@ -19,10 +19,10 @@ export default function NewsSection({ packageData = [] }) {
         ></div>
         <div className="auto-container">
           <div className="sec-title">
-            <p>News & Articles</p>
-            <h2>Stay Updated with JivYuv Tips</h2>
+            <p>Upcoming Events</p>
+            <h2>Stay Updated with JivYuv's Latest Events</h2>
             <Link href="/trips" className="theme-btn-two">
-              Upcoming Tours
+              Upcoming Events
             </Link>
           </div>
           <div className="row clearfix">
