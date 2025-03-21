@@ -47,7 +47,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="destination-details">New York City</a>
+                      <a href="/trips">New York City</a>
                     </h3>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="destination-details">Norway Lake</a>
+                      <a href="/trips">Norway Lake</a>
                     </h3>
                   </div>
                 </div>
@@ -85,7 +85,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="destination-details">Affrican Park</a>
+                      <a href="/trips">Affrican Park</a>
                     </h3>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="destination-details">Vietnam</a>
+                      <a href="/trips">Vietnam</a>
                     </h3>
                   </div>
                 </div>
@@ -116,7 +116,7 @@ export default function PlaceSection() {
                   Find All <br />
                   Destination
                 </h3>
-                <a href="tour-grid" className="theme-btn">
+                <a href="/trips" className="theme-btn">
                   Find Now
                 </a>
               </div>

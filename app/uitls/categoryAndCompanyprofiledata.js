@@ -1,7 +1,7 @@
 import axios from "axios"; // Add missing axios import
 import Swal from "sweetalert2"; // Ensure Swal is imported
-const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL; // Add missing SERVER_URL definition
-
+ // Add missing SERVER_URL definition
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 export async function fetchCategoriesAndCompanyProfile(setIsLoading, setCategories, setCompanyData) {
     setIsLoading(true);
 
@@ -16,7 +16,8 @@ export async function fetchCategoriesAndCompanyProfile(setIsLoading, setCategori
         setCategories(categoriesResponse.data);
         setCompanyData(companyProfileResponse.data);
 
-     
+      console.log("Categories:", categoriesResponse.data);
+      console.log("Company Profile:", companyProfileResponse.data);
     
     } catch (error) {
         console.error("Error fetching data:", error);

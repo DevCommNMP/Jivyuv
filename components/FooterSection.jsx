@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import "./Ctaform.css";
 
-export default function Footer({ companyData }) {
+export default function Footer({ companyData,categories }) {
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,6 +56,7 @@ export default function Footer({ companyData }) {
     }
   };
 
+  console.log(categories);
   return (
     <>
       <footer className="main-footer bg-color-2">
@@ -137,22 +138,26 @@ export default function Footer({ companyData }) {
                   <div className="widget-content">
                     <ul className="links-list clearfix">
                       <li>
+                        <Link href="/">Home</Link>
+                      </li>
+                      {/* <li>
+                        <Link href="/listing">Listing</Link>
+                      </li> */}
+                     {categories?.map((category, index) => (
+                        <li key={`footer-category-${index}`}>
+                          <Link href={`/${category.slugName}`}>
+                            {category.name}
+                          </Link>
+                        </li>
+                      ))}
+                      <li>
                         <Link href="/about-us">About Us</Link>
                       </li>
                       <li>
-                        <Link href="/listing">Listing</Link>
+                        <Link href="/blogs">Our Blog</Link>
                       </li>
                       <li>
-                        <Link href="/how-it-works">How It Works</Link>
-                      </li>
-                      <li>
-                        <Link href="/services">Our Services</Link>
-                      </li>
-                      <li>
-                        <Link href="/blog">Our Blog</Link>
-                      </li>
-                      <li>
-                        <Link href="/contact-us">Contact Us</Link>
+                        <Link href="/contact">Contact Us</Link>
                       </li>
                     </ul>
                   </div>
