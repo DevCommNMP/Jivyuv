@@ -39,6 +39,7 @@ export default function RootLayout({ children }) {
         <Header categories={categories} companyData={companyData} />
         {children}
         <Footer companyData={companyData} categories={categories} />
+        <script src="//code.tidio.co/jle9bquxji2qq9f15iuurgscznud28e9.js" async></script>
       </body>
     </html>
   );
