@@ -53,3 +53,8 @@
 div.video-btn:nth-child(3) > a:nth-child(1) > svg:nth-child(1) {
   transform: translateY(-5px);
 }
+
+
+img.gallary-img {
+  height: 400px !important;
+}
