@@ -22,7 +22,7 @@ const packageSchema = new Schema({
   startingDate: { type: String, },
   isPickupAndDropAvailable: { type: Boolean, required: true },
   packageImage: { type: Object},
-  packageSubImages: [{ type: String}],
+  packageSubImages: [{ type: String,required:true},],
   activityData: [
     {
       activityDay: { type: String, required: true },
