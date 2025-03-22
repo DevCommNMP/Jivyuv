@@ -4,6 +4,7 @@ const blogSchema = new mongoose.Schema(
   {
     blogImage: { type: String, required: true },
     blogTitle: { type: String, required: true },
+    isBlogPublic: { type: Boolean, default: false },
     blogDescription: { type: String, required: true },
     createdBy: { type: String, required: true } ,
     blogTag: { type: [String], required: true },

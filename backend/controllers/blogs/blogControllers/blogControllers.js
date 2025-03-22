@@ -5,7 +5,7 @@ const slugify = require("slugify");
 // Create a new blog
 exports.createBlog = async (req, res) => {
   try {
-    const { blogTitle, blogDescription, createdBy, blogTag } = req.body;
+    const { blogTitle, blogDescription, createdBy, blogTag,isVisibleToAll } = req.body;
 
     // Validate required fields
     if (!req.file || !blogTitle || !blogDescription || !createdBy || !blogTag) {
@@ -24,6 +24,7 @@ exports.createBlog = async (req, res) => {
       blogTitle,
       blogDescription,
       createdBy,
+      isBlogPublic:isVisibleToAll,
       blogTag: blogTag.split(","), // Convert blogTag to an array if it's a comma-separated string
       slugName, // Add the generated slugName
     });
@@ -88,7 +89,7 @@ exports.getBlogBySlugName = async (req, res) => {
 // Update a blog by ID
 exports.updateBlog = async (req, res) => {
   try {
-    const { blogTitle, blogDescription, createdBy, blogTag } = req.body;
+    const { blogTitle, blogDescription, createdBy, blogTag ,isVisibleToAll} = req.body;
 
     // Find the blog to update
     const blog = await Blog.findById(req.params.id);
@@ -107,7 +108,7 @@ exports.updateBlog = async (req, res) => {
     if (blogDescription) blog.blogDescription = blogDescription;
     if (createdBy) blog.createdBy = createdBy;
     if (blogTag) blog.blogTag = blogTag.split(",");
-
+if(isVisibleToAll) blog.isBlogPublic = isVisibleToAll;
     // Save the updated blog
     const updatedBlog = await blog.save();
 
