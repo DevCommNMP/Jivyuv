@@ -5,12 +5,14 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import Swal from "sweetalert2";
+import {CalendarDays} from "lucide-react"
 
 const BlogDetails = ({ params }) => {
   const { slug } = params; // Get the slug from params
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [blog, setBlog] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [latestBlog,setLatestBlogs]=useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,7 +29,13 @@ const BlogDetails = ({ params }) => {
     async function fetchBlog() {
       try {
         const response = await axios.get(`${BASE_URL}/api/blogs/slug/${slug}`);
-        setBlog(response.data.data); // Access the blog data inside the "data" field
+       
+        setBlog(response.data.data);
+        const res=await axios.get(`${BASE_URL}/api/blogs`);
+       
+        setLatestBlogs(res.data.data);
+ // Access the blog data inside the "data" field
+      
       } catch (error) {
         console.error("Error fetching blog:", error);
         Swal.fire("Error", "Failed to load blog details.", "error");
@@ -144,7 +152,7 @@ const BlogDetails = ({ params }) => {
                     <figure className="image-box">
                       <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.blogTitle} width={800} height={400} />
                       <span className="post-date">
-                        <i className="icon-Calendar"></i> {new Date(blog.createdAt).toLocaleDateString()}
+                        <CalendarDays />{new Date(blog.createdAt).toLocaleDateString()}
                       </span>
                     </figure>
                   </div>
@@ -264,21 +272,21 @@ const BlogDetails = ({ params }) => {
                     </ul>
                   </div>
                 </div> */}
-                <div className="sidebar-widget post-widget">
+                <div className="sidebar-widget post-widget" style={{marginTop:'190px'}}>
                   <div className="widget-title">
-                    <h3>Latest News</h3>
+                    <h3>Latest Blogs</h3>
                   </div>
                   <div className="post-inner">
-                    {blog.latestNews?.map((news, index) => (
+                    {latestBlog?.map((blog, index) => (
                       <div key={index} className="post">
                         <figure className="post-thumb">
-                          <Link href={`/blogs/${news.slug}`}>
-                            <Image src={`${BASE_URL}/${news.image}`} alt={news.title} width={100} height={100} />
+                          <Link href={`/blogs/${blog.slugName}`}>
+                            <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.blogTitle} width='50' height="50"  />
                           </Link>
                         </figure>
-                        <span className="post-date">{new Date(news.date).toLocaleDateString()}</span>
+                        <span className="post-date">{new Date(blog.createdAt).toLocaleDateString()}</span>
                         <h4>
-                          <Link href={`/blogs/${news.slug}`}>{news.title}</Link>
+                          <Link href={`/blogs/${blog.slugName}`}>{blog.blogTitle}</Link>
                         </h4>
                       </div>
                     ))}

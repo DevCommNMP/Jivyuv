@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { Star,Clock,User,Map} from "lucide-react";
 
 
 export default function TourDetails({params}) {
@@ -142,7 +143,7 @@ console.log(packageData)
           <div className="inner-box">
             <div className="rating">
               <span>
-                <i className="fas fa-star"></i>8.0 Superb
+              <Star />8.0 Superb
               </span>
             </div>
             <h2>{packageData?.title}</h2>
@@ -166,15 +167,28 @@ console.log(packageData)
                     <ul className="info-list clearfix">
                       <li>
                         <span style={{fontWeight:"bolder"}}>Pickup & Drop</span><br/>
-                        <i className="far fa-clock">{packageData?.isPickupAndDropAvailable==true?<span style={{fontWeight:"bold"}}>{packageData?.pickupLocation}-{packageData?.dropLocation}</span>:"Any Time"}</i>
+                        {/* <i className="far fa-clock"></i> */}
+                        <span>
+                        <Clock/>
+                        Day And Night
+                        </span>
                       </li>
                       <li>
                       <span style={{fontWeight:"bolder"}}>Duration</span><br/>
-                        <i className="far fa-user"><span style={{fontWeight:"bold"}}>{packageData?.numberOfNights}N - {packageData?.numberOfDays}D</span></i>
+                        {/* <i className="far fa-user"><span style={{fontWeight:"bold"}}>{packageData?.numberOfNights}N - {packageData?.numberOfDays}D</span></i> */}
+                        <span>
+                        <User />
+                        9N - 10D
+                        </span>
+                        
                       </li>
                       <li>
                       <span style={{fontWeight:"bolder"}}>Country</span><br/>
-                        <i className="far fa-map"><span style={{fontWeight:"bold"}}>{packageData?.country}</span></i>
+                        {/* <i className="far fa-map"><span style={{fontWeight:"bold"}}>{packageData?.country}</span></i> */}
+                        <span>
+                        <Map />
+                        India
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -214,15 +228,16 @@ console.log(packageData)
                     <h2>Photo Gallery</h2>
                    
                   </div>
-                  <div className="image-box clearfix">
+                  <div className="image-box clearfix" style={{display:'flex'}}>
                  
                     {packageData?.packageSubImages?.map((img, index) => (
                       <figure className="image" key={`gallery-img-${index}`}>
                         <Image
                           src={`${SERVER_URL}/${img}`}
                           alt="Gallery Image"
-                          width={300}
-                          height={200}
+                          width={400}
+                          height={400}
+                          className="gallary-img"
                         />
                       </figure>
                     ))}

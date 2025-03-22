@@ -5,6 +5,7 @@ import AboutSection from "../../../../components/AboutSection";
 import VideoSection from "../../../../components/VideoSection";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {Youtube,Instagram,Linkedin,Facebook} from "lucide-react"
 
 export default function about() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -31,7 +32,7 @@ export default function about() {
 
   return (
     <>
-      <section className="page-title centred" style={{ backgroundImage: 'url(/assets/img/destination-2page-title.jpg)' }}>
+      <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
         <div className="auto-container">
           <div className="content-box">
             <h1>About Us</h1>
@@ -45,86 +46,110 @@ export default function about() {
       <AboutSection contactInfo={contactInfo} />
 
       <VideoSection />
-
       <section className="team-section sec-pad bg-color-1 centred">
-        <div className="auto-container">
-          <div className="sec-title">
-            <p>Tour Guide</p>
-            <h2>Expert Tour Guides</h2>
-          </div>
-          <div className="row clearfix">
-            {/* Example static data for guides */}
-            <div className="col-lg-4 col-md-6 col-sm-12 team-block">
-              <div className="team-block-one">
-                <div className="inner-box">
-                  <figure className="image-box">
-                    <img src="/assets/images/team/team-1.jpg" alt="Guide 1" />
-                  </figure>
-                  <div className="lower-content">
-                    <h3>Merrie Lewis</h3>
-                    <span className="designation">Tour Guide</span>
-                    <ul className="social-links clearfix">
-                      {Object.entries(contactInfo.social_media_links).map(([platform, link]) => (
-                        <li key={platform}>
-                          <a href={link} target="_blank" rel="noopener noreferrer">
-                            <i className={`fab fa-${platform}`}></i>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Repeat for other guides */}
-            <div className="col-lg-4 col-md-6 col-sm-12 team-block">
-              <div className="team-block-one">
-                <div className="inner-box">
-                  <figure className="image-box">
-                    <img src="/assets/images/team/team-1.jpg" alt="Guide 1" />
-                  </figure>
-                  <div className="lower-content">
-                    <h3>Merrie Lewis</h3>
-                    <span className="designation">Tour Guide</span>
-                    <ul className="social-links clearfix">
-                      {Object.entries(contactInfo.social_media_links).map(([platform, link]) => (
-                        <li key={platform}>
-                          <a href={link} target="_blank" rel="noopener noreferrer">
-                            <i className={`fab fa-${platform}`}></i>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* next one  */}
-               <div className="col-lg-4 col-md-6 col-sm-12 team-block">
-              <div className="team-block-one">
-                <div className="inner-box">
-                  <figure className="image-box">
-                    <img src="/assets/images/team/team-1.jpg" alt="Guide 1" />
-                  </figure>
-                  <div className="lower-content">
-                    <h3>Merrie Lewis</h3>
-                    <span className="designation">Tour Guide</span>
-                    <ul className="social-links clearfix">
-                      {Object.entries(contactInfo.social_media_links).map(([platform, link]) => (
-                        <li key={platform}>
-                          <a href={link} target="_blank" rel="noopener noreferrer">
-                            <i className={`fab fa-${platform}`}></i>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
+  <div className="auto-container">
+    <div className="sec-title">
+      <p>Tour Guide</p>
+      <h2>Expert Tour Guides</h2>
+    </div>
+    <div className="row clearfix">
+      {/* Example static data for guides */}
+      <div className="col-lg-4 col-md-6 col-sm-12 team-block">
+        <div className="team-block-one">
+          <div className="inner-box">
+            <figure className="image-box">
+              <img src="/assets/img/destination-details/destination-1.jpg" alt="Guide 1" />
+            </figure>
+            <div className="lower-content">
+              <h3>Merrie Lewis</h3>
+              <span className="designation">Tour Guide</span>
+              <ul style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: 0,
+                listStyle: "none",
+                margin: "auto",
+                width: "70%",
+                opacity: 0, /* Initially hidden */
+                visibility: "hidden", /* Hide the icons */
+                transition: "opacity 0.3s ease, visibility 0s 0.3s", /* Smooth transition */
+              }}>
+                <li><Youtube /></li>
+                <li><Instagram /></li>
+                <li><Linkedin /></li>
+                <li><Facebook /></li>
+              </ul>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      {/* Repeat for other guides */}
+      <div className="col-lg-4 col-md-6 col-sm-12 team-block">
+        <div className="team-block-one">
+          <div className="inner-box">
+            <figure className="image-box">
+              <img src="/assets/img/destination-details/destination-2.jpg" alt="Guide 1" />
+            </figure>
+            <div className="lower-content">
+              <h3>Merrie Lewis</h3>
+              <span className="designation">Tour Guide</span>
+              <ul style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: 0,
+                listStyle: "none",
+                margin: "auto",
+                width: "70%",
+                opacity: 0, /* Initially hidden */
+                visibility: "hidden", /* Hide the icons */
+                transition: "opacity 0.3s ease, visibility 0s 0.3s", /* Smooth transition */
+              }}>
+                <li><Youtube /></li>
+                <li><Instagram /></li>
+                <li><Linkedin /></li>
+                <li><Facebook /></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Next one */}
+      <div className="col-lg-4 col-md-6 col-sm-12 team-block">
+        <div className="team-block-one">
+          <div className="inner-box">
+            <figure className="image-box">
+              <img src="/assets/img/destination-details/destination-3.jpg" alt="Guide 1" />
+            </figure>
+            <div className="lower-content">
+              <h3>Merrie Lewis</h3>
+              <span className="designation">Tour Guide</span>
+              <ul style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: 0,
+                listStyle: "none",
+                margin: "auto",
+                width: "70%",
+                opacity: 0, /* Initially hidden */
+                visibility: "hidden", /* Hide the icons */
+                transition: "opacity 0.3s ease, visibility 0s 0.3s", /* Smooth transition */
+              }}>
+                <li><Youtube /></li>
+                <li><Instagram /></li>
+                <li><Linkedin /></li>
+                <li><Facebook /></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
     </>
   );
 }
