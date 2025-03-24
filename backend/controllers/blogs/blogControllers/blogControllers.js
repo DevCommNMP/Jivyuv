@@ -89,7 +89,7 @@ exports.getBlogBySlugName = async (req, res) => {
 // Update a blog by ID
 exports.updateBlog = async (req, res) => {
   try {
-    const { blogTitle, blogDescription, createdBy, blogTag ,isVisibleToAll} = req.body;
+    const { blogTitle, blogDescription, createdBy, blogTag, isVisibleToAll } = req.body;
 
     // Find the blog to update
     const blog = await Blog.findById(req.params.id);
@@ -101,14 +101,32 @@ exports.updateBlog = async (req, res) => {
     if (req.file) {
       blog.blogImage = path.join("uploads/blogsImages", req.file.filename); // Update blogImage if a new file is uploaded
     }
+
     if (blogTitle) {
-      blog.blogTitle = blogTitle;
-      blog.slugName = slugify(blogTitle, { lower: true, strict: true }); // Update slugName if blogTitle changes
+      const newSlug = slugify(blogTitle, { lower: true, strict: true });
+
+      // Check for duplicate slug
+      const existingBlog = await Blog.findOne({ slugName: newSlug, _id: { $ne: blog._id } });
+      if (!existingBlog) {
+        if (blogDescription) blog.blogDescription = blogDescription;
+        if (createdBy) blog.createdBy = createdBy;
+        if (blogTag) blog.blogTag = blogTag.split(",");
+        if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
+    
+        blog.blogTitle = blogTitle;
+        blog.slugName = newSlug;
+        // Save the updated blog
+        const updatedBlog = await blog.save();      }
+ // Update slugName
     }
+
+    blog.blogTitle = blogTitle;
+
     if (blogDescription) blog.blogDescription = blogDescription;
     if (createdBy) blog.createdBy = createdBy;
     if (blogTag) blog.blogTag = blogTag.split(",");
-if(isVisibleToAll) blog.isBlogPublic = isVisibleToAll;
+    if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
+
     // Save the updated blog
     const updatedBlog = await blog.save();
 
@@ -121,6 +139,7 @@ if(isVisibleToAll) blog.isBlogPublic = isVisibleToAll;
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 // Delete a blog by ID
 exports.deleteBlog = async (req, res) => {
