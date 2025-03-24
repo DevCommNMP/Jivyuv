@@ -5,7 +5,7 @@ const slugify = require("slugify");
 // Create a new blog
 exports.createBlog = async (req, res) => {
   try {
-    const { blogTitle, blogDescription, createdBy, blogTag } = req.body;
+    const { blogTitle, blogDescription, createdBy, blogTag,isVisibleToAll } = req.body;
 
     // Validate required fields
     if (!req.file || !blogTitle || !blogDescription || !createdBy || !blogTag) {
@@ -24,6 +24,7 @@ exports.createBlog = async (req, res) => {
       blogTitle,
       blogDescription,
       createdBy,
+      isBlogPublic:isVisibleToAll,
       blogTag: blogTag.split(","), // Convert blogTag to an array if it's a comma-separated string
       slugName, // Add the generated slugName
     });
@@ -88,7 +89,7 @@ exports.getBlogBySlugName = async (req, res) => {
 // Update a blog by ID
 exports.updateBlog = async (req, res) => {
   try {
-    const { blogTitle, blogDescription, createdBy, blogTag } = req.body;
+    const { blogTitle, blogDescription, createdBy, blogTag, isVisibleToAll } = req.body;
 
     // Find the blog to update
     const blog = await Blog.findById(req.params.id);
@@ -100,13 +101,31 @@ exports.updateBlog = async (req, res) => {
     if (req.file) {
       blog.blogImage = path.join("uploads/blogsImages", req.file.filename); // Update blogImage if a new file is uploaded
     }
+
     if (blogTitle) {
-      blog.blogTitle = blogTitle;
-      blog.slugName = slugify(blogTitle, { lower: true, strict: true }); // Update slugName if blogTitle changes
+      const newSlug = slugify(blogTitle, { lower: true, strict: true });
+
+      // Check for duplicate slug
+      const existingBlog = await Blog.findOne({ slugName: newSlug, _id: { $ne: blog._id } });
+      if (!existingBlog) {
+        if (blogDescription) blog.blogDescription = blogDescription;
+        if (createdBy) blog.createdBy = createdBy;
+        if (blogTag) blog.blogTag = blogTag.split(",");
+        if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
+    
+        blog.blogTitle = blogTitle;
+        blog.slugName = newSlug;
+        // Save the updated blog
+        const updatedBlog = await blog.save();      }
+ // Update slugName
     }
+
+    blog.blogTitle = blogTitle;
+
     if (blogDescription) blog.blogDescription = blogDescription;
     if (createdBy) blog.createdBy = createdBy;
     if (blogTag) blog.blogTag = blogTag.split(",");
+    if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
 
     // Save the updated blog
     const updatedBlog = await blog.save();
@@ -120,6 +139,7 @@ exports.updateBlog = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 // Delete a blog by ID
 exports.deleteBlog = async (req, res) => {
