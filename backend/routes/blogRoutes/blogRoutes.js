@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const blogController = require("../../controllers/blogs/blogControllers/blogControllers");
 const upload = require("../../config/multerConfig/blogImagesmulterConfig"); // Import Multer config
-const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require("@/backend/middleware/isAutheticated");
+const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require("../../middleware/isAutheticated");
 
 // Blog Routes
 router.post("/blogs",isAuthenticatedAdmin, upload.single("blogImage"), blogController.createBlog); // Handle blogImage upload
