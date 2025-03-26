@@ -5,14 +5,14 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import Swal from "sweetalert2";
-import {CalendarDays} from "lucide-react"
+import { CalendarDays } from "lucide-react"
 
 const BlogDetails = ({ params }) => {
   const { slug } = params; // Get the slug from params
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [blog, setBlog] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [latestBlog,setLatestBlogs]=useState([]);
+  const [latestBlog, setLatestBlogs] = useState([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -29,13 +29,13 @@ const BlogDetails = ({ params }) => {
     async function fetchBlog() {
       try {
         const response = await axios.get(`${BASE_URL}/api/blogs/slug/${slug}`);
-       
+
         setBlog(response.data.data);
-        const res=await axios.get(`${BASE_URL}/api/blogs`);
-       
+        const res = await axios.get(`${BASE_URL}/api/blogs`);
+
         setLatestBlogs(res.data.data);
- // Access the blog data inside the "data" field
-      
+        // Access the blog data inside the "data" field
+
       } catch (error) {
         console.error("Error fetching blog:", error);
         Swal.fire("Error", "Failed to load blog details.", "error");
@@ -145,8 +145,8 @@ const BlogDetails = ({ params }) => {
                         <li>
                           <span>By</span> <Link href="#">{blog.createdBy}</Link>
                         </li>
-                      
-                       
+
+
                       </ul>
                     </div>
                     <figure className="image-box">
@@ -167,7 +167,7 @@ const BlogDetails = ({ params }) => {
                     </figure>
                   ))}
                 </div>
-             
+
                 <div className="comments-form-area">
                   <div className="group-title">
                     <h2>Leave Your Comments</h2>
@@ -271,27 +271,63 @@ const BlogDetails = ({ params }) => {
                       ))}
                     </ul>
                   </div>
-                </div> */}
-                <div className="sidebar-widget post-widget" style={{marginTop:'190px'}}>
+                </div> */}'
+                <div className="sidebar-widget post-widget" style={{
+                  marginTop: '190px',
+                  wordWrap: 'break-word',
+                  overflowY: 'auto',
+                  whiteSpace: 'normal',
+                  maxWidth: '100%'
+                }}>
                   <div className="widget-title">
                     <h3>Latest Blogs</h3>
                   </div>
-                  <div className="post-inner">
+                  <div className="post-inner" style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    maxHeight: '300px', /* Set desired height */
+                    overflowWrap: 'break-wrap', /* Enables vertical scrolling */
+                    scrollbarWidth: 'thin', /* For Firefox */
+                    msOverflowStyle: 'none' /* Hides scrollbar in IE/Edge */
+                  }}>
                     {latestBlog?.map((blog, index) => (
-                      <div key={index} className="post">
+                      <div key={index} className="post" style={{
+                        wordWrap: 'break-word',
+                        overflowWrap: 'break-word',
+                        whiteSpace: 'normal',
+                        maxWidth: '100%'
+                      }}>
                         <figure className="post-thumb">
                           <Link href={`/blogs/${blog.slugName}`}>
-                            <Image src={`${BASE_URL}/${blog.blogImage}`} alt={blog.blogTitle} width='50' height="50"  />
+                            <Image
+                              src={`${BASE_URL}/${blog.blogImage}`}
+                              alt={blog.blogTitle}
+                              width='50'
+                              height="50"
+                            />
                           </Link>
                         </figure>
-                        <span className="post-date">{new Date(blog.createdAt).toLocaleDateString()}</span>
-                        <h4>
+                        <span className="post-date" style={{
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'normal'
+                        }}>
+                          {new Date(blog.createdAt).toLocaleDateString()}
+                        </span>
+                        <h4 style={{
+                          wordWrap: 'break-word',
+                          overflowWrap: 'break-word',
+                          whiteSpace: 'normal',
+                          display: 'block'
+                        }}>
                           <Link href={`/blogs/${blog.slugName}`}>{blog.blogTitle}</Link>
                         </h4>
                       </div>
                     ))}
                   </div>
+
                 </div>
+
                 <div className="advice-widget">
                   <div className="inner-box" style={{ backgroundImage: 'url(/assets/images/resource/advice-1.jpg)' }}>
                     <div className="text">
