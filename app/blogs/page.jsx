@@ -5,6 +5,7 @@ import Image from "next/image";
 import axios from "axios";
 import {CalendarDays,Search,MoveRight } from 'lucide-react'
 import Preloader from "../../components/Preloader";
+import dayjs from "dayjs";
 
 
 const BlogStandard = () => {
@@ -22,7 +23,8 @@ const BlogStandard = () => {
         setBlogs(response.data.data); // Use response.data.data to access the blogs
         setOriginalBlogs(response.data.data);
         let latestBlog=response.data.data.sort((a,b)=>{
-           return new Date(b.createdAt)-Date(a.createdAt);
+          //  return new Date(a.createdAt)-Date(b.createdAt);
+          return dayjs(b.createdAt).valueOf()- dayjs(a.createdAt).valueOf();
 
 
 
@@ -34,7 +36,7 @@ const BlogStandard = () => {
         }
 
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        Swal.fire({icon:"error",text:error?.response?.data?.message || "Something Went wrong"});
       } finally {
         setIsLoading(false);
       }
