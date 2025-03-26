@@ -11,7 +11,7 @@ const dbConnect = require("./db/connectDB");
 const User = require("./modal/user/user"); // Ensure User model is imported
 const app = express();
 const path = require('path');
-const PORT = 5000;
+const PORT = 5005;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
