@@ -103,7 +103,7 @@ const BlogStandard = () => {
                 </div>
                 }
                 
-                {blogs.map((blog) => (
+                {latestNews?.map((blog) => (
                   <div key={blog._id} className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                     <div className="inner-box">
                       <figure className="image-box" >
