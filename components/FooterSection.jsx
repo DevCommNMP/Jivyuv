@@ -175,14 +175,14 @@ export default function Footer({ companyData,categories }) {
                       {companyData?.footer_sub_images?.map((image, index) => (
                         <li key={`footer-gallery-${index}`}>
                           <figure className="image-box">
-                            <Link href="/gallery">
+                          
                               <Image
                                 src={`${SERVER_URL}/${image}`}
                                 alt={`Gallery Image ${index + 1}`}
                                 width={90}
                                 height={90}
                               />
-                            </Link>
+                            
                           </figure>
                         </li>
                       ))}

@@ -11,11 +11,11 @@ const dbConnect = require("./db/connectDB");
 const User = require("./modal/user/user"); // Ensure User model is imported
 const app = express();
 const path = require('path');
-const PORT = 5000;
+const PORT = 5005;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
-const allowedOrigins = ["https://jivyuv-tan.vercel.app/","https://jivyuv-tan.vercel.app","http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com","https://testingbackend.planandbooktrip.com/","https://testing.planandbooktrip.com/","https://testingbackend.planandbooktrip.com","https://testing.planandbooktrip.com"]
+const allowedOrigins = ["https://jivyuv-tan.vercel.app/","https://jivyuv-tan.vercel.app","http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com","https://planandbooktrip.com/","https://backend.planandbooktrip.com/","https://planandbooktrip.com","https://backend.planandbooktrip.com"]
 
 const corsOptions = {
   origin: function (origin, callback) {
