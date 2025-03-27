@@ -95,6 +95,7 @@ export default function CategoryPage({ params }) {
         try {
             let response = await axios.get(`${SERVER_URL}/api/trip-packages`);
             let data = response.data;
+         
     
             // Process data based on category
             if (category === "trips") {
@@ -125,7 +126,7 @@ export default function CategoryPage({ params }) {
             setSubCategoryName(subCategoryName);
     
         } catch (error) {
-            console.log(error);
+        
             Swal.fire({ icon: "error", title: error?.response?.message || "Data fetch error" });
         } finally {
             setIsLoading(false);
@@ -134,6 +135,7 @@ export default function CategoryPage({ params }) {
     
       useEffect(()=>{
         fetchPackageData();
+
     
       },[category])
       useEffect(() => {
@@ -209,7 +211,7 @@ useEffect(() => {
     return (
         <>
         {/* <!-- Page Title --> */}
-        <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -652,7 +654,9 @@ useEffect(() => {
                 </div>
             </div>
         </section>
-        
+        </>
+        }
+      
         
     </>
     

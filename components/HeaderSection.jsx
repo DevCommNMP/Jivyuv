@@ -45,7 +45,7 @@ export default function Header({ categories, companyData }) {
   useEffect(() => {
     const fetchSession = async () => {
       const sessionUser = await checkSession();
-      console.log("Session User:", sessionUser);
+     
       setUser(sessionUser);
     };
 

@@ -8,15 +8,15 @@ export default function TourDeals() {
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [deals, setDeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-console.log(deals)
+
   useEffect(() => {
     async function fetchDeals() {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/trip-packages`);
         setDeals(response.data);
-        console.log("Tour deals fetched:", response.data);
+       
       } catch (error) {
-        console.error("Error fetching tour deals:", error);
+        Swal.fire({icon:"error",text:"Something went wrong"})
       } finally {
         setIsLoading(false);
       }

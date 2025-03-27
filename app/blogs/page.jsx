@@ -10,18 +10,28 @@ import dayjs from "dayjs";
 
 const BlogStandard = () => {
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+ 
+ 
   const [blogs, setBlogs] = useState([]);
   const [originalBlogs,setOriginalBlogs]=useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [latestNews,setLatestNews]=useState([]);
   const [searchQuery,setSearchQuery]=useState("");
-
+ 
   useEffect(() => {
     async function fetchBlogs() {
       try {
-        const response = await axios.get(`${BASE_URL}/api/blogs`);
-        setBlogs(response.data.data); // Use response.data.data to access the blogs
-        setOriginalBlogs(response.data.data);
+        let response = await axios.get(`${BASE_URL}/api/blogs`);
+    
+         
+          setOriginalBlogs((state)=>{
+          return response.data.data
+        });
+        setBlogs((state)=>{
+          return response.data.data;
+
+        }); // Use response.data.data to access the blogs
+
         let latestBlog=response.data.data.sort((a,b)=>{
           //  return new Date(a.createdAt)-Date(b.createdAt);
           return dayjs(b.createdAt).valueOf()- dayjs(a.createdAt).valueOf();
@@ -44,6 +54,9 @@ const BlogStandard = () => {
     fetchBlogs();
   }, []);
   useEffect(() => {
+
+  
+     
     if (searchQuery.length > 0) {
       let filteredBlogs = originalBlogs.filter((item) =>
         item.blogTitle.toLowerCase().includes(searchQuery.toLowerCase())
@@ -52,7 +65,10 @@ const BlogStandard = () => {
     } else {
       setBlogs(originalBlogs);
     }
-  }, [searchQuery, originalBlogs]); // Add originalBlogs here
+   
+  }, [searchQuery, originalBlogs,]); // Add originalBlogs here
+
+
 
 
   if (isLoading) {
@@ -85,8 +101,8 @@ const BlogStandard = () => {
       <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
         <div className="auto-container">
           <div className="content-box">
-            <h1>Blog Standard</h1>
-            <p>page is not found</p>
+            <h1>Blog Standard </h1>
+            {/* <p>page is not found</p> */}
           </div>
         </div>
       </section>

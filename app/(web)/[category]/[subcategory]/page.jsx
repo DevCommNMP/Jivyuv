@@ -10,6 +10,7 @@ import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import Preloader from "../../../../components/Preloader";
 
 export default function SubcategoryPage({ params }) {
     const { category, subcategory } = params;
@@ -54,7 +55,7 @@ export default function SubcategoryPage({ params }) {
            setOriginalPackageData(data);
      
         }catch(error){
-          console.log(error);
+        
           Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
     
         }finally{
@@ -116,8 +117,7 @@ export default function SubcategoryPage({ params }) {
 
     return (
         <>
-         {/* <!-- Page Title --> */}
-         <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -150,7 +150,9 @@ export default function SubcategoryPage({ params }) {
                     </form>
                 </div>
             </div>
-        </section>
+        </section>}
+         {/* <!-- Page Title --> */}
+        
         {/* <!-- End Page Title --> */}
 
 
