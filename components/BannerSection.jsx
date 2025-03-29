@@ -31,7 +31,7 @@ export default function Banner() {
               Discover your next great adventure, become an explorer to get
               started!
             </p>
-            <div className="form-inner">
+            {/* <div className="form-inner">
               <form onSubmit={handleSubmit} className="booking-form clearfix">
                 <div className="form-group">
                   <MapPin />
@@ -68,7 +68,7 @@ export default function Banner() {
                   </button>
                 </div>
               </form>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

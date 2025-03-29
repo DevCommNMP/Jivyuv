@@ -9,6 +9,7 @@ import Preloader from "../../../components/Preloader";
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import   TourBanner from "../../../public/assets/images/tour_banner.jpg";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
@@ -95,6 +96,7 @@ export default function CategoryPage({ params }) {
         try {
             let response = await axios.get(`${SERVER_URL}/api/trip-packages`);
             let data = response.data;
+         
     
             // Process data based on category
             if (category === "trips") {
@@ -125,7 +127,7 @@ export default function CategoryPage({ params }) {
             setSubCategoryName(subCategoryName);
     
         } catch (error) {
-            console.log(error);
+        
             Swal.fire({ icon: "error", title: error?.response?.message || "Data fetch error" });
         } finally {
             setIsLoading(false);
@@ -134,6 +136,7 @@ export default function CategoryPage({ params }) {
     
       useEffect(()=>{
         fetchPackageData();
+
     
       },[category])
       useEffect(() => {
@@ -163,6 +166,7 @@ export default function CategoryPage({ params }) {
 
       }
       function handleSearch(event){
+        event.preventDefault();
         
         if(event.target.value.length>0){
             
@@ -209,13 +213,14 @@ useEffect(() => {
     return (
         <>
         {/* <!-- Page Title --> */}
-        <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+       
+        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(/images/tour_banner.jpg)`}}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
                     <p>Discover your next great adventure</p>
                 </div>
-                <div class="form-inner">
+                {/* <div class="form-inner">
                     <form action="" method="post" class="booking-form clearfix">
                         <div class="form-group">
                             <input type="text" name="service" placeholder="Where to?" required="" />
@@ -239,7 +244,7 @@ useEffect(() => {
                             <button type="submit" class="theme-btn"><i class="far fa-search"></i>Find Now</button>
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
         </section>
        
@@ -500,13 +505,13 @@ useEffect(() => {
                                 <div class="widget-title">
                                     <h3>Search</h3>
                                 </div>
-                                <form action="destination-details.html" method="post" class="search-form">
+                                <div action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
-                    onChange={handleSearch} />
-                                        <button type="submit"><i class="fas fa-search"></i></button>
+                    onChange={handleSearch}/>
+                                        {/* <button type="submit"><i class="fas fa-search"></i></button> */}
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             <div class="sidebar-widget category-widget">
                                 <div class="widget-title">
@@ -652,7 +657,9 @@ useEffect(() => {
                 </div>
             </div>
         </section>
-        
+        </>
+        }
+      
         
     </>
     

@@ -10,7 +10,8 @@ import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-
+import Preloader from "../../../../components/Preloader";
+import TourBanner from "../../../../public/assets/images/tour_banner.jpg";
 export default function SubcategoryPage({ params }) {
     const { category, subcategory } = params;
 
@@ -54,7 +55,7 @@ export default function SubcategoryPage({ params }) {
            setOriginalPackageData(data);
      
         }catch(error){
-          console.log(error);
+        
           Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
     
         }finally{
@@ -116,8 +117,7 @@ export default function SubcategoryPage({ params }) {
 
     return (
         <>
-         {/* <!-- Page Title --> */}
-         <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(../../../../public/assets/images/tour_banner.jpg)` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -150,7 +150,9 @@ export default function SubcategoryPage({ params }) {
                     </form>
                 </div>
             </div>
-        </section>
+        </section>}
+         {/* <!-- Page Title --> */}
+        
         {/* <!-- End Page Title --> */}
 
 
@@ -428,13 +430,13 @@ export default function SubcategoryPage({ params }) {
                                 <div class="widget-title">
                                     <h3>Search</h3>
                                 </div>
-                                <form action="destination-details.html" method="post" class="search-form">
+                                <div action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
                     onChange={handleSearch} />
-                                        <button type="submit"><Search /></button>
+                                        {/* <button type="submit"><Search /></button> */}
                                     </div>
-                                </form>
+                                </div>
                             </div>
                           
                             {/* <div class="sidebar-widget price-filter">

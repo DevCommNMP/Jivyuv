@@ -85,11 +85,14 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background: none;
+  background: red;
+  border-radius: 10px;
+  
   border: none;
-  font-size: 20px;
+  font-size: 40px;
   cursor: pointer;
   color: white;
+  padding: 10px;
 }
 
 .pop-icon {
@@ -101,7 +104,7 @@
   background-color: transparent;
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  right: 20px;
   display: flex;
   flex-direction: column;
   z-index: 9999;

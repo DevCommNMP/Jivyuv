@@ -98,7 +98,7 @@ const activateAccount = async (req, res) => {
         // Update the account status to 'active' and remove activationToken
         const updatedUser = await User.findByIdAndUpdate(
             id,
-            { accountStatus: "active"},
+            { accountStatus:"active"},
             { new: true }
         );
 

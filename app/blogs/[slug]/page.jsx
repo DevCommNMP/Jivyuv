@@ -37,7 +37,7 @@ const BlogDetails = ({ params }) => {
         // Access the blog data inside the "data" field
 
       } catch (error) {
-        console.error("Error fetching blog:", error);
+   
         Swal.fire("Error", "Failed to load blog details.", "error");
       } finally {
         setIsLoading(false);
@@ -83,7 +83,7 @@ const BlogDetails = ({ params }) => {
     };
 
     try {
-      console.log("Submitting payload:", payload); // Log the payload for debugging
+    
       const response = await axios.post(`${BASE_URL}/api/queries`, payload, {
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +98,7 @@ const BlogDetails = ({ params }) => {
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting form:", error.response || error.message);
+     
       Swal.fire(
         "Error",
         error.response?.data?.message || "Failed to submit your message. Please try again.",

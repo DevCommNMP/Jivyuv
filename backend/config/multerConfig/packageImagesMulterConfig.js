@@ -44,9 +44,9 @@ const uploadImages = multer({
   },
   fileFilter: (req, file, cb) => {
     // Allow only specific file types (e.g., images)
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg','image/avif'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg','image/avif',`image/webp`];
     if (!allowedTypes.includes(file.mimetype)) {
-      return cb(new Error('Only images are allowed (jpeg, png, gif)'));
+      return cb(new Error('Only images are allowed (jpeg, png, gif ,webp ,gif)'));
     }
     cb(null, true);
   },

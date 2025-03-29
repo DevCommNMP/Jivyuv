@@ -45,7 +45,7 @@ export default function Header({ categories, companyData }) {
   useEffect(() => {
     const fetchSession = async () => {
       const sessionUser = await checkSession();
-      console.log("Session User:", sessionUser);
+     
       setUser(sessionUser);
     };
 
@@ -177,6 +177,12 @@ export default function Header({ categories, companyData }) {
                                   Home
                                 </Link>
                               </li>
+                              <li className="">
+                                <Link href="/trips" style={{ color: "grey" }}>
+                                  All Packages
+                                </Link>
+                              </li>
+
 
                               {categories.map((category, index) => {
                                 return (

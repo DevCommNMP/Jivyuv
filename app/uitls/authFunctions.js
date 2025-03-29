@@ -18,7 +18,7 @@ export const checkSession = async () => {
       if (!response.ok) throw new Error("No active session");
 
       const data = await response.json();
-      console.log("Session Data:", data);
+    
       return data.sessionData;
     }
 
@@ -34,10 +34,10 @@ export const checkSession = async () => {
     if (!googleResponse.ok) throw new Error("No active session");
 
     const googleData = await googleResponse.json();
-    console.log("Google Session Data:", googleData);
+    
     return googleData.sessionData;
   } catch (error) {
-    console.error("Session check error:", error.message);
+
     return null; // No session found
   }
 };
@@ -46,7 +46,7 @@ export const checkTokenExpiration = async () => {
   const expirationTime = localStorage.getItem("tokenExpiration");
 
   if (!expirationTime) {
-    console.log("No token expiration found.");
+   
     return false; // No token expiration means token is invalid
   }
 

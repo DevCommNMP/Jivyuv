@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { Star,Clock,User,Map} from "lucide-react";
 
 
 export default function TourDetails({params}) {
@@ -41,97 +40,6 @@ export default function TourDetails({params}) {
   },[slug]);
 
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-  if (!SERVER_URL) {
-    console.error("SERVER_URL is not defined. Please check your environment variables.");
-  }
-console.log(packageData)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    totalMembers: "",
-    tourName: packageData?.titleSlug || "",
-    tripDate: "",
-    message: "",
-  });
-
-  useEffect(() => {
-    if (packageData?.titleSlug) {
-      setFormData((prevData) => ({
-        ...prevData,
-        tourName: packageData.titleSlug,
-      }));
-    }
-  }, [packageData]);
-
-  const [errors, setErrors] = useState({});
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required.";
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email))
-      newErrors.email = "Valid email is required.";
-    if (!formData.phone.trim() || !/^\d{10}$/.test(formData.phone))
-      newErrors.phone = "Valid 10-digit phone number is required.";
-    if (!formData.totalMembers.trim() || isNaN(formData.totalMembers))
-      newErrors.totalMembers = "Valid number of members is required.";
-    if (!formData.tripDate.trim()) newErrors.tripDate = "Trip date is required.";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    console.log(formData);
-    if (!validateForm()) {
-      Swal.fire("Error", "Please fix the errors in the form.", "error");
-      return;
-    }
-
-    const payload = {
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      message: formData.message,
-      tourName: formData.tourName,
-      tourDate: formData.tripDate, // Changed key from "tripDate" to "tourDate"
-      totalMembers: formData.totalMembers,
-    };
-
-    try {
-      await axios.post(
-        `${SERVER_URL}/api/tour-queries`,
-        payload, // Send the updated payload
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      Swal.fire("Success", "Your inquiry has been submitted!", "success");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        totalMembers: "",
-        tourName: packageData?.titleSlug || "",
-        tripDate: "", // Reset tripDate
-        message: "",
-      });
-    } catch (error) {
-      console.error("Error submitting inquiry:", error.response || error.message);
-      Swal.fire("Error", error.response?.data?.message || "Failed to submit your inquiry. Please try again.", "error");
-    }
-  };
-
   return (
     <div className="tour-details-page">
       {/* Page Title */}
@@ -143,7 +51,7 @@ console.log(packageData)
           <div className="inner-box">
             <div className="rating">
               <span>
-              <Star />8.0 Superb
+                <i className="fas fa-star"></i>8.0 Superb
               </span>
             </div>
             <h2>{packageData?.title}</h2>
@@ -167,28 +75,15 @@ console.log(packageData)
                     <ul className="info-list clearfix">
                       <li>
                         <span style={{fontWeight:"bolder"}}>Pickup & Drop</span><br/>
-                        {/* <i className="far fa-clock"></i> */}
-                        <span>
-                        <Clock/>
-                        Day And Night
-                        </span>
+                        <i className="far fa-clock">{packageData?.isPickupAndDropAvailable==true?<span style={{fontWeight:"bold"}}>{packageData?.pickupLocation}-{packageData?.dropLocation}</span>:"Any Time"}</i>
                       </li>
                       <li>
                       <span style={{fontWeight:"bolder"}}>Duration</span><br/>
-                        {/* <i className="far fa-user"><span style={{fontWeight:"bold"}}>{packageData?.numberOfNights}N - {packageData?.numberOfDays}D</span></i> */}
-                        <span>
-                        <User />
-                        9N - 10D
-                        </span>
-                        
+                        <i className="far fa-user"><span style={{fontWeight:"bold"}}>{packageData?.numberOfNights}N - {packageData?.numberOfDays}D</span></i>
                       </li>
                       <li>
                       <span style={{fontWeight:"bolder"}}>Country</span><br/>
-                        {/* <i className="far fa-map"><span style={{fontWeight:"bold"}}>{packageData?.country}</span></i> */}
-                        <span>
-                        <Map />
-                        India
-                        </span>
+                        <i className="far fa-map"><span style={{fontWeight:"bold"}}>{packageData?.country}</span></i>
                       </li>
                     </ul>
                   </div>
@@ -203,22 +98,32 @@ console.log(packageData)
                     </p>
                   </div>
                   
-                 {packageData?.activityData?.map((activity, index) => (
-                    <div className="content-box" key={`activity-${index}`}>
-                      <div className="single-box">
-                        <span>{activity?.activityDay}</span>
-                        <h3>{activity?.activityTitle}</h3>
-                        <ul className="list clearfix">
-                          {activity?.activityDescription?.map((list, idx) => (
-                            <li key={`description-${index}-${idx}`} style={{ textAlign: "justify" }}>
-                              {list}
-                            </li>
-                          ))}
-                        </ul>
-                        <br />
-                      </div>
+                 {packageData?.activityData?.map((activity)=>{
+
+                    return <div className="content-box">
+                    <div className="single-box">
+                      <span>{activity?.activityDay}</span>
+                     
+                      <h3>{activity?.activityTitle}</h3>
+                     
+                      <ul className="list clearfix">
+                        {activity?.activityDescription?.map((list)=>{
+                          return  <li style={{textAlign:"justify"}}>{list}</li>
+
+                        })
+                       
+                      }
+                      
+                      </ul>
+                      <br/>
                     </div>
-                  ))}
+                    </div>
+
+                 })
+                
+                   
+                  
+                   }
                 </div>
                 
 
@@ -228,19 +133,29 @@ console.log(packageData)
                     <h2>Photo Gallery</h2>
                    
                   </div>
-                  <div className="image-box clearfix" style={{display:'flex'}}>
+                  <div className="image-box clearfix">
                  
-                    {packageData?.packageSubImages?.map((img, index) => (
-                      <figure className="image" key={`gallery-img-${index}`}>
-                        <Image
-                          src={`${SERVER_URL}/${img}`}
-                          alt="Gallery Image"
-                          width={400}
-                          height={400}
-                          className="gallary-img"
-                        />
-                      </figure>
-                    ))}
+                    {packageData?.packageSubImages?.map((img)=>{
+                      return  <figure className="image" style={{width:"300px",height:"100px"}}> <Image
+                        src={`${SERVER_URL}/${img}`}
+                        alt="Gallery Image"
+                       style={{objectFit:"fill"}}
+                        width={400}
+                        height={600}
+                       
+                      />
+                   
+                   </figure>
+                   
+
+                    })
+                  
+                   
+                   
+                    
+                 
+                   }
+                   
                   </div>
                 </div>
               </div>
@@ -254,81 +169,27 @@ console.log(packageData)
                   <div className="widget-title">
                     <h3>Book This Tour</h3>
                   </div>
-                  <form className="tour-form" onSubmit={handleSubmit}>
+                  <form className="tour-form">
                     <div className="form-group">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.name && <p className="error-text" style={{color:"red"}}>{errors.name}</p>}
+                      <input type="text" name="name" placeholder="Your Name" required />
                     </div>
                     <div className="form-group">
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.email && <p className="error-text" style={{color:"red"}}>{errors.email}</p>}
+                      <input type="email" name="email" placeholder="Your Email" required />
                     </div>
                     <div className="form-group">
-                      <input
-                        type="text"
-                        name="phone"
-                        placeholder="Phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.phone && <p className="error-text" style={{color:"red"}}>{errors.phone}</p>}
+                      <input type="text" name="phone" placeholder="Phone" required />
                     </div>
                     <div className="form-group">
-                      <input
-                        type="text"
-                        name="totalMembers"
-                        placeholder="Total members in numbers"
-                        value={formData.totalMembers}
-                        onChange={handleInputChange}
-                        required
-                      />
-                      {errors.totalMembers && <p className="error-text" style={{color:"red"}}>{errors.totalMembers}</p>}
+                      <input type="text" name="totalMembers" placeholder="Total members in numbers" required />
                     </div>
                     <div className="form-group">
-                      <input
-                        type="text"
-                        name="tourName"
-                        placeholder="Tour Name"
-                        value={formData.tourName}
-                        readOnly
-                        required
-                      />
+                      <input type="text" name="totalMembers" placeholder="Tour Name" value={packageData?.titleSlug} readOnly required  />
                     </div>
                     <div className="form-group">
-                      <input
-                        type="date"
-                        name="tripDate"
-                        placeholder="dd/mm/yy"
-                        value={formData.tripDate}
-                        onChange={handleInputChange}
-                        style={{padding:"10px",width:"100%",borderRadius:"10px", color:"grey",paddingLeft:"20px"}}
-                        
-                        required
-                      />
-                      {errors.tripDate && <p className="error-text" style={{color:"red"}}>{errors.tripDate}</p>}
+                      <input type="text" name="tripDate" placeholder="dd/mm/yy" />
                     </div>
                     <div className="form-group">
-                      <textarea
-                        name="message"
-                        placeholder="Message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                      ></textarea>
+                      <textarea name="message" placeholder="Message"></textarea>
                     </div>
                     <div className="form-group message-btn">
                       <button type="submit" className="theme-btn">
