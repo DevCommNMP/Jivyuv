@@ -10,5 +10,4 @@ router.get("/bookings",isAuthenticatedAdmin, bookingController.getAllBookings);
 router.get("/bookings/:id",isAuthenticatedAdmin, bookingController.getBookingById);
 router.put("/bookings/:id",isAuthenticatedAdmin, bookingController.updateBooking);
 router.delete("/bookings/:id",isAuthenticatedSuperAdmin, bookingController.deleteBooking);
-
 module.exports = router;
