@@ -136,11 +136,13 @@ export default function TourDetails({params}) {
                   <div className="image-box clearfix">
                  
                     {packageData?.packageSubImages?.map((img)=>{
-                      return  <figure className="image"> <Image
+                      return  <figure className="image" style={{width:"300px",height:"100px"}}> <Image
                         src={`${SERVER_URL}/${img}`}
                         alt="Gallery Image"
-                        width={300}
-                        height={200}
+                       style={{objectFit:"fill"}}
+                        width={400}
+                        height={600}
+                       
                       />
                    
                    </figure>

@@ -103,14 +103,15 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
          <Star size={24} color={"gold"} /> 8.0 Superb
        </span>
      </div>
-     <div style={{height:"130px",}}>
+     <div style={{height:"60px",}}>
      <h3 style={{fontSize:"16px",wordSpacing:'1px',fontWeight:"600",letterSpacing:"1px"}}>
      <Link href={`/api/trip-packages/slug/${trip.titleSlug}`} as={`/api/trip-packages/slug/${trip.titleSlug}`} onClick={(event)=>{
         event.preventDefault();
         handleNavigation(trip.titleSlug);
 
        }}>
-         {trip.title}
+        
+         {trip.title.length>50? trip.title.slice(0, 50) + "..." : trip.title}
        </Link>
      </h3>
      </div>
@@ -192,14 +193,14 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
          <Star size={24} color={"gold"} /> 8.0 Superb
        </span>
      </div>
-     <div style={{height:"130px",}}>
+     <div style={{height:"60",}}>
      <h3 style={{fontSize:"16px",wordSpacing:'1px',fontWeight:"600",letterSpacing:"1px"}}>
      <Link href={`/api/trip-packages/slug/${trip.titleSlug}`} as={`/api/trip-packages/slug/${trip.titleSlug}`} onClick={(event)=>{
         event.preventDefault();
         handleNavigation(trip.titleSlug);
 
        }}>
-         {trip.title}
+           {trip.title.length>50? trip.title.slice(0, 50) + "..." : trip.title}
        </Link>
      </h3>
      </div>
@@ -282,14 +283,14 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
                   <Star size={24} color={"gold"} /> 8.0 Superb
                 </span>
               </div>
-              <div style={{height:"130px",}}>
+              <div style={{height:"60px",}}>
               <h3 style={{fontSize:"16px",wordSpacing:'1px',fontWeight:"600",letterSpacing:"1px"}}>
               <Link href={`/api/trip-packages/slug/${trip.titleSlug}`} as={`/api/trip-packages/slug/${trip.titleSlug}`} onClick={(event)=>{
                  event.preventDefault();
                  handleNavigation(trip.titleSlug);
          
                 }}>
-                  {trip.title}
+                  {trip.title.length>50? trip.title.slice(0, 50) + "..." : trip.title}
                 </Link>
               </h3>
               </div>

@@ -11,7 +11,7 @@ import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Preloader from "../../../../components/Preloader";
-
+import TourBanner from "../../../../public/assets/images/tour_banner.jpg";
 export default function SubcategoryPage({ params }) {
     const { category, subcategory } = params;
 
@@ -117,7 +117,7 @@ export default function SubcategoryPage({ params }) {
 
     return (
         <>
-        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(../../../../public/assets/images/tour_banner.jpg)` }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>

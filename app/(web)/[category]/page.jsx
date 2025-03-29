@@ -9,6 +9,7 @@ import Preloader from "../../../components/Preloader";
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import   TourBanner from "../../../public/assets/images/tour_banner.jpg";
 
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
@@ -212,7 +213,8 @@ useEffect(() => {
     return (
         <>
         {/* <!-- Page Title --> */}
-        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+       
+        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(/images/tour_banner.jpg)`}}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
