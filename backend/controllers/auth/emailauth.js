@@ -5,7 +5,7 @@ const passport = require("passport");
 const expressAsyncHandler = require("express-async-handler");
 const registrationMailOptions = require("../../config/mailConfigration/registrationMailOption");
 const sendMailController = require("../../config/mailConfigration/sendMailConfig");
-
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passwordResetMailOptions = require("../../config/mailConfigration/passwordResetMail");
 
@@ -538,7 +538,7 @@ const isAuthenticated = async (req, res, next) => {
 };
 
 const updatePassword = async (req, res) => {
-  console.log("saaaaaaaaaaaaaaaaaaaaaaaaak")
+ 
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
@@ -810,40 +810,48 @@ const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
 
 const editUser = expressAsyncHandler(async (req, res) => {
   try {
-    const { id, role } = req.body;
+    const { id, role, firstName, lastName, password } = req.body;
 
-    // Check if id and role are provided
-    if (!id || !role) {
+    // Check if ID is provided
+    if (!id) {
       return res
         .status(400)
-        .json({ success: false, message: "ID and role are required" });
+        .json({ success: false, message: "Something went wrong !" });
     }
 
-    // Find user by ID and update role
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { role },
-      { new: true, runValidators: true } // `new: true` returns the updated document, `runValidators` applies schema validation
-    );
+    // Create an object with only the fields provided
+    let updateData = {};
+    if (role) updateData.role = role;
+    if (firstName) updateData.firstName = firstName;
+    if (lastName) updateData.lastName = lastName;
+if(password) updateData.password = password;
+    // Hash password if provided
+   
+
+    // Find user by ID and update with provided data
+    const updatedUser = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true, // Ensure schema validation is applied
+    });
 
     // Check if user exists
     if (!updatedUser) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
+    await updatedUser.save(); // Save the updated user
     // Return success response
     res.status(200).json({
       success: true,
       message: "User updated successfully",
-      user: updatedUser, // Optional: return updated user data
+      user: updatedUser,
     });
   } catch (error) {
     // Handle errors
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
 
 const deleteUser = expressAsyncHandler(async (req, res) => {
   const { id } = req?.body;
