@@ -31,12 +31,12 @@ export default function Home() {
         let response =await  axios.get(`${SERVER_URL}/api/trip-packages`);
     
 
-        setPackageData(response.data.reverse());
+        setPackageData(response.data);
       } catch (error) {
       
         Swal.fire({
           icon:"error",
-          text:error.response.data.message || "Something went wrong"
+          text:error?.response?.data?.message || "Something went wrong"
         })
       }finally{
         setIsLoading(false);
@@ -47,7 +47,12 @@ export default function Home() {
   
     },[]);
   
+   function sendData(){
    
+    
+    
+    return packageData;
+   }
 
   
 
@@ -67,7 +72,7 @@ export default function Home() {
       <BannerSection />
       <FeatureSection />
       {/* <AboutSection /> */}
-      <TourSection packageAllData={packageData} />
+      <TourSection sendData={sendData} />
       <DealsSection />
       <PlaceSection />
       <MapSection />

@@ -177,6 +177,12 @@ export default function Header({ categories, companyData }) {
                                   Home
                                 </Link>
                               </li>
+                              <li className="">
+                                <Link href="/trips" style={{ color: "grey" }}>
+                                  All Packages
+                                </Link>
+                              </li>
+
 
                               {categories.map((category, index) => {
                                 return (

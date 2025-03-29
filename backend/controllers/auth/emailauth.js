@@ -525,6 +525,7 @@ const isAuthenticated = async (req, res, next) => {
       firstName: authenticUser.firstName,
       profilePhoto: authenticUser.profilePhoto,
       lastName: authenticUser.lastName,
+      accountStatus: authenticUser?.accountStatus,
     };
 
     return res
@@ -753,7 +754,7 @@ const adminLogin = expressAsyncHandler(async (req, res) => {
     }
 
     // Check if user has admin or super-admin role
-    const userRole = userFound.role === "admin" || userFound.role === "super-admin";
+    const userRole = (userFound ?.accountStatus === "active") && (userFound.role === "admin" || userFound.role === "super-admin");
     if (!userRole) {
       return res.status(401).json({ message: "Access Denied", error: true, success: false });
     }
@@ -780,6 +781,7 @@ const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
       firstName: updatedUserData.firstName,
       lastName: updatedUserData.lastName,
       role: updatedUserData.role,
+      accountStatus:updatedUserData?.accountStatus,
       token: updatedUserData.loginToken,
       loginTokenExpiryTime:updatedUserData.loginTokenExpiryTime
     };

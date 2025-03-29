@@ -165,6 +165,7 @@ export default function CategoryPage({ params }) {
 
       }
       function handleSearch(event){
+        event.preventDefault();
         
         if(event.target.value.length>0){
             
@@ -217,7 +218,7 @@ useEffect(() => {
                     <h1>Tours Details</h1>
                     <p>Discover your next great adventure</p>
                 </div>
-                <div class="form-inner">
+                {/* <div class="form-inner">
                     <form action="" method="post" class="booking-form clearfix">
                         <div class="form-group">
                             <input type="text" name="service" placeholder="Where to?" required="" />
@@ -241,7 +242,7 @@ useEffect(() => {
                             <button type="submit" class="theme-btn"><i class="far fa-search"></i>Find Now</button>
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
         </section>
        
@@ -502,13 +503,13 @@ useEffect(() => {
                                 <div class="widget-title">
                                     <h3>Search</h3>
                                 </div>
-                                <form action="destination-details.html" method="post" class="search-form">
+                                <div action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
-                    onChange={handleSearch} />
-                                        <button type="submit"><i class="fas fa-search"></i></button>
+                    onChange={handleSearch}/>
+                                        {/* <button type="submit"><i class="fas fa-search"></i></button> */}
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             <div class="sidebar-widget category-widget">
                                 <div class="widget-title">

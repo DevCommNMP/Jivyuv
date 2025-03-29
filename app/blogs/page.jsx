@@ -20,7 +20,9 @@ const BlogStandard = () => {
  
   useEffect(() => {
     async function fetchBlogs() {
+      setIsLoading(true);
       try {
+      
         let response = await axios.get(`${BASE_URL}/api/blogs`);
     
          
@@ -114,7 +116,7 @@ const BlogStandard = () => {
           <div className="row clearfix">
             <div className="col-lg-8 col-md-12 col-sm-12 content-side">
               <div className="blog-standard-content">
-                {blogs.length===0 &&<div style={{fontSize:"26px", fontWeight:"700", marginBottom:"50px", textAlign:"center"}}>
+                {latestNews.length===0 &&<div style={{fontSize:"26px", fontWeight:"700", marginBottom:"50px", textAlign:"center"}}>
                 No matching results found
                 </div>
                 }

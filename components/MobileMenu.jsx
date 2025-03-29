@@ -97,6 +97,18 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories, companyDat
                   Home
                 </Link>
               </li>
+              <li>
+                <Link 
+                  href="/trips" 
+                  style={{ 
+                    ...menuItemStyle,
+                    borderTop: "1px solid #e2e8f0"
+                  }}
+                  onClick={handleMenuItemClick}
+                >
+                  All Packages
+                </Link>
+              </li>
 
               {/* Categories */}
               {categories.map((category, index) => (

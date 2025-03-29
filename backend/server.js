@@ -15,7 +15,7 @@ const PORT = 5005;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
-const allowedOrigins = ["https://jivyuv-tan.vercel.app/","https://jivyuv-tan.vercel.app","http://localhost:3000","http://localhost:5173","http://localhost:5174", "https://accounts.google.com","https://planandbooktrip.com/","https://backend.planandbooktrip.com/","https://planandbooktrip.com","https://backend.planandbooktrip.com"]
+const allowedOrigins = ["https://jivyuv-tan.vercel.app/","https://jivyuv-tan.vercel.app","http://localhost:3005","http://localhost:5173","http://localhost:5174", "https://accounts.google.com","https://planandbooktrip.com/","https://backend.planandbooktrip.com/","https://planandbooktrip.com","https://backend.planandbooktrip.com"]
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -100,6 +100,8 @@ app.get("/token/token-session", async (req, res) => {
     token: decodedUser.loginToken,
     tokenExpiryTime:decodedUser.loginTokenExpiryToken,
     role: decodedUser.role,
+    email: decodedUser?.email,
+    accountStatus: decodedUser?.accountStatus,
   }
   if (decodedUser) {
     res.json({ message: "Session found", sessionData: serverResponse });

@@ -8,7 +8,7 @@ export default function tourList() {
                         <h1>Tours Details</h1>
                         <p>Discover your next great adventure</p>
                     </div>
-                    <div class="form-inner">
+                    {/* <div class="form-inner">
                         <form action="index.html" method="post" class="booking-form clearfix">
                             <div class="form-group">
                                 <input type="text" name="service" placeholder="Where to?" required="" />
@@ -32,7 +32,7 @@ export default function tourList() {
                                 <button type="submit" class="theme-btn"><i class="far fa-search"></i>Find Now</button>
                             </div>
                         </form>
-                    </div>
+                    </div> */}
                 </div>
             </section>
             {/* <!-- End Page Title --> */}

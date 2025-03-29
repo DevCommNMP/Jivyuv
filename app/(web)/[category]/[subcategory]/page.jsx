@@ -430,13 +430,13 @@ export default function SubcategoryPage({ params }) {
                                 <div class="widget-title">
                                     <h3>Search</h3>
                                 </div>
-                                <form action="destination-details.html" method="post" class="search-form">
+                                <div action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
                     onChange={handleSearch} />
-                                        <button type="submit"><Search /></button>
+                                        {/* <button type="submit"><Search /></button> */}
                                     </div>
-                                </form>
+                                </div>
                             </div>
                           
                             {/* <div class="sidebar-widget price-filter">

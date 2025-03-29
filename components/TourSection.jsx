@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-
 import { Clock, Map, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -9,19 +8,24 @@ import axios from 'axios';
 import { useRouter } from "next/navigation";
 
 
-export default function TourSection() {
+export default function TourSection(props) {
+  
+
   const [packageData,setPackageData]=useState({popular:[],trending:[],offer:[]});
-  const [loading,setIsLoading]=useState();
+ 
+ 
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
       const router = useRouter();
   
   async function fetchPackageData(){
     
     let tagName={popular:[],trending:[],offer:[]}
-    try{
-   let response=await axios.get(`${SERVER_URL}/api/trip-packages`);
-     let  data=response.data.reverse();
-     data.forEach((item)=>{
+    
+        let response=props.sendData();
+      
+     let  data=response?.reverse();
+
+     data?.forEach((item)=>{
     
       if(item.tripTagName==="popular"){
       
@@ -39,14 +43,10 @@ export default function TourSection() {
    
       setPackageData(tagName);
 
-    }catch(error){
-      console.log(error);
-      Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
-
-    }finally{
+    
 
     }
-  }
+  
   useEffect(()=>{
     fetchPackageData();
 
