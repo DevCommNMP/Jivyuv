@@ -7,11 +7,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
 
+
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import Preloader from "../../../../components/Preloader";
-import TourBanner from "../../../../public/assets/images/tour_banner.jpg";
+import TourBanner from "../../../../public/assets/images/banner/tripBanner.png";
 export default function SubcategoryPage({ params }) {
     const { category, subcategory } = params;
 
@@ -117,13 +118,13 @@ export default function SubcategoryPage({ params }) {
 
     return (
         <>
-        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(../../../../public/assets/images/tour_banner.jpg)` }}>
+        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(${TourBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
                     <p>Discover your next great adventure</p>
                 </div>
-                <div class="form-inner">
+                {/* <div class="form-inner">
                     <form action="index.html" method="post" class="booking-form clearfix">
                         <div class="form-group">
                         <MapPin />
@@ -148,7 +149,7 @@ export default function SubcategoryPage({ params }) {
                             <button type="submit" class="theme-btn"><Search />Find Now</button>
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
         </section>}
          {/* <!-- Page Title --> */}

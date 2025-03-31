@@ -4,7 +4,7 @@ import { useState,useEffect } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import bannerImg from "../../../../public/assets/images/banner/tripBanner.png"
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -190,7 +190,7 @@ useEffect(() => {
     return (
         <>
             {/* <!-- Page Title --> */}
-            <section class="page-title style-two centred" style={{ backgroundImage: `url(${SERVER_URL}/${packageData?.packageImage});` }}>
+            <section class="page-title style-two centred" style={{ backgroundImage: `url(${bannerImg.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>

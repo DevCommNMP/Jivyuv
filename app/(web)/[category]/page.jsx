@@ -9,8 +9,7 @@ import Preloader from "../../../components/Preloader";
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import   TourBanner from "../../../public/assets/images/tour_banner.jpg";
-
+import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
@@ -214,7 +213,7 @@ useEffect(() => {
         <>
         {/* <!-- Page Title --> */}
        
-        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(/images/tour_banner.jpg)`}}>
+        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(${tripBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
