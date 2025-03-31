@@ -6,7 +6,7 @@ const Terms = () => {
             <div className="terms-container">
                 <h1 className="terms-title">Terms and Services</h1>
                 <p className="terms-text">
-                    Welcome to our Travel Agency. By using our services, you agree to the following terms and conditions.
+                    Welcome to our Jivyuv Pan and Book Trip Travel Agency. By using our services, you agree to the following terms and conditions.
                 </p>
 
                 <h2 className="terms-subtitle">1. Booking and Payments</h2>
@@ -32,7 +32,7 @@ const Terms = () => {
 
                 <h2 className="terms-subtitle">4. Contact Us</h2>
                 <p className="terms-text">
-                    For any questions regarding our terms, reach out to us at support@travelagency.com.
+                If you have any questions, please contact us at <strong>contact@planandbooktrip.com,geetu@planandbooktrip.complete</strong>.
                 </p>
             </div>
         </>

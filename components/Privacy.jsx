@@ -6,7 +6,7 @@ const Privacy = () => {
             <div className="container">
                 <h1 className="title">Privacy Policy</h1>
                 <p className="paragraph">
-                    Welcome to <strong>Your Company Name</strong>. Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information.
+                    Welcome to <strong>JivyuV Plan and Book Trip</strong>. Your privacy is important to us. This Privacy Policy outlines how we collect, use, and protect your personal information.
                 </p>
                 
                 <h2 className="heading">1. Information We Collect</h2>
@@ -49,7 +49,7 @@ const Privacy = () => {
 
                 <h2 className="heading">7. Contact Us</h2>
                 <p className="paragraph">
-                    If you have any questions, please contact us at <strong>your.email@example.com</strong>.
+                    If you have any questions, please contact us at <strong>contact@planandbooktrip.com,geetu@planandbooktrip.complete</strong>.
                 </p>
             </div>
         </>
