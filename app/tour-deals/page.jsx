@@ -35,9 +35,25 @@ export default function TourDeals() {
   if (isLoading) {
     return <div className="loader">Loading...</div>; // Simple loader
   }
+const getUniqueDeals = (deals) => {
+  const seen = new Set();
+  return deals.filter((deal) => {
+    const slugName = deal?.subCategoryId?.slugName;
+    if (slugName && !seen.has(slugName)) {
+      seen.add(slugName);
+      return true;
+    }
+    return false;
+  });
+};
 
-  const domesticDeals = deals.filter((deal) => deal.country?.toLowerCase() === "india");
-  const internationalDeals = deals.filter((deal) => deal.country?.toLowerCase() !== "india");
+const domesticDeals = getUniqueDeals(
+  deals.filter((deal) => deal.country?.toLowerCase() === "india")
+);
+
+const internationalDeals = getUniqueDeals(
+  deals.filter((deal) => deal.country?.toLowerCase() !== "india")
+);
   return (
     <>
       {/* Page Title */}

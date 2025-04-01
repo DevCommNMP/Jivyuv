@@ -811,7 +811,7 @@ const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
 const editUser = expressAsyncHandler(async (req, res) => {
   try {
     const { id, role, firstName, lastName, password } = req.body;
-
+console.log(req.body)
     // Check if ID is provided
     if (!id) {
       return res

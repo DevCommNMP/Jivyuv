@@ -47,7 +47,7 @@ router.route('/auth/adminLogin')
 .post(adminLogin);
 
 // editRole
-router.route('/auth/editUser')
+router.route('/auth/admin/updateUser')
 .put(editUser);
 //delete user
 router.route('/auth/deleteUser')
