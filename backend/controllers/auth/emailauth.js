@@ -20,7 +20,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 
     if (userExist) {
       return res
-        .status(201)
+        .status(200)
         .json({ success: false, error: true, message: "Email already exists" });
     }
 
