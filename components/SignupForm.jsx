@@ -48,23 +48,25 @@ export default function SignupForm() {
       
    
     
-      if (response.status === 200) {
+      if (response.status === 201) {
 
-        Swal.fire({icon:"success",text:response.data.message || "User Registerd Successfully"});
+        Swal.fire({icon:"sucess",text:response.data.message || "User Registerd Successfully"});
         setFormData(  { fname: "",
           lname: "",
           email: "",
           password: "",
           password2: "",
           termsAccepted: false,
+
          });
         // Handle successful response
-      } else {
+      } else if(response.status==200) {
         // Handle error response
+ ;
         Swal.fire({icon:"info",text:response.data.message || "User Registerd Successfully"});
       }
     } catch (error) {
-      Swal.fire({icon:"error",text:response.data.message || "Login failed"});
+      Swal.fire({icon:"error",text:response?.data?.message || "Login failed"});
     } finally {
       setLoading(false);
     }
