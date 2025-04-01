@@ -24,7 +24,7 @@ exports.createBlog = async (req, res) => {
       blogTitle,
       blogDescription,
       createdBy,
-      isBlogPublic:isVisibleToAll,
+      isVisibleToAll:isVisibleToAll,
       blogTag: blogTag.split(","), // Convert blogTag to an array if it's a comma-separated string
       slugName, // Add the generated slugName
     });
@@ -111,7 +111,7 @@ exports.updateBlog = async (req, res) => {
         if (blogDescription) blog.blogDescription = blogDescription;
         if (createdBy) blog.createdBy = createdBy;
         if (blogTag) blog.blogTag = blogTag.split(",");
-        if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
+        if (isVisibleToAll !== undefined) blog.isVisibleToAll = isVisibleToAll;
     
         blog.blogTitle = blogTitle;
         blog.slugName = newSlug;
@@ -125,7 +125,7 @@ exports.updateBlog = async (req, res) => {
     if (blogDescription) blog.blogDescription = blogDescription;
     if (createdBy) blog.createdBy = createdBy;
     if (blogTag) blog.blogTag = blogTag.split(",");
-    if (isVisibleToAll !== undefined) blog.isBlogPublic = isVisibleToAll;
+    if (isVisibleToAll !== undefined) blog.isVisibleToAll = isVisibleToAll;
 
     // Save the updated blog
     const updatedBlog = await blog.save();
