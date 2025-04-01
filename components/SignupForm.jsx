@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
+import { useRouter } from "next/navigation";
+
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function SignupForm() {
@@ -15,7 +17,10 @@ export default function SignupForm() {
     password2: "",
     termsAccepted: false,
   });
+
   const [loading, setLoading] = useState(false);
+  
+  let router=useRouter();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,10 +36,20 @@ export default function SignupForm() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+   
     let data={firstName:formData.fname,lastName:formData.lname,email:formData.email,password:formData.password};
+    if(formData.termsAccepted===false){
+      Swal.fire({icon:"warning",titleText:"Please accept the terms and conditions to proceed."});;
+      return ;
+    }
+    if(data.firstName!==data.lastName){
+      Swal.fire({icon:"warning",titleText:"Your password and confirm password do not match."});
+      return ;
+
+    }
 
     try {
+      setLoading(true);
       const response = await axios.post(
         `${SERVER_URL}/api/auth/register`,
         data,
@@ -50,7 +65,12 @@ export default function SignupForm() {
     
       if (response.status === 201) {
 
-        Swal.fire({icon:"sucess",text:response.data.message || "User Registerd Successfully"});
+        Swal.fire({icon:"success",titleText:response.data.message || "User Registerd Successfully"}).then((result)=>{
+          if(result.isConfirmed){
+            router.push("/sign-in");
+
+          }
+        })
         setFormData(  { fname: "",
           lname: "",
           email: "",
@@ -63,10 +83,10 @@ export default function SignupForm() {
       } else if(response.status==200) {
         // Handle error response
  ;
-        Swal.fire({icon:"info",text:response.data.message || "User Registerd Successfully"});
+        Swal.fire({icon:"info",titleText:response.data.message || "User Registerd Successfully"});
       }
     } catch (error) {
-      Swal.fire({icon:"error",text:response?.data?.message || "Login failed"});
+      Swal.fire({icon:"error",titleText:response?.data?.message || "Login failed"});
     } finally {
       setLoading(false);
     }
@@ -286,6 +306,7 @@ export default function SignupForm() {
                         type="submit"
                         className="theme-btn"
                         disabled={loading}
+
                       >
                         {loading ? "Signing Up..." : "Sign Up"}
                       </button>
