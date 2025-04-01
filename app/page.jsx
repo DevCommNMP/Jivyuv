@@ -76,9 +76,10 @@ export default function Home() {
       <DealsSection />
       <PlaceSection />
       <MapSection />
+      <NewsSection packageData={packageData}/>
       <FunfactSection />
       <VideoSection />
-      <NewsSection packageData={packageData}/>
+      
       </>
     }
     </>

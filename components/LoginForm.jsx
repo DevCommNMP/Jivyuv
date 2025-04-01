@@ -8,7 +8,6 @@ import Preloader from "./Preloader";
 
 export default function LoginForm() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-  console.log(SERVER_URL);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,7 +46,6 @@ export default function LoginForm() {
      
       const res = await axios.post(`${SERVER_URL}/api/auth/login`, formData);
       const { token } = res.data;
-    console.log(res);
 
       // Get current time and set expiration time (1 hour from now)
       const expirationTime = Date.now() + 60 * 60 * 1000; // 1 hour in milliseconds
@@ -61,13 +59,11 @@ export default function LoginForm() {
     } catch (error) {
        
       setError("Login failed. Please check your email and password.");
-      console.log("Login error:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  console.log("Form Data", formData);
   return (
     <>
   

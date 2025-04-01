@@ -22,10 +22,8 @@ export default function TourDetails({params}) {
     try {
       let response =await  axios.get(`${SERVER_URL}/api/trip-packages/slug/${slug}`);
       
-      console.log(response.data);
       setPackageData(response.data);
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon:"error",
         text:error.response.data.message || "Something went wrong"

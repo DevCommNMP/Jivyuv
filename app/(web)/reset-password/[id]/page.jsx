@@ -59,7 +59,6 @@ const SetNewPassword = ({ params }) => {
         } catch (error) {
 
             console.error("Error resetting password:", error);
-            console.log(error);
            Swal.fire({title:error?.data?.message || "Something went wrong. Please try again.",icon:"error"});
         }
     };

@@ -13,7 +13,8 @@ export default function Feature() {
         <div className="auto-container">
           <div className="sec-title text-center">
             <p>JivYuv Specials</p>
-            <h2>Why Travel with Tutive?</h2>
+            <h2>Why Travel with JivYuv?
+            </h2>
           </div>
           <div className="row clearfix">
             <div className="col-lg-3 col-md-6 col-sm-12 feature-block">
@@ -35,7 +36,7 @@ export default function Feature() {
                     <div className="icon-box">
                       <UsersRound />
                     </div>
-                    <h4>2000+ Our Worldwide Guides</h4>
+                    <h4>Worldwide Destinations</h4>
                   </div>
                 </div>
               </div>
@@ -59,7 +60,7 @@ export default function Feature() {
                     <div className="icon-box">
                       <ShieldCheck />
                     </div>
-                    <h4>100% Trusted Tour Agency</h4>
+                    <h4>Best Price Guarantee</h4>
                   </div>
                 </div>
               </div>
@@ -83,7 +84,7 @@ export default function Feature() {
                     <div className="icon-box">
                       <BriefcaseBusiness />
                     </div>
-                    <h4>12+ Years of Travel Experience</h4>
+                    <h4>Hassle-Free Booking</h4>
                   </div>
                 </div>
               </div>
@@ -107,7 +108,8 @@ export default function Feature() {
                     <div className="icon-box">
                       <SmilePlus />
                     </div>
-                    <h4>98% of Our Travelers are Happy</h4>
+                    <h4>Local & International Tours
+                    </h4>
                   </div>
                 </div>
               </div>

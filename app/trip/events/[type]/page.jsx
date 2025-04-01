@@ -168,7 +168,6 @@ useEffect(() => {
 }, [selectedSubCategoryName]);
 
 // function filterSubCategoriesByPackage(selectedSubCategoryName){
-//    console.log(selectedSubCategoryName);
 //    let data=originalPackageData.filter((trip)=>{
 //     if (trip.subCategoryId && trip.subCategoryId.name) {
 //         if (selectedSubCategoryName.includes(trip.subCategoryId.name)) {

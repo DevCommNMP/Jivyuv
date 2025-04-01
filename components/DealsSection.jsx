@@ -13,7 +13,8 @@ export default function DealsSection() {
           <div className="content_block_2">
             <div className="content-box">
               <h3>
-              Exclusive Group Travel Package <br />
+              Exclusive Group travel package Book Now and Save Big! <br />
+              
               
               </h3>
               <div className="price">
@@ -21,10 +22,9 @@ export default function DealsSection() {
                 <del>50% off</del>
               </div>
               <p>
-              Embark on an unforgettable journey filled with adventure, culture, and relaxation. Experience breathtaking landscapes and create lasting memories.
-              </p>
+              Travel together, save more! Explore breathtaking destinations with adventure, culture, and relaxation. Book now!   </p>
               <Link href="tour-deals" className="theme-btn">
-                View Offers
+              Book now
               </Link>
             </div>
           </div>

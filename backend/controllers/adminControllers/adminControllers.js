@@ -56,8 +56,7 @@ const getAllUsers=async(req,res)=>{
 }
 // Fetch a single user by email ID
 const getUserByEmail = async (req, res) => {
-    const { email } = req.body;
-    console.log(email)
+    const { email } = req.params;
     if (!email) {
         return res.status(400).json({ success: false, message: "Email is required" });
     }

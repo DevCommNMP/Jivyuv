@@ -67,7 +67,6 @@ export default function contact() {
     }
 
     try {
-      console.log("Submitting payload:", formData); // Log the payload for debugging
       const response = await axios.post(`${SERVER_URL}/api/queries`, formData, {
         headers: {
           "Content-Type": "application/json",

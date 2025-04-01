@@ -79,7 +79,7 @@ export default function CategoryPage({ params }) {
     //      setOriginalPackageData(data);
     //     }
     //     }catch(error){
-    //       console.log(error);
+    // ;
     //       Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
     
     //     }finally{

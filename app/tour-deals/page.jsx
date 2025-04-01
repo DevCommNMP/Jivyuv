@@ -2,21 +2,27 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import Swal from "sweetalert2";
+import bannerImg from "../../public/assets/images/banner/tripBanner.png";
 
 export default function TourDeals() {
   const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-  const [deals, setDeals] = useState([]);
+  const [deals, setDeals] = useState([]); // Initialize deals as an empty array
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchDeals() {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/trip-packages`);
-        setDeals(response.data);
-       
+        setIsLoading(true);
+        const response = await axios.get(`${BASE_URL}/api/trip-packages`);
+        console.log(response.data);
+        setDeals(response.data || []); // Ensure data is an array
+        
       } catch (error) {
-        Swal.fire({icon:"error",text:"Something went wrong"})
+        Swal.fire({
+          icon: "error",
+          text: error.response?.data?.message || "Something went wrong",
+        });
       } finally {
         setIsLoading(false);
       }
@@ -24,19 +30,20 @@ export default function TourDeals() {
     fetchDeals();
   }, []);
 
-  const domesticDeals = deals.filter((deal) => deal.country === "india");
-  const internationalDeals = deals.filter((deal) => deal.country !== "india");
+  
 
   if (isLoading) {
     return <div className="loader">Loading...</div>; // Simple loader
   }
 
+  const domesticDeals = deals.filter((deal) => deal.country?.toLowerCase() === "india");
+  const internationalDeals = deals.filter((deal) => deal.country?.toLowerCase() !== "india");
   return (
     <>
       {/* Page Title */}
       <section
         className="page-title centred"
-        style={{ backgroundImage: "url(assets/images/background/page-title-2.jpg)" }}
+        style={{ backgroundImage: `url(${bannerImg.src})` }}
       >
         <div className="auto-container">
           <div className="content-box">
@@ -55,9 +62,9 @@ export default function TourDeals() {
             <h2>Explore India</h2>
           </div>
           <div className="row clearfix">
-            {domesticDeals.map((deal, index) => (
+            {domesticDeals?.map((deal, index) => (
               <div
-                key={deal.id}
+                key={deal._id || index} // Use a unique key
                 className="col-lg-4 col-md-6 col-sm-12 offer-block"
               >
                 <div
@@ -70,9 +77,13 @@ export default function TourDeals() {
                       <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
                     </figure>
                     <div className="content-box">
-                      <span style={{textDecoration:"line-through"}}>Rs.{deal.packagePromotional}</span>
+                      <span style={{ textDecoration: "line-through" }}>
+                        Rs.{deal.packagePromotional}
+                      </span>
                       <h3>
-                        <a href={`/india-packages/${deal?.subCategoryId?.slugName}`}>{deal?.subCategoryId?.slugName}</a>
+                        <a href={`/india-packages/${deal?.subCategoryId?.slugName}`}>
+                          {deal?.subCategoryId?.name || "Unknown"}
+                        </a>
                       </h3>
                       <h4>Rs.{deal.packagePrice}</h4>
                     </div>
@@ -92,9 +103,9 @@ export default function TourDeals() {
             <h2>Explore the World</h2>
           </div>
           <div className="row clearfix">
-            {internationalDeals.map((deal, index) => (
+            {internationalDeals?.map((deal, index) => (
               <div
-                key={deal.id}
+                key={deal._id || index} // Use a unique key
                 className="col-lg-4 col-md-6 col-sm-12 offer-block"
               >
                 <div
@@ -107,11 +118,15 @@ export default function TourDeals() {
                       <img src={`${BASE_URL}/${deal.packageImage}`} alt={deal.title} />
                     </figure>
                     <div className="content-box">
-                      <span style={{textDecoration:"line-through"}}>RS.{deal?.packagePromotional}</span>
+                      <span style={{ textDecoration: "line-through" }}>
+                        Rs.{deal.packagePromotional}
+                      </span>
                       <h3>
-                        <a href={`/international-packages/${deal?.subCategoryId?.slugName}`}>{deal?.subCategoryId?.slugName}</a>
+                        <a href={`/international-packages/${deal?.subCategoryId?.slugName}`}>
+                          {deal?.subCategoryId?.name || "Unknown"}
+                        </a>
                       </h3>
-                      <h4>RS.{deal.packagePrice}</h4>
+                      <h4>Rs.{deal.packagePrice}</h4>
                     </div>
                   </div>
                 </div>

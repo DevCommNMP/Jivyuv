@@ -133,7 +133,7 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
         handleNavigation(trip.titleSlug);
 
        }}>
-         See Details
+        Book Now
        </Link>
      </div>
    </div>

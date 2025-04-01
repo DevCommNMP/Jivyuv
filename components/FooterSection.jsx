@@ -56,7 +56,6 @@ export default function Footer({ companyData,categories }) {
     }
   };
 
-  console.log(categories);
   return (
     <>
       <footer className="main-footer bg-color-2">
@@ -78,7 +77,7 @@ export default function Footer({ companyData,categories }) {
                         src={
                           companyData?.logo_image
                             ? `${SERVER_URL}/${companyData.logo_image}`
-                            : "/assets/images/logo.png"
+                            : ""
                         }
                         width={100}
                         height={30}

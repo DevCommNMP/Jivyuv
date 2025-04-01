@@ -16,8 +16,6 @@ export async function fetchCategoriesAndCompanyProfile(setIsLoading, setCategori
         setCategories(categoriesResponse.data);
         setCompanyData(companyProfileResponse.data);
 
-      console.log("Categories:", categoriesResponse.data);
-      console.log("Company Profile:", companyProfileResponse.data);
     
     } catch (error) {
         console.error("Error fetching data:", error);

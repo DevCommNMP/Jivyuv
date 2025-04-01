@@ -6,7 +6,7 @@ const {deleteAllUsers, getAllUsers,getUserByEmail,activateAccount, deactivatePar
 // Admin routes 
 router.post('/admin/deleteAllUsers', deleteAllUsers);   
 router.get('/admin/getAllUsers', getAllUsers);  
-router.get('/users/getByEmail', getUserByEmail); 
+router.get('/users/getByEmail/:email', getUserByEmail); 
 router.put('/admin/activateUser/:id', activateAccount);          
 router.put('/admin/deactivateUser/:id', deactivateParticularUser);          
 

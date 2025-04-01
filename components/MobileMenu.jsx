@@ -4,10 +4,7 @@ import { useState } from "react";
 import { MapPin, Phone, Mail ,SquareX,Twitter, Facebook,Instagram, Youtube} from "lucide-react";
 
 const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories, companyData, user,handleLogout }) => {
-  console.log(user)
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-  console.log("mobile cateogory");
-  console.log(categories);
    const [activeDropdown, setActiveDropdown] = useState(null);
    const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index);

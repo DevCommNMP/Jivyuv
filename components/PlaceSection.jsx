@@ -29,8 +29,8 @@ export default function PlaceSection() {
               </div>
               <div className="text">
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit sed do
-                  eiu smod tempor incididunt.
+                Discover stunning locations worldwide! Find your dream destination today with best travel vacation packages
+
                 </p>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="/trips">New York City</a>
+                      <a href="/trips">Goa</a>
                     </h3>
                   </div>
                 </div>
@@ -66,7 +66,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="/trips">Norway Lake</a>
+                      <a href="/trips">Thailand</a>
                     </h3>
                   </div>
                 </div>
@@ -85,7 +85,7 @@ export default function PlaceSection() {
                   </figure>
                   <div className="text">
                     <h3>
-                      <a href="/trips">Affrican Park</a>
+                      <a href="/trips">Dubai</a>
                     </h3>
                   </div>
                 </div>

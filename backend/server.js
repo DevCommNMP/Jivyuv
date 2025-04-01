@@ -124,6 +124,9 @@ app.use((err, req, res, next) => {
   next(err);
 });
 
+app.get("/", (req, res) => {  
+  res.send("Server is running successfully");
+})
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);

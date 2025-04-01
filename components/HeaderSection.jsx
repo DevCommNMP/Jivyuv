@@ -60,7 +60,6 @@ export default function Header({ categories, companyData }) {
       localStorage.removeItem("token");
       window.location.href = `${SERVER_URL}/api/auth/logout`; // Redirect to logout
     } catch (error) {
-      console.log("Something went wrong:", error);
     }
   };
 
@@ -70,7 +69,6 @@ export default function Header({ categories, companyData }) {
 
   const openPanel=()=>{
     setIsPanelOpen(!isPanelOpen);
-    console.log(isPanelOpen);
   }
 
   const toggleDropdown = (index) => {
@@ -115,7 +113,6 @@ export default function Header({ categories, companyData }) {
 
  // Handle suggestion click
  const handleSuggestionClick = (suggestion) => {
-  console.log(suggestion);
   setSearchQuery("");
   setSuggestions([]);
   setSearchToggle(false);

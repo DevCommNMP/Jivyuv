@@ -56,7 +56,6 @@ export const checkTokenExpiration = async () => {
   if (currentTime >= expiresAt) {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenExpiration");
-    console.log("Token expired and removed.");
     return false; // Token is expired
   }
 
@@ -64,7 +63,6 @@ export const checkTokenExpiration = async () => {
   setTimeout(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("tokenExpiration");
-    console.log("Token expired and removed.");
   }, expiresAt - currentTime);
 
   return true; // Token is still valid

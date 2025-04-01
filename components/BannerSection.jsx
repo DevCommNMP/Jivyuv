@@ -24,12 +24,11 @@ export default function Banner() {
         <div className="auto-container">
           <div className="content-box">
             <h2>
-              Explore <br />
-              Your Travel
-            </h2>
+            Explore the World <br />
+             </h2>
             <p>
-              Discover your next great adventure, become an explorer to get
-              started!
+            Unbeatable Deals, Unforgettable Journeys, Your Perfect Vacation Awaits!
+
             </p>
             {/* <div className="form-inner">
               <form onSubmit={handleSubmit} className="booking-form clearfix">

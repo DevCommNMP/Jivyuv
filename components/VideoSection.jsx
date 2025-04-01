@@ -18,7 +18,7 @@ export default function VideoSection() {
             <p>Your New Traveling Idea</p>
             <div className="video-btn">
               <a
-                href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
+                // href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
                 className="lightbox-image"
                 data-caption=""
               >

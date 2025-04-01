@@ -45,13 +45,11 @@ export default function SignupForm() {
 
       if (response.status === 200) {
         // Handle successful response
-        console.log("Signup successful");
       } else {
         // Handle error response
         console.error("Signup failed");
       }
     } catch (error) {
-      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
