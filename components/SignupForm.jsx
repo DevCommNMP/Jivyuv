@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -31,11 +32,12 @@ export default function SignupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    let data={firstName:formData.fname,lastName:formData.lname,email:formData.email,password:formData.password};
 
     try {
       const response = await axios.post(
         `${SERVER_URL}/api/auth/register`,
-        formData,
+        data,
         {
           headers: {
             "Content-Type": "application/json",
@@ -43,13 +45,26 @@ export default function SignupForm() {
         }
       );
 
+      
+   
+    
       if (response.status === 200) {
+
+        Swal.fire({icon:"success",text:response.data.message || "User Registerd Successfully"});
+        setFormData(  { fname: "",
+          lname: "",
+          email: "",
+          password: "",
+          password2: "",
+          termsAccepted: false,
+         });
         // Handle successful response
       } else {
         // Handle error response
-        console.error("Signup failed");
+        Swal.fire({icon:"info",text:response.data.message || "User Registerd Successfully"});
       }
     } catch (error) {
+      Swal.fire({icon:"error",text:response.data.message || "Login failed"});
     } finally {
       setLoading(false);
     }
@@ -251,8 +266,8 @@ export default function SignupForm() {
                             <span className="material-control-indicator"></span>
                             <span className="description">
                               I accept{" "}
-                              <Link href="book-appointment">terms</Link> and{" "}
-                              <Link href="book-appointment">conditions</Link>{" "}
+                              <Link href="/terms-and-conditions">terms</Link> and{" "}
+                              <Link href="privacy-policy">conditions</Link>{" "}
                               and general policy
                             </span>
                           </label>
