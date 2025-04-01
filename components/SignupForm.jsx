@@ -44,9 +44,10 @@ export default function SignupForm() {
       );
 
       if (response.status === 200) {
-        // Handle successful response
+        window.location.href = "/sign-in";
       } else {
         // Handle error response
+        console.log()
         console.error("Signup failed");
       }
     } catch (error) {

@@ -5,7 +5,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['localhost', 'your-domain.com'],  // Add your allowed domains here
+    domains: ['localhost', 'backend.planandbooktrip.com'],  // Add your allowed domains here
   },
 }
   export default  nextConfig;
