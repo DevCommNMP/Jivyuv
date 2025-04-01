@@ -56,14 +56,14 @@ const getAllUsers=async(req,res)=>{
 }
 // Fetch a single user by email ID
 const getUserByEmail = async (req, res) => {
-    const { email } = req.query||req.body;
-    
+    const { email } = req.body;
+    console.log(email)
     if (!email) {
         return res.status(400).json({ success: false, message: "Email is required" });
     }
     
     try {
-        const user = await User.findOne({ email: email }).populate('orders');
+        const user = await User.findOne({ email: email })
         
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
