@@ -550,7 +550,8 @@ const updatePassword = async (req, res) => {
         .json({ success: false, message: "Authorization header is missing" });
     }
 
-    // Extract the token from the Authorization header
+    // Extract the token from the Authorization hea
+    // der
     const token = authHeader.split(" ")[1];
 
     // Verify the JWT token
