@@ -293,7 +293,7 @@ const [errors, setErrors] = useState({});
     fontWeight: "500",
     color: "#848484",
     padding: "10px 20px",
-    transition: "all 500ms ease"}}/>
+    transition: "all 500ms ease"}}   min={new Date().toISOString().split("T")[0]}/>
                       {errors.tourDate && <p style={{ color: "red", fontSize: "12px" }}>{errors.tourDate}</p>}
                     </div>
                     <div className="form-group">
