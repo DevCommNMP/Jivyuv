@@ -58,8 +58,7 @@ const [errors, setErrors] = useState({});
 
   },[slug]);
   async function sendToServer(payload){
-    console.log("payload");
-    console.log(payload);
+  
     try{
       setIsLoading(true);
   
@@ -84,10 +83,10 @@ const [errors, setErrors] = useState({});
   
   
   });
-  console.log(response);
+
 
     }catch(error){
-      console.log(error);
+     
 
       Swal.fire({
         icon: "error",
@@ -309,7 +308,7 @@ const [errors, setErrors] = useState({});
                 </div>
 
                 {/* Downloads */}
-                <div className="sidebar-widget downloads-widget">
+                {/* <div className="sidebar-widget downloads-widget">
                   <div className="widget-title">
                     <h3>Downloads</h3>
                   </div>
@@ -318,7 +317,7 @@ const [errors, setErrors] = useState({});
                    
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
