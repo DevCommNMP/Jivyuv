@@ -10,12 +10,32 @@ import Swal from "sweetalert2";
 export default function TourDetails({params}) {
   let slug=params.slug;
   const [isLoading,setIsLoading]=useState(false);
- 
- 
+
   const [packageData, setPackageData] = useState(
    
 );
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+ const [bookingTourData,setBookingTourData]=useState(
+  {
+  name:"",
+  email:"",
+  phone:"",
+  totalMembers:"",
+  tourDate:"",
+  message:"",
+  tourName:""
 
+
+}
+);
+const [errors, setErrors] = useState({});
+
+  function handleOnChange(event){
+    setBookingTourData({...bookingTourData,[event.target.name]:event.target.value});
+    setErrors({ ...errors, [event.target.name]: "" });
+
+
+  }
 
  async function fetchPackageData() {
     setIsLoading(true);
@@ -23,6 +43,7 @@ export default function TourDetails({params}) {
       let response =await  axios.get(`${SERVER_URL}/api/trip-packages/slug/${slug}`);
       
       setPackageData(response.data);
+      setBookingTourData({...bookingTourData,tourName:response.data?.titleSlug});
     } catch (error) {
       Swal.fire({
         icon:"error",
@@ -36,8 +57,74 @@ export default function TourDetails({params}) {
     fetchPackageData();
 
   },[slug]);
+  async function sendToServer(payload){
+  
+    try{
+      setIsLoading(true);
+  
+  let response=await axios.post(`${SERVER_URL}/api/tour-queries`,payload);
+  Swal.fire({
+    icon: "success",
+    title: "Booking Confirmed!",
+    text: "Your tour booking request has been successfully submitted. We will contact you soon!",
+    confirmButtonText: "OK"
+  });
 
-  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+ setBookingTourData( {
+    name:"",
+    email:"",
+    phone:"",
+    totalMembers:"",
+    tourDate:"",
+    message:"",
+    tourName:packageData?.titleSlug
+    
+  
+  
+  });
+
+
+    }catch(error){
+     
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops! Something went wrong.",
+        text: "We are currently unable to process your request. Please try again later.",
+        confirmButtonText: "OK"
+      })
+    }finally{
+      setIsLoading(false);
+    }
+  }
+  function validateForm() {
+    let newErrors = {};
+    if (!bookingTourData.name.trim()) newErrors.name = "Name is required";
+    if (!bookingTourData.email.trim()) newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bookingTourData.email))
+      newErrors.email = "Enter a valid email";
+    if (!bookingTourData.phone.trim()) newErrors.phone = "Phone number is required";
+    else if (!/^\d{10}$/.test(bookingTourData.phone)) newErrors.phone = "Enter a valid 10-digit phone number";
+    if (!bookingTourData.totalMembers.trim()) newErrors.totalMembers = "Total members are required";
+    else if (isNaN(bookingTourData.totalMembers) || bookingTourData.totalMembers <= 0)
+      newErrors.totalMembers = "Enter a valid number";
+    if (!bookingTourData.tourDate.trim()) newErrors.tourDate = "Tour date is required";
+    if (!bookingTourData.message.trim()) newErrors.message = "Message is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+
+  function handleSubmit(event){
+    event.preventDefault();
+    if(validateForm()){
+    sendToServer(bookingTourData);
+    }
+
+  }
+
+ 
   return (
     <div className="tour-details-page">
       {/* Page Title */}
@@ -166,39 +253,62 @@ export default function TourDetails({params}) {
                 <div className="form-widget">
                   <div className="widget-title">
                     <h3>Book This Tour</h3>
+                 
                   </div>
-                  <form className="tour-form">
-                    <div className="form-group">
-                      <input type="text" name="name" placeholder="Your Name" required />
+                  <form className="tour-form" onSubmit={handleSubmit}>
+                  <div className="form-group">
+                      <input type="text" name="totalMembers" placeholder="Tour Name" value={packageData?.titleSlug} readOnly required style={{backgroundColor:" #d3d3d3"}} onChange={handleOnChange}  />
+                      
                     </div>
                     <div className="form-group">
-                      <input type="email" name="email" placeholder="Your Email" required />
+                    
+                      <input type="text" name="name" placeholder="Your Name" required  value={bookingTourData.name} onChange={handleOnChange}/>
+                      {errors.name && <p style={{ color: "red", fontSize: "12px" }}>{errors.name}</p>}
+                     
                     </div>
                     <div className="form-group">
-                      <input type="text" name="phone" placeholder="Phone" required />
+                      <input type="email" name="email" placeholder="Your Email" required value={bookingTourData.email}  onChange={handleOnChange}/>
+                      {errors.email && <p style={{ color: "red", fontSize: "12px" }}>{errors.email}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="text" name="totalMembers" placeholder="Total members in numbers" required />
+                      <input type="text" name="phone" placeholder="Phone" required  value={bookingTourData.phone} onChange={handleOnChange}/>
+                      {errors.phone && <p style={{ color: "red", fontSize: "12px" }}>{errors.phone}</p>}
+                     
                     </div>
                     <div className="form-group">
-                      <input type="text" name="totalMembers" placeholder="Tour Name" value={packageData?.titleSlug} readOnly required  />
+                      <input type="text" name="totalMembers" placeholder="Total members in numbers" required value={bookingTourData.totalMembers} onChange={handleOnChange} />
+                      {errors.totalMembers && <p style={{ color: "red", fontSize: "12px" }}>{errors.totalMembers}</p>}
+                    </div>
+                    
+                    <div className="form-group">
+                      <input type="date" name="tourDate" placeholder="dd/mm/yy" value={bookingTourData.tourDate}  onChange={handleOnChange} style={{width:"100%",height:"60px",display:"block",position: "relative",
+    display: "block",
+    width: "100%",
+    height: "60px",
+    background: "#ffffff",
+    border: "1px solid #ffffff",
+    borderRadius: "10px",
+    fontSize: "15px",
+    fontWeight: "500",
+    color: "#848484",
+    padding: "10px 20px",
+    transition: "all 500ms ease"}}   min={new Date().toISOString().split("T")[0]}/>
+                      {errors.tourDate && <p style={{ color: "red", fontSize: "12px" }}>{errors.tourDate}</p>}
                     </div>
                     <div className="form-group">
-                      <input type="text" name="tripDate" placeholder="dd/mm/yy" />
-                    </div>
-                    <div className="form-group">
-                      <textarea name="message" placeholder="Message"></textarea>
+                      <textarea name="message" placeholder="Message" value={bookingTourData.message} onChange={handleOnChange}></textarea>
+                      {errors.message && <p style={{ color: "red", fontSize: "12px" }}>{errors.message}</p>}
                     </div>
                     <div className="form-group message-btn">
-                      <button type="submit" className="theme-btn">
-                        Book Tour
+                      <button type="submit" className="theme-btn" disabled={isLoading}>
+                       {isLoading===true ?<span>Loading...</span> :<span>Book Tour</span>}
                       </button>
                     </div>
                   </form>
                 </div>
 
                 {/* Downloads */}
-                <div className="sidebar-widget downloads-widget">
+                {/* <div className="sidebar-widget downloads-widget">
                   <div className="widget-title">
                     <h3>Downloads</h3>
                   </div>
@@ -207,7 +317,7 @@ export default function TourDetails({params}) {
                    
                     </ul>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
