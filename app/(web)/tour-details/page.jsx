@@ -189,10 +189,12 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
                 <div className="form-widget">
                   <div className="widget-title">
                     <h3>Book This Tour</h3>
+                   
                   </div>
                   <form className="tour-form">
                     <div className="form-group">
                       <input type="text" name="name" placeholder="Your Name" required />
+                     
                     </div>
                     <div className="form-group">
                       <input type="email" name="email" placeholder="Your Email" required />
