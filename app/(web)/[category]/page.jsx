@@ -491,10 +491,10 @@ useEffect(() => {
                         </div>
                         <div class="pagination-wrapper">
                             <ul class="pagination clearfix">
-                                <li><a href="tour-2.html" class="current">1</a></li>
-                                <li><a href="tour-2.html">2</a></li>
-                                <li><a href="tour-2.html">3</a></li>
-                                <li><a href="tour-2.html"><i class="icon-Right-Arrow"></i></a></li>
+                                <li><a href="#" class="current">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="icon-Right-Arrow"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -589,7 +589,7 @@ useEffect(() => {
                                     <div class="price-range-slider"></div>
                                 </div>
                             </div> */}
-                            <div class="sidebar-widget duration-widget">
+                            {/* <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
                                 </div>
@@ -642,7 +642,7 @@ useEffect(() => {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                            
                             <div class="advice-widget">
                                 <div class="inner-box" style={{ backgroundImage: 'url(assets/images/resource/advice-1.jpg);' }}>

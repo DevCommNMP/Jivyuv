@@ -42,7 +42,7 @@ export default function SignupForm() {
       Swal.fire({icon:"warning",titleText:"Please accept the terms and conditions to proceed."});;
       return ;
     }
-    if(data.firstName!==data.lastName){
+    if(data.password!==formData.password2){
       Swal.fire({icon:"warning",titleText:"Your password and confirm password do not match."});
       return ;
 
