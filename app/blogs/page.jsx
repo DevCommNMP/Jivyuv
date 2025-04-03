@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -17,6 +17,15 @@ const BlogStandard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [latestNews,setLatestNews]=useState([]);
   const [searchQuery,setSearchQuery]=useState("");
+  const [currentPage,setCurrentPage]=useState(1);
+       const itemPerPage=5;
+       const [totalPage, setTotalPage] = useState(0);
+    
+       const currentItems = useMemo(() => {
+        const startIndex = (currentPage - 1) * itemPerPage;
+        const endIndex = startIndex + itemPerPage;
+        return latestNews?.slice(startIndex, endIndex);
+      }, [currentPage, latestNews, itemPerPage]);
  
   useEffect(() => {
     async function fetchBlogs() {
@@ -46,6 +55,7 @@ const BlogStandard = () => {
         }else{
             setLatestNews(latestBlog);
         }
+        setTotalPage(Math.ceil(latestBlog?.length / itemPerPage));
 
       } catch (error) {
         Swal.fire({icon:"error",text:error?.response?.data?.message || "Something Went wrong"});
@@ -55,6 +65,10 @@ const BlogStandard = () => {
     }
     fetchBlogs();
   }, []);
+  useEffect(() => {
+    setCurrentPage(1); 
+    setTotalPage(Math.ceil(latestNews?.length / itemPerPage));
+  }, [latestNews]);
   useEffect(() => {
 
   
@@ -96,6 +110,10 @@ const BlogStandard = () => {
 
 
       // <section className="page-title centred" style={{ backgroundImage: 'url(/assets/images/banner/tt.avif)' }}>
+
+
+
+ 
   return (
     <>
     {isLoading===true? <Preloader/>:<>
@@ -121,7 +139,7 @@ const BlogStandard = () => {
                 </div>
                 }
                 
-                {latestNews?.map((blog) => (
+                {currentItems?.map((blog) => (
                   <div key={blog._id} className="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
                     <div className="inner-box">
                       <figure className="image-box" >
@@ -159,10 +177,27 @@ const BlogStandard = () => {
                 ))}
                 <div className="pagination-wrapper">
                   <ul className="pagination clearfix">
-                    <li><a href="#" className="current">1</a></li>
+
+
+
+                  {Array.from({ length: totalPage }, (_, index) => index + 1).map((page) => (
+            <li key={page}>
+                <a 
+                    href="#" 
+                    className={currentPage === page ? "current" : ""} 
+                    onClick={(event) => {
+                        event.preventDefault();
+                        setCurrentPage(page);
+                    }}
+                >
+                    {page}
+                </a>
+            </li>
+        ))}
+                    {/* <li><a href="#" className="current">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
-                    <li><a href="#"><MoveRight /></a></li>
+                    <li><a href="#"><MoveRight /></a></li> */}
                   </ul>
                 </div>
               </div>
@@ -173,12 +208,12 @@ const BlogStandard = () => {
                   <div className="widget-title">
                     <h3>Search</h3>
                   </div>
-                  <form action="/search" method="post" className="search-form">
+                  <div action="/search" method="post" className="search-form">
                     <div className="form-group">
                       <input type="search" name="search-field" placeholder="Search" required onChange={handleSearchQuery} value={searchQuery} />
-                      <button type="submit"><Search /></button>
+                      {/* <button type="submit"><Search /></button> */}
                     </div>
-                  </form>
+                  </div>
                 </div>
                 {/* <div className="sidebar-widget category-widget">
                   <div className="widget-title">
