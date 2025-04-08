@@ -433,7 +433,10 @@ useEffect(() => {
 
 
                                          }}>{item.title}</Link></h3>
-                                         <h4>₹ {item.packagePrice}<span> / Per person</span></h4>
+                                         <h4>{item.packagePrice!=="" && <>₹ {item.packagePrice}<span> / Per person</span>
+                                          </>
+                                            }
+                                         </h4>
                                          {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
                                          <div class="btn-box">
                                          <Link href="#" onClick={(event)=>{
