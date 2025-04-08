@@ -160,11 +160,20 @@ const [errors, setErrors] = useState({});
                     <ul className="info-list clearfix">
                       <li>
                         <span style={{fontWeight:"bolder"}}>Pickup & Drop</span><br/>
-                        <i className="far fa-clock">{packageData?.isPickupAndDropAvailable==true?<span style={{fontWeight:"bold"}}>{packageData?.pickupLocation}-{packageData?.dropLocation}</span>:"Any Time"}</i>
+                        <i className="far fa-clock">{packageData?.isPickupAndDropAvailable==true?<span style={{fontWeight:"bold"}}>{packageData?.pickupLocation}-{packageData?.dropLocation}</span>:"Available"}</i>
                       </li>
                       <li>
-                      <span style={{fontWeight:"bolder"}}>Duration</span><br/>
-                        <i className="far fa-user"><span style={{fontWeight:"bold"}}>{packageData?.numberOfNights}N - {packageData?.numberOfDays}D</span></i>
+                      <span style={{ fontWeight: "bolder" }}>Duration</span><br />
+<i className="far fa-user">
+  <span style={{ fontWeight: "bold" }}>
+    {packageData?.numberOfDays === "" && packageData?.numberOfNights === "" ? (
+      " Ask Expert"
+    ) : (
+      `${packageData?.numberOfNights}N - ${packageData?.numberOfDays}D`
+    )}
+  </span>
+</i>
+
                       </li>
                       <li>
                       <span style={{fontWeight:"bolder"}}>Country</span><br/>

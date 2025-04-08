@@ -23,7 +23,7 @@ export default function TourSection(props) {
     
         let response=props.sendData();
       
-     let  data=response?.reverse();
+     let  data=response;
 
      data?.forEach((item)=>{
     
@@ -97,7 +97,7 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
        <i className="fas fa-link"></i>
      </Link>
    </figure>
-   <div className="lower-content">
+   <div className="lower-content" style={{height:"350px"}}>
      <div className="rating">
        <span>
          <Star size={24} color={"gold"} /> 8.0 Superb
@@ -116,11 +116,18 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
      </h3>
      </div>
      <h4 style={{marginBottom:"4px",marginTop:"15px"}}>
-     ₹ {trip.packagePrice}<span> / Per person</span>
+    {trip.packagePrice!=="" &&<> ₹ {trip.packagePrice}<span> / Per person</span>
+    </>
+    
+    }
      </h4>
      <ul className="info clearfix">
        <li>
-         <Clock size={24} /> <span>{trip.numberOfNights}N - {trip.numberOfDays}D</span>
+         <Clock size={24} />
+          <span>
+         { trip.numberOfDays=="" && trip.numberOfNights==""? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
+          }
+          </span>
        </li>
        <li>
          <Map size={24} /> <span style={{textTransform:"uppercase"}}>{trip.country}</span>
@@ -187,13 +194,13 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
        <i className="fas fa-link"></i>
      </Link>
    </figure>
-   <div className="lower-content">
+   <div className="lower-content" style={{height:"350px"}}>
      <div className="rating">
        <span>
          <Star size={24} color={"gold"} /> 8.0 Superb
        </span>
      </div>
-     <div style={{height:"60",}}>
+     <div style={{height:"60px",}}>
      <h3 style={{fontSize:"16px",wordSpacing:'1px',fontWeight:"600",letterSpacing:"1px"}}>
      <Link href={`/api/trip-packages/slug/${trip.titleSlug}`} as={`/api/trip-packages/slug/${trip.titleSlug}`} onClick={(event)=>{
         event.preventDefault();
@@ -209,7 +216,10 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
      </h4>
      <ul className="info clearfix">
        <li>
-         <Clock size={24} /> <span>{trip.numberOfNights}N - {trip.numberOfDays}D</span>
+       <span>
+         { trip.numberOfDays=="" && trip.numberOfNights==""? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
+          }
+          </span>
        </li>
        <li>
          <Map size={24} /> <span style={{textTransform:"uppercase"}}>{trip.country}</span>
@@ -277,7 +287,7 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
                 <i className="fas fa-link"></i>
               </Link>
             </figure>
-            <div className="lower-content">
+            <div className="lower-content" style={{height:"350px"}}>
               <div className="rating">
                 <span>
                   <Star size={24} color={"gold"} /> 8.0 Superb
@@ -299,7 +309,12 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
               </h4>
               <ul className="info clearfix">
                 <li>
-                  <Clock size={24} /> <span>{trip.numberOfNights}N - {trip.numberOfDays}D</span>
+                  <Clock size={24} />
+                  
+                  <span>
+         { trip.numberOfDays=="" && trip.numberOfNights==""? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
+          }
+          </span>
                 </li>
                 <li>
                   <Map size={24} /> <span style={{textTransform:"uppercase"}}>{trip.country}</span>

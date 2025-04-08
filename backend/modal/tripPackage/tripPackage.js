@@ -9,11 +9,11 @@ const packageSchema = new Schema({
   titleSlug: { type: String, required: true },
   pickupLocation: { type: String, default: "" },
   dropLocation: { type: String, default: "" },
-  numberOfDays: { type: String, required: true },
-  numberOfNights: { type: String, required: true },
+  numberOfDays: { type: String,  },
+  numberOfNights: { type: String,  },
   overview: { type: String, required: true },
-  packagePrice: { type: String, required: true },
-  packagePromotional: { type: String, required: true },
+  packagePrice: { type: String,  },
+  packagePromotional: { type: String,  },
   isVisaFree: { type: Boolean, required: true },
   country: { type: String, required: true },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
@@ -25,9 +25,9 @@ const packageSchema = new Schema({
   packageSubImages: [{ type: String,required:true},],
   activityData: [
     {
-      activityDay: { type: String, required: true },
-      activityTitle: { type: String, required: true },
-      activityDescription: [{ type: String, required: true }]
+      activityDay: { type: String,  },
+      activityTitle: { type: String,  },
+      activityDescription: [{ type: String,}]
     }
   ],
   createdAt: { type: Date, default: Date.now } // Add createdAt field

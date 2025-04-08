@@ -31,7 +31,7 @@ export default function Home() {
         let response =await  axios.get(`${SERVER_URL}/api/trip-packages`);
     
 
-        setPackageData(response.data);
+        setPackageData(response.data.reverse());
       } catch (error) {
       
         Swal.fire({
