@@ -1,13 +1,36 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /
 
-  # Redirect all requests to index.html except for existing files and directories
+  # Force HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Remove www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Exclude static assets and PHP files
+  RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff2?|ttf|eot|otf)$ [NC]
+  RewriteCond %{REQUEST_URI} !^/static/
+  RewriteCond %{REQUEST_URI} !^/_next/
+  RewriteCond %{REQUEST_URI} !^/images/
+  RewriteCond %{REQUEST_URI} !\.php$ [NC]
+
+  # Proxy all other requests to Next.js server (on port 3000)
+  RewriteRule ^ http://localhost:3000%{REQUEST_URI} [P,L]
+
+  # Fallback to index.php if file doesn't exist (for legacy PHP pages)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ index.html [QSA,L]
-
-  # Ensure proper MIME types
-  AddType application/javascript .js
-  AddType text/css .css
+  RewriteRule ^ index.php [QSA,L]
 </IfModule>
+
+# Enable proxy if not already enabled (usually done in Apache config)
+<IfModule mod_proxy.c>
+  ProxyPreserveHost On
+  ProxyPassReverse / http://localhost:3000/
+</IfModule>
+
+# Optional: correct MIME types (usually not needed)
+AddType application/javascript .js
+AddType text/css .css

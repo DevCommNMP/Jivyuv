@@ -92,14 +92,16 @@ app.get("/google-session", (req, res) => {
 app.get("/token/token-session", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.decode(token, process.env.JWT_KEY);
-  const decodedUser = await User.findById(decoded.id).lean();
+  
+  console.log(decoded);
+  const decodedUser = await User.findById(decoded?.id)
   const serverResponse={
-    profilePicture: decodedUser.profilePicture,
-    firstName: decodedUser.firstName,
-    lastName: decodedUser.lastName,
-    token: decodedUser.loginToken,
-    tokenExpiryTime:decodedUser.loginTokenExpiryToken,
-    role: decodedUser.role,
+    profilePicture: decodedUser?.profilePicture,
+    firstName: decodedUser?.firstName,
+    lastName: decodedUser?.lastName,
+    token: decodedUser?.loginToken,
+    tokenExpiryTime:decodedUser?.loginTokenExpiryToken,
+    role: decodedUser?.role,
     email: decodedUser?.email,
     accountStatus: decodedUser?.accountStatus,
   }
