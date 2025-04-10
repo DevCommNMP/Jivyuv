@@ -14,6 +14,9 @@ export const metadata = {
   description: "Tour & Travel",
 };
 
+
+
+
 export default function RootLayout({ children }) {
   const [categories, setCategories] = useState([]);
   const [companyData, setCompanyData] = useState([]);
@@ -35,7 +38,10 @@ export default function RootLayout({ children }) {
   }
   return (
     <html lang="en" suppressHydrationWarning>
+         
+
       <body>
+
         <Header categories={categories} companyData={companyData} />
         {children}
         <Footer companyData={companyData} categories={categories} />

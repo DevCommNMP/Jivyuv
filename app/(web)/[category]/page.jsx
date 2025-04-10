@@ -10,6 +10,13 @@ import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
+export const metadata = {
+    title: "Packages kundan",
+    description: "Read our terms and services carefully.",
+    icons: {
+      icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
+    },
+  };
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);

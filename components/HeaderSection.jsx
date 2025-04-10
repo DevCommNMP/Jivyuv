@@ -93,8 +93,9 @@ export default function Header({ categories, companyData }) {
   useEffect(() => {
     const fetchSuggestions = async () => {
       if (searchQuery.trim().length > 3) {
-        setIsLoadingSuggestions(true);
+        
         try {
+          setIsLoadingSuggestions(true);
           const response = await axios.get(
             `${SERVER_URL}/api/trip-packages`
           );
