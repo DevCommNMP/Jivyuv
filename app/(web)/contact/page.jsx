@@ -5,8 +5,18 @@ import { Mail, MapPinHouse, PhoneCall } from "lucide-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export default function contact() {
+
+export const metadata = {
+  title: "Contact Us",
+  description: "Get in touch with us for any inquiries or support.",
+ 
+  icons: {
+    icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
+  },
+};
+export default function Contact() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
   const [contactInfo, setContactInfo] = useState({
     address: {},
     email_id: "",
@@ -92,7 +102,9 @@ export default function contact() {
 
   return (
     <>
-      <section className="page-title centred" style={{ backgroundImage: 'url(assets/images/background/page-title-5.jpg)' }}>
+    
+
+      <section className="page-title centred" style={{ backgroundImage: 'url(/assets/img/contact/contact-banner.png)' }}>
         <div className="auto-container">
           <div className="content-box">
             <h1>Contact</h1>

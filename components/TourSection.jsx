@@ -212,12 +212,16 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
      </h3>
      </div>
      <h4 style={{marginBottom:"4px",marginTop:"15px"}}>
-     ₹ {trip.packagePrice}<span> / Per person</span>
+    {trip.packagePrice!=="" &&<> ₹ {trip.packagePrice}<span> / Per person</span>
+    </>
+    
+    }
      </h4>
      <ul className="info clearfix">
        <li>
+       <Clock size={24} />
        <span>
-         { trip.numberOfDays=="" && trip.numberOfNights==""? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
+         { trip.numberOfDays==0 && trip.numberOfNights==0? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
           }
           </span>
        </li>
@@ -257,14 +261,14 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
 
          <div className="sec-title text-center" style={{display:"flex",gap:"20px",justifyContent:"center"}}>
                   
-                     <h2>Our Most Trending Adventures</h2>
+                     <h2>Our Most Offered Adventures</h2>
                      <Link href="/trip/events/trending" className="theme-btn-two">
                        View All
                      </Link>
                    </div>
                    <div className="row clearfix">
                    
-                       {packageData?.trending?.map((trip)=>{
+                       {packageData?.offer?.map((trip)=>{
          return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
          <div
           className="tour-block-one wow fadeInUp animated animated"
@@ -305,14 +309,17 @@ return    <div className="col-lg-4 col-md-6 col-sm-12 tour-block">
               </h3>
               </div>
               <h4 style={{marginBottom:"4px",marginTop:"15px"}}>
-              ₹ {trip.packagePrice}<span> / Per person</span>
-              </h4>
+    {trip.packagePrice!=="" &&<> ₹ {trip.packagePrice}<span> / Per person</span>
+    </>
+    
+    }
+     </h4>
               <ul className="info clearfix">
                 <li>
                   <Clock size={24} />
                   
                   <span>
-         { trip.numberOfDays=="" && trip.numberOfNights==""? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
+         { trip.numberOfDays==0 && trip.numberOfNights==0? " Ask Expert": `${trip.numberOfNights}N - ${trip.numberOfDays}D`
           }
           </span>
                 </li>
