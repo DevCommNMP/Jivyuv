@@ -126,6 +126,7 @@ exports.updateCompanyProfile = async (req, res) => {
       footer_sub_images: footerSubImages,
       phone_number: req.body.phone_number,
       email_id: req.body.email_id,
+      company_description: req.body.company_description,
       social_media_links: {
         youtube: req.body.social_media_links_youtube || '',
         instagram: req.body.social_media_links_instagram || '',

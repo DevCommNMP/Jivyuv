@@ -33,4 +33,26 @@
 
 # Optional: correct MIME types (usually not needed)
 AddType application/javascript .js
+AddType text/css .css<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Serve existing files/directories normally
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# All other requests go to index.html (for React Router)
+RewriteRule ^ index.html [L]
+</IfModule>
+
+# Optional: proper MIME types
+AddType application/javascript .js
 AddType text/css .css
