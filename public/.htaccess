@@ -1,58 +1,22 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Force HTTPS
-  RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-  # Remove www
+  # Force HTTPS and remove www
+  RewriteCond %{HTTPS} off [OR]
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-  # Exclude static assets and PHP files
-  RewriteCond %{REQUEST_URI} !\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|woff2?|ttf|eot|otf)$ [NC]
-  RewriteCond %{REQUEST_URI} !^/static/
-  RewriteCond %{REQUEST_URI} !^/_next/
-  RewriteCond %{REQUEST_URI} !^/images/
-  RewriteCond %{REQUEST_URI} !\.php$ [NC]
+  # Optional: force to specific domain
+  # RewriteCond %{HTTPS} off [OR]
+  # RewriteCond %{HTTP_HOST} !^yourdomain\.com$ [NC]
+  # RewriteRule ^ https://yourdomain.com%{REQUEST_URI} [L,R=301]
 
-  # Proxy all other requests to Next.js server (on port 3000)
-  RewriteRule ^ http://localhost:3000%{REQUEST_URI} [P,L]
-
-  # Fallback to index.php if file doesn't exist (for legacy PHP pages)
+  # Serve static files and Next.js SSR routes properly
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.php [QSA,L]
+
+  # MIME types (optional, usually handled by server)
+  AddType application/javascript .js
+  AddType text/css .css
 </IfModule>
-
-# Enable proxy if not already enabled (usually done in Apache config)
-<IfModule mod_proxy.c>
-  ProxyPreserveHost On
-  ProxyPassReverse / http://localhost:3000/
-</IfModule>
-
-# Optional: correct MIME types (usually not needed)
-AddType application/javascript .js
-AddType text/css .css<IfModule mod_rewrite.c>
-RewriteEngine On
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Remove www
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
-
-# Serve existing files/directories normally
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# All other requests go to index.html (for React Router)
-RewriteRule ^ index.html [L]
-</IfModule>
-
-# Optional: proper MIME types
-AddType application/javascript .js
-AddType text/css .css
