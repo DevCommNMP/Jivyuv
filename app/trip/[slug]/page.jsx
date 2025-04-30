@@ -58,11 +58,18 @@ const [errors, setErrors] = useState({});
 
   },[slug]);
   async function sendToServer(payload){
-  
+ 
     try{
       setIsLoading(true);
+      
+      const [tourQueryResponse, googleScriptResponse] = await axios.all([
+        axios.post(`${SERVER_URL}/api/tour-queries`, payload),
+        axios.post("https://script.google.com/macros/s/AKfycbygYxZy0xD2heYWF9Bxowgnz8Dk1FzV1Xbo6OW-bPzS7lVQc_EBCHCsCpDUxWt7RPl4EA/exec", JSON.stringify(payload))
+      ]);
+      
   
-  let response=await axios.post(`${SERVER_URL}/api/tour-queries`,payload);
+      
+ 
   Swal.fire({
     icon: "success",
     title: "Booking Confirmed!",
@@ -261,7 +268,8 @@ const [errors, setErrors] = useState({});
                 {/* Booking Form */}
                 <div className="form-widget">
                   <div className="widget-title">
-                    <h3>Book This Tour</h3>
+                    <h3>Book This Tour  </h3>
+
                  
                   </div>
                   <form className="tour-form" onSubmit={handleSubmit}>
@@ -290,11 +298,11 @@ const [errors, setErrors] = useState({});
                     </div>
                     
                     <div className="form-group">
-                      <input type="date" name="tourDate" placeholder="dd/mm/yy" value={bookingTourData.tourDate}  onChange={handleOnChange} style={{width:"100%",height:"60px",display:"block",position: "relative",
-    display: "block",
-    width: "100%",
-    height: "60px",
-    background: "#ffffff",
+                      <input type="date" name="tourDate" placeholder="dd/mm/yy" value={bookingTourData.tourDate}  onChange={handleOnChange} style={{width:"100%",height:"60px",     display:"block",position: "relative",
+                          display: "block",
+                          width: "100%",
+                    height: "60px",
+                   background: "#ffffff",
     border: "1px solid #ffffff",
     borderRadius: "10px",
     fontSize: "15px",
