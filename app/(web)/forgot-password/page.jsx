@@ -61,14 +61,17 @@ const ResetPassword = ({ params }) => {
         <>
        
         {isLoading==true?<Preloader/>:
+        
         <div
             style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                marginTop: "100px",
-                background: "linear-gradient(grey)",
+                // alignItems: "center",
+                // height: "100vh",
+                // marginTop: "100px",
+                // background: "linear-gradient(grey)",
+                marginTop:"30px",
+                marginBottom:"30px"
             }}
         >
             <div
@@ -103,6 +106,7 @@ const ResetPassword = ({ params }) => {
                         fontWeight: "bold",
                         display: "block",
                         marginBottom: "5px",
+                        textAlign:"center"
                     }}
                 >
                     Email
@@ -114,13 +118,15 @@ const ResetPassword = ({ params }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     style={{
-                        width: "100%",
+                       
                         padding: "10px",
                         marginBottom: "15px",
                         border: "2px solid #ff7c5b",
-                        borderRadius: "5px",
-                        outline: "none",
+                        display:"block",
                         fontSize: "14px",
+                        marginTop:"10px",
+                        marginBottom:"10px",
+                      
                     }}
                 />
 
@@ -145,10 +151,12 @@ const ResetPassword = ({ params }) => {
                 </button>
             </div>
         </div>
-     }
-        </>
-    
+       
+       
+    }
+      </>
     );
-};
+}
+
 
 export default ResetPassword;
