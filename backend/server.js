@@ -15,7 +15,7 @@ const PORT = 5005;
 const routes = require("./routes/allRoutes/allRoutes");
 const reviewRoutes = require("./routes/reviewRoutes/reviewRoutes");
 // Allowed Origins
-const allowedOrigins = ["https://accounts.google.com","https://planandbooktrip.com/","https://backend.planandbooktrip.com/","https://planandbooktrip.com","https://backend.planandbooktrip.com","https://panel.planandbooktrip.com","https://panel.planandbooktrip.com/","http://localhost:3005"]
+const allowedOrigins = ["https://accounts.google.com","https://planandbooktrip.com/","https://backend.planandbooktrip.com/","https://planandbooktrip.com","https://backend.planandbooktrip.com","https://panel.planandbooktrip.com","https://panel.planandbooktrip.com/","http://localhost:3005","http://localhost:5173"]
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -92,14 +92,16 @@ app.get("/google-session", (req, res) => {
 app.get("/token/token-session", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.decode(token, process.env.JWT_KEY);
-  const decodedUser = await User.findById(decoded.id).lean();
+  
+  console.log(decoded);
+  const decodedUser = await User.findById(decoded?.id)
   const serverResponse={
-    profilePicture: decodedUser.profilePicture,
-    firstName: decodedUser.firstName,
-    lastName: decodedUser.lastName,
-    token: decodedUser.loginToken,
-    tokenExpiryTime:decodedUser.loginTokenExpiryToken,
-    role: decodedUser.role,
+    profilePicture: decodedUser?.profilePicture,
+    firstName: decodedUser?.firstName,
+    lastName: decodedUser?.lastName,
+    token: decodedUser?.loginToken,
+    tokenExpiryTime:decodedUser?.loginTokenExpiryToken,
+    role: decodedUser?.role,
     email: decodedUser?.email,
     accountStatus: decodedUser?.accountStatus,
   }

@@ -15,7 +15,7 @@ export default function TourDeals() {
       try {
         setIsLoading(true);
         const response = await axios.get(`${BASE_URL}/api/trip-packages`);
-        console.log(response.data);
+    
         setDeals(response.data || []); // Ensure data is an array
         
       } catch (error) {
@@ -48,11 +48,12 @@ const getUniqueDeals = (deals) => {
 };
 
 const domesticDeals = getUniqueDeals(
-  deals.filter((deal) => deal.country?.toLowerCase() === "india")
+ 
+  deals.filter((deal) => deal?.categoryId?.slugName?.toLowerCase() === "india-packages")
 );
 
 const internationalDeals = getUniqueDeals(
-  deals.filter((deal) => deal.country?.toLowerCase() !== "india")
+  deals.filter((deal) => deal.categoryId?.slugName?.toLowerCase() === "international-packages")
 );
   return (
     <>
@@ -79,6 +80,7 @@ const internationalDeals = getUniqueDeals(
           </div>
           <div className="row clearfix">
             {domesticDeals?.map((deal, index) => (
+            
               <div
                 key={deal._id || index} // Use a unique key
                 className="col-lg-4 col-md-6 col-sm-12 offer-block"

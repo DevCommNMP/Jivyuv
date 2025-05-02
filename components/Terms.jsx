@@ -1,6 +1,8 @@
 import "./Terms.css";
 
+
 const Terms = () => {
+
     return (
         <>
             <div className="terms-container">

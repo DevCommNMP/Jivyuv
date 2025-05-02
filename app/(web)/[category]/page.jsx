@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,13 @@ import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
+export const metadata = {
+    title: "Packages kundan",
+    description: "Read our terms and services carefully.",
+    icons: {
+      icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
+    },
+  };
 export default function CategoryPage({ params }) {
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
@@ -20,73 +27,22 @@ export default function CategoryPage({ params }) {
     const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
     const router = useRouter();
     const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
-  const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
-    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+   const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
+   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+   const [currentPage,setCurrentPage]=useState(1);
+   const itemPerPage=5;
+   const [totalPage, setTotalPage] = useState(0);
 
-
+   const currentItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemPerPage;
+    const endIndex = startIndex + itemPerPage;
+    return packageData?.slice(startIndex, endIndex);
+  }, [currentPage, packageData, itemPerPage]);
     if (!category) {
         return <p>Loading...</p>; // Handle cases where the parameter is not yet available
     }
 
-    // async function fetchPackageData(){
-    //     setIsLoading(true);
-    //     let subCategoryName=[];
-    //     try{
-      
-    //         let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
-    //         if(category==="trips"){
-    //             setOriginalPackageData(response.data.reverse());
-    //             setPackageData(response.data.reverse());
-
-    //             response.data.reverse().forEach((trip) => {
-    //                 // First check if subCategoryId exists and has a name
-    //                 if (trip.subCategoryId && trip.subCategoryId.name) {
-    //                   if (!subCategoryName.includes(trip.subCategoryId.name)) {
-    //                     subCategoryName.push(trip.subCategoryId.name);
-    //                   }
-    //                 }
-    //               });
-                
-
-
-    //               setSubCategoryName(subCategoryName);
-
-    //               const prices = data.map(pkg => Number(pkg.packagePrice));
-    //               const min = data.length ? Math.min(...prices) : 0;
-    //               const max = data.length ? Math.max(...prices) : 0;
-                  
-    //               setPriceRange({ min, max });
-    //               setSelectedPrice({ min, max });
-
-    //         }else{
-    //         let data=response.data.filter((item)=>{
-    //             if(item.categoryId.slugName===category){
-    //                 return item;
-    //             }
-
-    //         }).reverse();
-    //         data.forEach((trip) => {
-    //             // First check if subCategoryId exists and has a name
-    //             if (trip.subCategoryId && trip.subCategoryId.name) {
-    //               if (!subCategoryName.includes(trip.subCategoryId.name)) {
-    //                 subCategoryName.push(trip.subCategoryId.name);
-    //               }
-    //             }
-    //           });
-            
-    //     setSubCategoryName(subCategoryName);
-    //      setPackageData(data);
-    //      setOriginalPackageData(data);
-    //     }
-    //     }catch(error){
-    // ;
-    //       Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
-    
-    //     }finally{
-    //         setIsLoading(false);
-    
-    //     }
-    //   }
+  
 
 
     async function fetchPackageData() {
@@ -107,6 +63,8 @@ export default function CategoryPage({ params }) {
             // Set package data
             setOriginalPackageData(data);
             setPackageData(data);
+           
+
     
             // Calculate price range
             const prices = data.map(pkg => Number(pkg.packagePrice));
@@ -124,6 +82,7 @@ export default function CategoryPage({ params }) {
             });
     
             setSubCategoryName(subCategoryName);
+            setTotalPage(Math.ceil(packageData?.length / itemPerPage));
     
         } catch (error) {
         
@@ -137,7 +96,9 @@ export default function CategoryPage({ params }) {
         fetchPackageData();
 
     
-      },[category])
+      },[category]);
+     
+
       useEffect(() => {
         const applyFilters = () => {
             if (!originalPackageData) return;
@@ -207,6 +168,17 @@ useEffect(() => {
     filterSubCategoriesByPackage(selectedSubCategoryName);
 }, [selectedSubCategoryName]);
 
+useEffect(() => {
+    setCurrentPage(1); 
+    setTotalPage(Math.ceil(packageData?.length / itemPerPage));
+  }, [packageData]);
+
+// function handleCurrentPage(){
+//     indexOfLastItem=currentPage*itemPerPage;
+//     indexOfFirstItem=indexOfLastItem-itemPerPage;
+//     currentItems=packageData.slice(indexOfFirstItem,indexOfLastItem);
+
+// }
 
 
     return (
@@ -447,8 +419,8 @@ useEffect(() => {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
-                                {packageData?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
-                             {packageData?.map((item)=>{
+                                {currentItems?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
+                             {currentItems?.map((item)=>{
                                  return <div class="tour-block-two">
                                  <div class="inner-box">
                                      <figure class="image-box" style={{width:"190px",height:"227px"}}>
@@ -468,7 +440,10 @@ useEffect(() => {
 
 
                                          }}>{item.title}</Link></h3>
-                                         <h4>₹ {item.packagePrice}<span> / Per person</span></h4>
+                                         <h4>{item.packagePrice!=="" && <>₹ {item.packagePrice}<span> / Per person</span>
+                                          </>
+                                            }
+                                         </h4>
                                          {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
                                          <div class="btn-box">
                                          <Link href="#" onClick={(event)=>{
@@ -491,10 +466,36 @@ useEffect(() => {
                         </div>
                         <div class="pagination-wrapper">
                             <ul class="pagination clearfix">
-                                <li><a href="tour-2.html" class="current">1</a></li>
-                                <li><a href="tour-2.html">2</a></li>
-                                <li><a href="tour-2.html">3</a></li>
-                                <li><a href="tour-2.html"><i class="icon-Right-Arrow"></i></a></li>
+                                {/* {
+                                Array.from({ length: totalPage }, (_, index) => index + 1).map((page) =>{
+                                <li key={page}><a href="#" class={currentPage === page ? "current" : ""} onClick={(event)=>{
+                                    event.preventDefault()
+                                    setCurrentPage(page)
+
+                                }}>{page}</a></li>
+                                })
+                               
+                               } */}
+
+
+{Array.from({ length: totalPage }, (_, index) => index + 1).map((page) => (
+            <li key={page}>
+                <a 
+                    href="#" 
+                    className={currentPage === page ? "current" : ""} 
+                    onClick={(event) => {
+                        event.preventDefault();
+                        setCurrentPage(page);
+                    }}
+                >
+                    {page}
+                </a>
+            </li>
+        ))}
+
+                                {/* <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><i class="icon-Right-Arrow"></i></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -589,7 +590,7 @@ useEffect(() => {
                                     <div class="price-range-slider"></div>
                                 </div>
                             </div> */}
-                            <div class="sidebar-widget duration-widget">
+                            {/* <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
                                 </div>
@@ -642,7 +643,7 @@ useEffect(() => {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                            
                             <div class="advice-widget">
                                 <div class="inner-box" style={{ backgroundImage: 'url(assets/images/resource/advice-1.jpg);' }}>

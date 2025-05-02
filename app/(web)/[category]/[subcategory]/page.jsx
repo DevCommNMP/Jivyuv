@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,6 +26,15 @@ export default function SubcategoryPage({ params }) {
     const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
     const router = useRouter();
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+    const [currentPage,setCurrentPage]=useState(1);
+    const itemPerPage=5;
+    const [totalPage, setTotalPage] = useState(0);
+ const currentItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemPerPage;
+    const endIndex = startIndex + itemPerPage;
+    return packageData?.slice(startIndex, endIndex);
+  }, [currentPage, packageData, itemPerPage]);
 
 
     if (!category || !subcategory) {
@@ -54,6 +63,7 @@ export default function SubcategoryPage({ params }) {
        
             setPackageData(data);
            setOriginalPackageData(data);
+           setTotalPage(Math.ceil(packageData?.length / itemPerPage));
      
         }catch(error){
         
@@ -114,7 +124,10 @@ export default function SubcategoryPage({ params }) {
 }
 }
 
-
+useEffect(() => {
+    setCurrentPage(1); 
+    setTotalPage(Math.ceil(packageData?.length / itemPerPage));
+  }, [packageData]);
 
     return (
         <>
@@ -358,8 +371,8 @@ export default function SubcategoryPage({ params }) {
                                 </div>
                             </div>
                             <div class="tour-list-content list-item">
-                                {packageData?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
-                             {packageData?.map((item)=>{
+                                {currentItems?.length==0 && <div style={{width:"300px",height:"200px",marginLeft:"auto",marginRight:"auto", fontWeight:"bolder",fontSize:"24px",marginTop:"10px",marginBottom:"20px"}}>No matching results found</div>}
+                             {currentItems?.map((item)=>{
                                  return <div class="tour-block-two">
                                  <div class="inner-box">
                                      <figure class="image-box" style={{width:"190px",height:"227px"}}>
@@ -379,7 +392,9 @@ export default function SubcategoryPage({ params }) {
 
 
                                          }}>{item.title}</Link></h3>
-                                         <h4>₹ {item.packagePrice}<span> / Per person</span></h4>
+                                         <h4>{item.packagePrice!=="" && <>₹ {item.packagePrice}<span> / Per person</span>
+                                          </>
+                                            }</h4>
                                          {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
                                          <div class="btn-box">
                                          <Link href="#" onClick={(event)=>{
@@ -418,10 +433,27 @@ export default function SubcategoryPage({ params }) {
                         </div>
                         <div class="pagination-wrapper">
                             <ul class="pagination clearfix">
-                                <li><a href="tour-2.html" class="current">1</a></li>
-                                <li><a href="tour-2.html">2</a></li>
-                                <li><a href="tour-2.html">3</a></li>
-                                <li><a href="tour-2.html"><MoveRight /></a></li>
+
+
+{Array.from({ length: totalPage }, (_, index) => index + 1).map((page) => (
+            <li key={page}>
+                <a 
+                    href="#" 
+                    className={currentPage === page ? "current" : ""} 
+                    onClick={(event) => {
+                        event.preventDefault();
+                        setCurrentPage(page);
+                    }}
+                >
+                    {page}
+                </a>
+            </li>
+        ))}
+
+                                {/* <li><a href="#" class="current">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#"><MoveRight /></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -494,7 +526,7 @@ export default function SubcategoryPage({ params }) {
 
 
 
-                            <div class="sidebar-widget duration-widget">
+                            {/* <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
                                 </div>
@@ -547,7 +579,7 @@ export default function SubcategoryPage({ params }) {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                            
                             <div class="advice-widget">
                                 <div class="inner-box" style={{ backgroundImage: 'url(assets/images/resource/advice-1.jpg);' }}>
