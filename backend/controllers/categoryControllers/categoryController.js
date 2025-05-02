@@ -1,4 +1,6 @@
+
 const Category = require('../../modal/category/category');
+const Pagemeta=require('../../modal/pageMetaSchema/pageMetaSchema')
 // Correct the import statement for slugify
 const slugify = require('slugify');
 // Controller function to get all categories
@@ -6,8 +8,9 @@ const getAllCategories = async (req, res) => {
 
   try {
     const categories = await Category.find().populate('subCategoryId');
- 
-    res.status(200).json(categories);
+ const metaData=await Pagemeta.find();
+ console.log(metaData)
+    res.status(200).json({categories,metaData});
   } catch (error) {
     console.error('Error getting categories:', error);
     res.status(500).json({ error: 'Internal server error',message:error.message });

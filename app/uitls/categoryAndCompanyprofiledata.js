@@ -14,6 +14,7 @@ export async function fetchCategoriesAndCompanyProfile(setIsLoading, setCategori
 
         // Update state with fetched data
         setCategories(categoriesResponse.data);
+        console.log(categoriesResponse.data)
         setCompanyData(companyProfileResponse.data);
 
     
