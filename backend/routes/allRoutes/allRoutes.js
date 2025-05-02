@@ -14,6 +14,7 @@ const blogRoutes = require("../blogRoutes/blogRoutes");
 const tourQueryRoutes = require("../tourQueryRoutes/tourQueryRoutes");
 const  adminRoutes = require("../adminRoutes/adminRoutes");
 const bookingRoutes = require("../bookingRoutes/bookingRoutes");
+const metaPageRoutes=require("../pageMetaRoutes/pageMetaRoutes")
 // Use Routes
 router.use("/api/auth", googleAuthRoutes); // All Google Auth routes under "/api/auth"
 router.use("/api", emailAuthRoutes); // All Google Auth routes under "/api/auth"
@@ -28,4 +29,5 @@ router.use("/api",blogRoutes)
 router.use("/api", tourQueryRoutes);
 router.use("/api", adminRoutes);
 router.use("/api",bookingRoutes)
+router.use("/api",metaPageRoutes)
 module.exports = router;
