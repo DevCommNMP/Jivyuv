@@ -10,12 +10,12 @@ router.post('/createPageMeta',isAuthenticatedAdmin, pageMetaController.createPag
 router.get('/getAllPagemeta', pageMetaController.getAllPageMetas);
 
 // Get page meta by ID
-router.get('/:id', pageMetaController.getPageMetaById);
+router.get('/pagemeta/:id', pageMetaController.getPageMetaById);
 
 // Update page meta by ID
-router.put('/:id', pageMetaController.updatePageMeta);
+router.put('/pagemeta/:id', pageMetaController.updatePageMeta);
 
 // Delete page meta by ID
-router.delete('/:id', pageMetaController.deletePageMeta);
+router.delete('/pagemeta/:id', pageMetaController.deletePageMeta);
 
 module.exports = router;

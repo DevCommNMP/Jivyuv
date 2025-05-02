@@ -53,15 +53,45 @@ exports.getPageMetaById = async (req, res) => {
 };
 
 // Update page meta by ID
+// adjust your model path accordingly
+
 exports.updatePageMeta = async (req, res) => {
   try {
-    const meta = await PageMeta.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!meta) return res.status(404).json({ message: "Page meta not found" });
-    res.json(meta);
+    const { id } = req.params;
+
+    // Find existing meta by ID
+    const existingMeta = await PageMeta.findById(id);
+    if (!existingMeta) {
+      return res.status(404).json({ message: "Page meta not found" });
+    }
+
+    // If 'page' is being updated — generate new slug and check for conflicts
+    if (req.body.page && req.body.page !== existingMeta.page) {
+      const newSlug = slugify(req.body.page, { lower: true, strict: true });
+
+      // Check if another document already has this slug
+      const slugConflict = await PageMeta.findOne({ pageSlug: newSlug, _id: { $ne: id } });
+      if (slugConflict) {
+        return res.status(400).json({ message: `Another page meta with slug "${newSlug}" already exists.` });
+      }
+
+      // Set new slug
+      req.body.pageSlug = newSlug;
+    }
+
+    // Update the meta document
+    const updatedMeta = await PageMeta.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.json({
+      message: "Page Meta updated successfully.",
+      data: updatedMeta
+    });
+
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 };
+
 
 // Delete page meta by ID
 exports.deletePageMeta = async (req, res) => {
