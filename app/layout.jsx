@@ -10,7 +10,7 @@ import { fetchCategoriesAndCompanyProfile } from "../app/uitls/categoryAndCompan
 import { useEffect, useState } from "react"; ""
 import Preloader from "../components/Preloader";
 
-export const metadata = {
+export const metaData = {
   title: "Tour & Travel",
   description: "Tour & Travel",
 };
@@ -20,6 +20,7 @@ export let seoContextObj=React.createContext();
 
 export default function RootLayout({ children }) {
   const [categories, setCategories] = useState([]);
+ 
   const [companyData, setCompanyData] = useState([]);
   const [packageData,setPackageData]=useState();
   const [isLoading, setIsLoading] = useState(false);
