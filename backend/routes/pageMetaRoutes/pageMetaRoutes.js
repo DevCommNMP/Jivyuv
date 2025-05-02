@@ -7,7 +7,7 @@ const { isAuthenticatedAdmin, isAuthenticatedSuperAdmin } = require('../../middl
 router.post('/createPageMeta',isAuthenticatedAdmin, pageMetaController.createPageMeta);
 
 // Get all page metas
-router.get('/', pageMetaController.getAllPageMetas);
+router.get('/getAllPagemeta', pageMetaController.getAllPageMetas);
 
 // Get page meta by ID
 router.get('/:id', pageMetaController.getPageMetaById);
