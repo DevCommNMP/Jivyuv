@@ -93,7 +93,7 @@ app.get("/token/token-session", async (req, res) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt.decode(token, process.env.JWT_KEY);
   
-  console.log(decoded);
+  // console.log(decoded);
   const decodedUser = await User.findById(decoded?.id)
   const serverResponse={
     profilePicture: decodedUser?.profilePicture,
@@ -131,5 +131,5 @@ app.get("/", (req, res) => {
 })
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Server started at port ${PORT}`);
+  // console.log(`Server started at port ${PORT}`);
 });

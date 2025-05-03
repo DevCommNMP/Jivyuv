@@ -41,7 +41,7 @@ const handleGoogleCallback = async (req, res) => {
 
     res.redirect(`${BASE_URL}`); // Redirect to frontend
   } catch (error) {
-    console.error("Google Auth Error:", error);
+    // console.error("Google Auth Error:", error);
     res.redirect(`${BASE_URL}/login`); // Redirect on error
   }
 };
@@ -54,7 +54,7 @@ const logoutUser = (req, res) => {
       if (req.session) {
         req.session.destroy((err) => {
           if (err) {
-            console.log("Error destroying session:", err);
+            // console.log("Error destroying session:", err);
             return res.status(500).json({ error: "Session destruction failed" });
           }
           res.clearCookie("connect.sid"); // Clear session cookie

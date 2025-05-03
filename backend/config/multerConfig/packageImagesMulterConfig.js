@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
       fs.mkdirSync(req.packageSubImagesDirectory);
     }
 
-    console.log("req",req,"------------------","file",file)
+    // console.log("req",req,"------------------","file",file)
     // Save files to respective directories based on fieldname
     if (file.fieldname === 'packageImage') {
       cb(null, req.packageImageDirectory);
