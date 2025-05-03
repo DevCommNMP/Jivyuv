@@ -91,7 +91,7 @@ export default function Contact() {
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting contact form:", error.response || error.message);
+      // console.error("Error submitting contact form:", error.response || error.message);
       Swal.fire(
         "Error",
         error.response?.data?.message || "Failed to send your message. Please try again.",

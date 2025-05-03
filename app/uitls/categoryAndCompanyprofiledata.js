@@ -16,13 +16,13 @@ export async function fetchCategoriesAndCompanyProfile(setIsLoading, setCategori
 
         // Update state with fetched data
         setCategories(categoriesResponse.data);
-        console.log(categoriesResponse.data)
+        // console.log(categoriesResponse.data)
         setCompanyData(companyProfileResponse.data);
         setPackageData(packageData.data.reverse());
 
     
     } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
         Swal.fire({
             title: "Error",
             text: "Error fetching categories or company profile",
