@@ -23,7 +23,7 @@ export default function about() {
         const response = await axios.get(`${SERVER_URL}/api/company-profile/67d7e08b75c754b93314d410`);
         setContactInfo(response.data);
       } catch (error) {
-        console.error("Error fetching contact info:", error);
+        // console.error("Error fetching contact info:", error);
         Swal.fire("Error", "Failed to load contact information.", "error");
       }
     }
