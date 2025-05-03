@@ -1,5 +1,8 @@
 "use client"
+import {useContext} from "react";
+import { seoContextObj } from "./layout";
 import Head from "next/head";
+
 import AboutSection from "../components/AboutSection";
 import BannerSection from "../components/BannerSection";
 import DealsSection from "../components/DealsSection";
@@ -20,32 +23,34 @@ export default function Home() {
   const description = "Discover amazing travel deals and destinations.";
   const image = "https://example.com/featured-image.jpg";
   const url = "https://yourwebsite.com";
- const [packageData,setPackageData]=useState();
+ let {packageData:renamePackageData}=useContext(seoContextObj);
+ const [packageData,setPackageData]=useState(renamePackageData);
+
  
 
  const [isLoading,setIsLoading]=useState(false);
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-   async function fetchPackageData() {
-      setIsLoading(true);
-      try {
-        let response =await  axios.get(`${SERVER_URL}/api/trip-packages`);
+  //  async function fetchPackageData() {
+  //     setIsLoading(true);
+  //     try {
+  //       let response =await  axios.get(`${SERVER_URL}/api/trip-packages`);
     
 
-        setPackageData(response.data.reverse());
-      } catch (error) {
+  //       setPackageData(response.data.reverse());
+  //     } catch (error) {
       
-        Swal.fire({
-          icon:"error",
-          text:error?.response?.data?.message || "Something went wrong"
-        })
-      }finally{
-        setIsLoading(false);
-      }
-    }
-    useEffect(()=>{
-      fetchPackageData();
+  //       Swal.fire({
+  //         icon:"error",
+  //         text:error?.response?.data?.message || "Something went wrong"
+  //       })
+  //     }finally{
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   useEffect(()=>{
+  //     fetchPackageData();
   
-    },[]);
+  //   },[]);
   
    function sendData(){
    

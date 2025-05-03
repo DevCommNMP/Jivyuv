@@ -1,5 +1,6 @@
 "use client";
 import { SquareX, MessageSquareMore } from "lucide-react"; // Import the message icon
+import {useContext} from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -16,9 +17,9 @@ import {
   Twitter,
 } from "lucide-react";
 import "./Ctaform.css";
-
-export default function Footer({ companyData,categories }) {
-  // console.log(categories)
+import {seoContextObj} from "../app/layout";
+export default function Footer() {
+  let { companyData,categories } = useContext(seoContextObj);
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
