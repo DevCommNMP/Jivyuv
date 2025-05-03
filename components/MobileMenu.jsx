@@ -108,7 +108,7 @@ const MobileMenu = ({ isMobileMenuOpen, toggleMobileMenu, categories, companyDat
               </li>
 
               {/* Categories */}
-              {categories.map((category, index) => (
+              {categories.categories.map((category, index) => (
                 category.isVisibleOnNavbar && (
                   <li 
                     key={category._id}

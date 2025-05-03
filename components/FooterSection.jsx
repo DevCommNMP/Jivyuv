@@ -144,7 +144,7 @@ export default function Footer() {
                       {/* <li>
                         <Link href="/listing">Listing</Link>
                       </li> */}
-                     {categories?.map((category, index) => (
+                     {categories.categories && categories.categories?.map((category, index) => (
                         <li key={`footer-category-${index}`}>
                           <Link href={`/${category.slugName}`}>
                             {category.name}

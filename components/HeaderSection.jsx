@@ -181,7 +181,7 @@ export default function Header() {
                               </li>
 
 
-                              {categories.map((category, index) => {
+                              {categories.categories.map((category, index) => {
                                 return (
                                   category.isVisibleOnNavbar && (
                                     <li
