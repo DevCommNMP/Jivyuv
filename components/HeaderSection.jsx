@@ -182,7 +182,7 @@ export default function Header({ categories, companyData }) {
                               </li>
 
 
-                              {categories.map((category, index) => {
+                              {categories.categories.map((category, index) => {
                                 return (
                                   category.isVisibleOnNavbar && (
                                     <li
