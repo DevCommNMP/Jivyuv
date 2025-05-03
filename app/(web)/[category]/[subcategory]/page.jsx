@@ -1,6 +1,8 @@
 "use client";
 
 import axios from "axios";
+import { useContext } from "react";
+import { seoContextObj } from "../../../layout";
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
@@ -14,6 +16,7 @@ import "rc-slider/assets/index.css";
 import Preloader from "../../../../components/Preloader";
 import TourBanner from "../../../../public/assets/images/banner/tripBanner.png";
 export default function SubcategoryPage({ params }) {
+    let { categories, companyData, packageData:renamePackageData } = useContext(seoContextObj);
     const { category, subcategory } = params;
 
     const [packageData,setPackageData]=useState([]);
@@ -42,21 +45,21 @@ export default function SubcategoryPage({ params }) {
     }
 
   async function fetchPackageData(){
-        setIsLoading(true);
+     
         let subCategoryName=[];
-        try{
+        
       
-            let response =await axios.get(`${SERVER_URL}/api/trip-packages`);
+            let response=renamePackageData;
             
-            let data=response.data.filter((item)=>{
+            let data=response?.filter((item)=>{
                 if(item?.categoryId?.slugName===category && item?.subCategoryId?.slugName===subcategory){
                     return item;
                 }
 
-            }).reverse();
-            const prices = data.map(pkg => Number(pkg.packagePrice));
-            const min = data.length ? Math.min(...prices) : 0;
-            const max = data.length ? Math.max(...prices) : 0;
+            });
+            const prices = data?.map(pkg => Number(pkg.packagePrice));
+            const min = data?.length ? Math.min(...prices) : 0;
+            const max = data?.length ? Math.max(...prices) : 0;
           
             setPriceRange({ min, max });
             setSelectedPrice({ min, max });
@@ -65,14 +68,7 @@ export default function SubcategoryPage({ params }) {
            setOriginalPackageData(data);
            setTotalPage(Math.ceil(packageData?.length / itemPerPage));
      
-        }catch(error){
         
-          Swal.fire({icon:"error", title:error?.response?.message || "We’re facing some issues fetching the data.Please try again."});
-    
-        }finally{
-            setIsLoading(false);
-    
-        }
       }
       useEffect(()=>{
         fetchPackageData();

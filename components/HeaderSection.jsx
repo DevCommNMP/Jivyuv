@@ -1,5 +1,7 @@
 "use client";
+import {useContext} from "react";
 import { checkSession } from "../app/uitls/authFunctions";
+
 import { LucideSearch, LucideUserRound,Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,8 +12,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Preloader from "./Preloader";
 import { useRouter } from "next/navigation"
+import { seoContextObj } from "../app/layout";
+export default function Header() {
+  let {categories, companyData,packageData}=useContext(seoContextObj);
 
-export default function Header({ categories, companyData }) {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -94,18 +98,13 @@ export default function Header({ categories, companyData }) {
     const fetchSuggestions = async () => {
       if (searchQuery.trim().length > 3) {
         
-        try {
-          setIsLoadingSuggestions(true);
-          const response = await axios.get(
-            `${SERVER_URL}/api/trip-packages`
-          );
-          setSuggestions(response.data);
-        } catch (error) {
-          console.error("Error fetching suggestions:", error);
-          setSuggestions([]);
-        }
-        setIsLoadingSuggestions(false);
-      }
+       
+        
+          const response =packageData;
+          setSuggestions(response);
+        } 
+       
+      
     };
 
     const debounceTimer = setTimeout(fetchSuggestions, 300);
