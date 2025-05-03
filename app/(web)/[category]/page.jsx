@@ -1,5 +1,6 @@
 "use client";
-
+import {useContext} from 'react';
+import { seoContextObj } from "../../layout";
 import axios from "axios";
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
@@ -18,6 +19,7 @@ export const metadata = {
     },
   };
 export default function CategoryPage({ params }) {
+    let {categories, companyData, packageData:tempPackageData} = useContext(seoContextObj);
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
     const [originalPackageData,setOriginalPackageData]=useState();
@@ -46,18 +48,19 @@ export default function CategoryPage({ params }) {
 
 
     async function fetchPackageData() {
-        setIsLoading(true);
+       
         let subCategoryName = [];
-        try {
-            let response = await axios.get(`${SERVER_URL}/api/trip-packages`);
-            let data = response.data;
+       
+            
+            let data =tempPackageData;
+            console.log("temp package data",tempPackageData);
          
     
             // Process data based on category
             if (category === "trips") {
-                data = data.reverse();
+                data = data?.reverse();
             } else {
-                data = data.filter(item => item.categoryId.slugName === category).reverse();
+                data = data?.filter(item => item.categoryId.slugName === category).reverse();
             }
     
             // Set package data
@@ -67,15 +70,15 @@ export default function CategoryPage({ params }) {
 
     
             // Calculate price range
-            const prices = data.map(pkg => Number(pkg.packagePrice));
-            const min = data.length ? Math.min(...prices) : 0;
-            const max = data.length ? Math.max(...prices) : 0;
+            const prices = data?.map(pkg => Number(pkg.packagePrice));
+            const min = data?.length ? Math.min(...prices) : 0;
+            const max = data?.length ? Math.max(...prices) : 0;
     
             setPriceRange({ min, max });
             setSelectedPrice({ min, max });
     
             // Extract subcategories
-            data.forEach((trip) => {
+            data?.forEach((trip) => {
                 if (trip.subCategoryId?.name && !subCategoryName.includes(trip.subCategoryId.name)) {
                     subCategoryName.push(trip.subCategoryId.name);
                 }
@@ -84,13 +87,8 @@ export default function CategoryPage({ params }) {
             setSubCategoryName(subCategoryName);
             setTotalPage(Math.ceil(packageData?.length / itemPerPage));
     
-        } catch (error) {
-        
-            Swal.fire({ icon: "error", title: error?.response?.message || "Data fetch error" });
-        } finally {
-            setIsLoading(false);
-        }
-    }
+        } 
+    
     
       useEffect(()=>{
         fetchPackageData();
