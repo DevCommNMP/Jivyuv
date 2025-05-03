@@ -18,6 +18,7 @@ import {
 import "./Ctaform.css";
 
 export default function Footer({ companyData,categories }) {
+  // console.log(categories)
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -142,13 +143,14 @@ export default function Footer({ companyData,categories }) {
                       {/* <li>
                         <Link href="/listing">Listing</Link>
                       </li> */}
-                     {categories?.map((category, index) => (
-                        <li key={`footer-category-${index}`}>
-                          <Link href={`/${category.slugName}`}>
-                            {category.name}
-                          </Link>
-                        </li>
-                      ))}
+{categories.categories && categories.categories.map((category, index) => (
+  <li key={`footer-category-${index}`}>
+    <Link href={`/${category.slugName}`}>
+      {category.name}
+    </Link>
+  </li>
+))}
+
                       <li>
                         <Link href="/about-us">About Us</Link>
                       </li>

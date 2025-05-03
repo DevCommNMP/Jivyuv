@@ -101,7 +101,7 @@ export default function Header({ categories, companyData }) {
           );
           setSuggestions(response.data);
         } catch (error) {
-          console.error("Error fetching suggestions:", error);
+          // console.error("Error fetching suggestions:", error);
           setSuggestions([]);
         }
         setIsLoadingSuggestions(false);
@@ -182,7 +182,7 @@ export default function Header({ categories, companyData }) {
                               </li>
 
 
-                              {categories.map((category, index) => {
+                              {categories.categories.map((category, index) => {
                                 return (
                                   category.isVisibleOnNavbar && (
                                     <li
