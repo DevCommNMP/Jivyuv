@@ -40,7 +40,7 @@ try {
       banner: newBanner,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ error: 'Server error while creating banner' });
   }
 };
@@ -61,7 +61,7 @@ const getBannerById = async (req, res) => {
       bannerData: banner,
     });
   } catch (error) {
-    console.error('Error fetching banner:', error);
+    // console.error('Error fetching banner:', error);
     return res.status(500).json({ message: 'Server Error', error: error.message });
   }
 };
@@ -96,7 +96,7 @@ const editBannerById = async (req, res) => {
       bannerData: updatedBanner,
     });
   } catch (error) {
-    console.error('Error updating banner:', error);
+    // console.error('Error updating banner:', error);
     return res.status(500).json({ message: 'Server error', error: error.message});
   }
 };
@@ -113,7 +113,7 @@ const getAllBanners = async (req, res) => {
       banners: banners
     });
   } catch (error) {
-    console.error('Error fetching banners:', error);
+    // console.error('Error fetching banners:', error);
     return res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -138,7 +138,7 @@ const deleteBannerById = async (req, res) => {
     await Banner.findByIdAndDelete(id);
     return res.status(200).json({ message: 'Banner deleted successfully' });
   } catch (error) {
-    console.error('Error deleting banner:', error);
+    // console.error('Error deleting banner:', error);
     return res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

@@ -8,7 +8,7 @@ const deleteAllUsers=async(req,res)=>{
         res.status(200).json({success:true,message:"All users deleted successfully"})        
     } catch (error) {
         res.status(500).json({success:false,message:error.message}) 
-        console.log(error)      
+        // console.log(error)      
 
     }
 }
@@ -36,7 +36,7 @@ const deactivateParticularUser = async (req, res) => {
             user: updatedUser
         });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         res.status(500).json({ success: false, message: "Internal server error", error: error.message });
     }
 };
@@ -46,11 +46,11 @@ const getAllUsers=async(req,res)=>{
 
     try {
         const users=await User.find({});
-        console.log(users);
+        // console.log(users);
         res.status(200).json({success:true,data:users})        
     } catch (error) {
         res.status(500).json({success:false,message:error.message}) 
-        console.log(error)      
+        // console.log(error)      
 
     }
 }
@@ -70,7 +70,7 @@ const getUserByEmail = async (req, res) => {
         
         res.status(200).json({ success: true, data: user });
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         res.status(500).json({ success: false, message: error.message });
     }
 };
@@ -104,7 +104,7 @@ const activateAccount = async (req, res) => {
         res.status(200).json({ success: true, message: "Account activated successfully", user: updatedUser });
 
     } catch (error) {
-        console.error("Account activation error:", error);
+        // console.error("Account activation error:", error);
         res.status(500).json({ success: false, message: "Internal server error", error: error.message });
     }
 };

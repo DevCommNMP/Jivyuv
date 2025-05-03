@@ -120,10 +120,10 @@ const registerUser = expressAsyncHandler(async (req, res) => {
 const verifyAccount = expressAsyncHandler(async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1]; // Corrected token extraction
-    console.log(token)
+    // console.log(token)
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const decodedUser = await User.findById(decoded.id).lean();
-    console.log(decodedUser)
+    // console.log(decodedUser)
     // Find the user with the given token
     const user = await User.findOne({
       accountVerificationToken: token,
@@ -259,7 +259,7 @@ const resendVerifyAccountMail = expressAsyncHandler(async (req, res) => {
 const login = expressAsyncHandler(async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(email);
+    // console.log(email);
     // Find user by email
     const userFound = await User.findOne({ email });
 
@@ -288,11 +288,11 @@ const login = expressAsyncHandler(async (req, res, next) => {
     // Save session before responding
     req.session.save((err) => {
       if (err) {
-        console.error("Session save error:", err);
+        // console.error("Session save error:", err);
         return res.status(500).json({ message: "Session creation failed" });
       }
 
-      console.log("Session after login:", req.session); // Debugging
+      // console.log("Session after login:", req.session); // Debugging
 
       return res.status(200).json({
         success: true,
@@ -495,7 +495,7 @@ const isAuthenticated = async (req, res, next) => {
   try {
     // Extract the Authorization header
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
+    // console.log(authHeader);
     if (!authHeader) {
       return res.status(401).json({
         success: "false",
@@ -518,7 +518,7 @@ const isAuthenticated = async (req, res, next) => {
     const userId = decoded.id;
 
     const authenticUser = await User.findById(userId);
-    console.log(authenticUser);
+    // console.log(authenticUser);
     const user = {
       id: authenticUser._id,
       email: authenticUser.email,
@@ -532,7 +532,7 @@ const isAuthenticated = async (req, res, next) => {
       .status(200)
       .json({ success: "true", message: "session already exists", user: user });
   } catch (error) {
-    console.error("Error during authentication:", error.message);
+    // console.error("Error during authentication:", error.message);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -542,7 +542,7 @@ const updatePassword = async (req, res) => {
   try {
     const newPassword = req.body.password;
     const authHeader = req.headers["authorization"];
-    console.log(newPassword)
+    // console.log(newPassword)
     // Check if the Authorization header is present
     if (!authHeader) {
       return res
@@ -599,7 +599,7 @@ const updatePassword = async (req, res) => {
       .json({ success: true, message: "Password updated successfully" });
   } catch (error) {
     // Handle any errors and return 500 status with error message
-    console.error(error);
+    // console.error(error);
     return res
       .status(500)
       .json({ success: false, message: "Internal server error" });
@@ -609,8 +609,8 @@ const updatePassword = async (req, res) => {
 // logout controller
 const logout = (req, res) => {
   // Destroy the session
-  console.log(req.session.user);
-  console.log(req.session);
+  // console.log(req.session.user);
+  // console.log(req.session);
 
   req.session.destroy((err) => {
     if (err) {
@@ -734,7 +734,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
     });
   } catch (error) {
     // Handle errors
-    console.log(error)
+    // console.log(error)
     res
       .status(500)
       .json({ success: false, message: error.message, error: true });
@@ -742,7 +742,7 @@ const registerAdmin = expressAsyncHandler(async (req, res) => {
 });
 
 const adminLogin = expressAsyncHandler(async (req, res) => {
-  console.log("njdfbjf")
+  // console.log("njdfbjf")
   try {
     const { email, password } = req.body;
 
@@ -790,7 +790,7 @@ const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
     // Save session before responding
     req.session.save((err) => {
       if (err) {
-        console.error("Session save error:", err);
+        // console.error("Session save error:", err);
         return res.status(500).json({ message: "Session creation failed" });
       }
 
@@ -812,7 +812,7 @@ const updatedUserData =await User.findByIdAndUpdate(userFound._id, {
 const editUser = expressAsyncHandler(async (req, res) => {
   try {
     const { id, role, firstName, lastName, password } = req.body;
-console.log(req.body)
+// console.log(req.body)
     // Check if ID is provided
     if (!id) {
       return res
@@ -856,7 +856,7 @@ if(password) updateData.password = password;
 
 const deleteUser = expressAsyncHandler(async (req, res) => {
   const { id } = req?.body;
-  console.log(id);
+  // console.log(id);
   const user = await User.deleteOne({ _id: id });
   res.status(200).json({ success: true, message: "user deleted successfully" });
 });
