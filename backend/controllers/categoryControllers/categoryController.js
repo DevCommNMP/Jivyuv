@@ -8,9 +8,8 @@ const getAllCategories = async (req, res) => {
 
   try {
     const categories = await Category.find().populate('subCategoryId');
- const metaData=await Pagemeta.find();
- console.log(metaData)
-    res.status(200).json({categories,metaData});
+
+    res.status(200).json(categories);
   } catch (error) {
     console.error('Error getting categories:', error);
     res.status(500).json({ error: 'Internal server error',message:error.message });
