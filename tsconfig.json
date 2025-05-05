@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/(web)/[category]/Metadata.jsx"  ],
+, "app/[category]/Metadata.jsx"  ],
   "exclude": [
     "node_modules"
   ]

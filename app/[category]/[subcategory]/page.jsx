@@ -1,103 +1,81 @@
 "use client";
-import {useContext} from 'react';
 
-
+import axios from "axios";
+import { useContext } from "react";
 import { seoContextObj } from "../../layout";
-
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Preloader from "../../../components/Preloader";
+import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
+
+
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
+import Preloader from "../../../components/Preloader";
+import TourBanner from "../../../../public/assets/images/banner/tripBanner.png";
+export default function SubcategoryPage({ params }) {
+    let { categories, companyData, packageData:renamePackageData } = useContext(seoContextObj);
+    const { category, subcategory } = params;
 
-  
-
-
-export default function CategoryPage({ params }) {
-
-    let {categories, companyData, packageData:tempPackageData,allPageMetadata} = useContext(seoContextObj);
-   console.log("tempPackageData,",tempPackageData);
-    console.log("allPageMetadata",allPageMetadata);
-    const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
     const [originalPackageData,setOriginalPackageData]=useState();
     const [isLoading,setIsLoading]=useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [subCategoryName,setSubCategoryName]=useState([]);
     const [selectedSubCategoryName,setSelectedSubCategoryName]=useState([]);
-    const router = useRouter();
     const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
-   const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
-   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-   const [currentPage,setCurrentPage]=useState(1);
-   const itemPerPage=5;
-   const [totalPage, setTotalPage] = useState(0);
+    const [selectedPrice, setSelectedPrice] = useState({ min: 0, max: 0 });
+    const router = useRouter();
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
-   const currentItems = useMemo(() => {
+    const [currentPage,setCurrentPage]=useState(1);
+    const itemPerPage=5;
+    const [totalPage, setTotalPage] = useState(0);
+ const currentItems = useMemo(() => {
     const startIndex = (currentPage - 1) * itemPerPage;
     const endIndex = startIndex + itemPerPage;
     return packageData?.slice(startIndex, endIndex);
   }, [currentPage, packageData, itemPerPage]);
-    if (!category) {
-        return <p>Loading...</p>; // Handle cases where the parameter is not yet available
+
+
+    if (!category || !subcategory) {
+        return <p>Loading...</p>; // Handle cases where the parameters are not yet available
     }
 
-  
-  
-
-    function fetchPackageData() {
-       
-        let subCategoryName = [];
-       
+  async function fetchPackageData(){
+     
+        let subCategoryName=[];
+        
+      
+            let response=renamePackageData;
             
-            let data =tempPackageData;
-         
-         
-    
-            // Process data based on category
-            if (category === "trips") {
-                data = data?.reverse();
-            } else {
-                data = data?.filter(item => item.categoryId.slugName === category).reverse();
-            }
-    
-            // Set package data
-            setOriginalPackageData(data);
-            setPackageData(data);
-           
+            let data=response?.filter((item)=>{
+                if(item?.categoryId?.slugName===category && item?.subCategoryId?.slugName===subcategory){
+                    return item;
+                }
 
-    
-            // Calculate price range
+            });
             const prices = data?.map(pkg => Number(pkg.packagePrice));
             const min = data?.length ? Math.min(...prices) : 0;
             const max = data?.length ? Math.max(...prices) : 0;
-    
+          
             setPriceRange({ min, max });
             setSelectedPrice({ min, max });
-    
-            // Extract subcategories
-            data?.forEach((trip) => {
-                if (trip.subCategoryId?.name && !subCategoryName.includes(trip.subCategoryId.name)) {
-                    subCategoryName.push(trip.subCategoryId.name);
-                }
-            });
-    
-            setSubCategoryName(subCategoryName);
-            setTotalPage(Math.ceil(packageData?.length / itemPerPage));
-    
-        } 
-    
-    
+       
+            setPackageData(data);
+           setOriginalPackageData(data);
+           setTotalPage(Math.ceil(packageData?.length / itemPerPage));
+     
+        
+      }
       useEffect(()=>{
         fetchPackageData();
-
     
-      },[category]);
-     
+      },[category])
+
+
 
       useEffect(() => {
         const applyFilters = () => {
@@ -116,7 +94,8 @@ export default function CategoryPage({ params }) {
         };
     
         applyFilters();
-    }, [selectedPrice, selectedSubCategoryName, originalPackageData, searchQuery]);
+    }, [selectedPrice, originalPackageData, searchQuery]);
+
 
 
 
@@ -126,7 +105,6 @@ export default function CategoryPage({ params }) {
 
       }
       function handleSearch(event){
-        event.preventDefault();
         
         if(event.target.value.length>0){
             
@@ -142,69 +120,27 @@ export default function CategoryPage({ params }) {
 }
 }
 
-
-
-  
-function handleSelectedCategoryName(name) {
-    setSelectedSubCategoryName(prev => 
-        prev.includes(name) 
-            ? prev.filter(sub => sub !== name) 
-            : [...prev, name]
-    );
-}
-
-function filterSubCategoriesByPackage(selectedSubCategories) {
-    if (selectedSubCategories.length === 0) {
-        setPackageData(originalPackageData);
-        return;
-    }
-    const filtered = originalPackageData.filter(trip => 
-        selectedSubCategories.includes(trip.subCategoryId?.name)
-    );
-    setPackageData(filtered);
-}
-
 useEffect(() => {
-    filterSubCategoriesByPackage(selectedSubCategoryName);
-}, [selectedSubCategoryName]);
-
-useEffect(() => {
-   
     setCurrentPage(1); 
     setTotalPage(Math.ceil(packageData?.length / itemPerPage));
   }, [packageData]);
 
-// function handleCurrentPage(){
-//     indexOfLastItem=currentPage*itemPerPage;
-//     indexOfFirstItem=indexOfLastItem-itemPerPage;
-//     currentItems=packageData.slice(indexOfFirstItem,indexOfLastItem);
-
-// }
-
-
-
     return (
         <>
-        {/* <!-- Page Title --> */}
-       
-        {isLoading===true?<Preloader/>: <> 
-       
-      
-       
-
-<section class="page-title style-two centred" style={{ backgroundImage: `url(${tripBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
+        {isLoading===true ?<Preloader/>: <section class="page-title style-two centred" style={{ backgroundImage: `url(${TourBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
                     <p>Discover your next great adventure</p>
                 </div>
                 {/* <div class="form-inner">
-                    <form action="" method="post" class="booking-form clearfix">
+                    <form action="index.html" method="post" class="booking-form clearfix">
                         <div class="form-group">
+                        <MapPin />
                             <input type="text" name="service" placeholder="Where to?" required="" />
                         </div>
                         <div class="form-group input-date">
-                            <i class="far fa-angle-down"></i>
+                        <CalendarDays />
                             <input type="text" name="date" placeholder="When?" id="datepicker" />
                         </div>
                         <div class="form-group">
@@ -219,13 +155,18 @@ useEffect(() => {
                             </div>
                         </div>
                         <div class="message-btn">
-                            <button type="submit" class="theme-btn"><i class="far fa-search"></i>Find Now</button>
+                            <button type="submit" class="theme-btn"><Search />Find Now</button>
                         </div>
                     </form>
                 </div> */}
             </div>
-        </section>
-       
+        </section>}
+         {/* <!-- Page Title --> */}
+        
+        {/* <!-- End Page Title --> */}
+
+
+        {/* <!-- tours-page-section --> */}
         <section class="tours-page-section">
             <div class="auto-container">
                 <div class="row clearfix">
@@ -234,7 +175,7 @@ useEffect(() => {
                             <div class="left-column pull-left">
                                 <h3>Showing {packageData?.length} Results</h3>
                             </div>
-                           
+                          
                         </div>
                         <div class="wrapper list">
                             <div class="tour-grid-content">
@@ -247,7 +188,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$160.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -270,7 +211,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$170.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -293,7 +234,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$170.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -316,7 +257,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$190.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -339,7 +280,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$150.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -362,7 +303,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$180.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -385,7 +326,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$145.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -408,7 +349,7 @@ useEffect(() => {
                                                     <a href="tour-details"><i class="fas fa-link"></i></a>
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                                    <div class="rating"><span><Star />8.0 Superb</span></div>
                                                     <h3><a href="tour-details">Moscow Red City Land</a></h3>
                                                     <h4>$160.00<span> / Per person</span></h4>
                                                     <ul class="info clearfix">
@@ -440,7 +381,7 @@ useEffect(() => {
                                          }}><i class="fas fa-link"></i></Link>
                                      </figure>
                                      <div class="content-box">
-                                         <div class="rating"><span><i class="fas fa-star"></i>8.0 Superb</span></div>
+                                         <div class="rating"><span><Star />8.0 Superb</span></div>
                                          <h3> <Link href="#" onClick={(event)=>{
                                             event.preventDefault();
                                             handleNavigation(item?.titleSlug);
@@ -449,8 +390,7 @@ useEffect(() => {
                                          }}>{item.title}</Link></h3>
                                          <h4>{item.packagePrice!=="" && <>₹ {item.packagePrice}<span> / Per person</span>
                                           </>
-                                            }
-                                         </h4>
+                                            }</h4>
                                          {/* <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p> */}
                                          <div class="btn-box">
                                          <Link href="#" onClick={(event)=>{
@@ -467,22 +407,28 @@ useEffect(() => {
                              })
                                
                             }
-                               
+                                {/* <div class="tour-block-two">
+                                    <div class="inner-box">
+                                        <figure class="image-box">
+                                            <img src="assets/images/tour/tour-5.jpg" alt="" />
+                                            <a href="tour-details"><i class="fas fa-link"></i></a>
+                                        </figure>
+                                        <div class="content-box">
+                                            <div class="rating"><span><Star />8.0 Superb</span></div>
+                                            <h3><a href="tour-details">Moscow Red City Land</a></h3>
+                                            <h4>$180.00<span> / Per person</span></h4>
+                                            <p>Lorem ipsum dolor amet consectetur adipiscing sed do eiusmod tempor incididunt.</p>
+                                            <div class="btn-box">
+                                                <a href="tour-details">See Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> */}
                                 
                             </div>
                         </div>
                         <div class="pagination-wrapper">
                             <ul class="pagination clearfix">
-                                {/* {
-                                Array.from({ length: totalPage }, (_, index) => index + 1).map((page) =>{
-                                <li key={page}><a href="#" class={currentPage === page ? "current" : ""} onClick={(event)=>{
-                                    event.preventDefault()
-                                    setCurrentPage(page)
-
-                                }}>{page}</a></li>
-                                })
-                               
-                               } */}
 
 
 {Array.from({ length: totalPage }, (_, index) => index + 1).map((page) => (
@@ -500,9 +446,10 @@ useEffect(() => {
             </li>
         ))}
 
-                                {/* <li><a href="#">2</a></li>
+                                {/* <li><a href="#" class="current">1</a></li>
+                                <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
-                                <li><a href="#"><i class="icon-Right-Arrow"></i></a></li> */}
+                                <li><a href="#"><MoveRight /></a></li> */}
                             </ul>
                         </div>
                     </div>
@@ -515,43 +462,33 @@ useEffect(() => {
                                 <div action="destination-details.html" method="post" class="search-form">
                                     <div class="form-group">
                                         <input type="search" name="search-field" placeholder="Search" required=""  
-                    onChange={handleSearch}/>
-                                        {/* <button type="submit"><i class="fas fa-search"></i></button> */}
+                    onChange={handleSearch} />
+                                        {/* <button type="submit"><Search /></button> */}
                                     </div>
                                 </div>
                             </div>
-                            <div class="sidebar-widget category-widget">
+                          
+                            {/* <div class="sidebar-widget price-filter">
                                 <div class="widget-title">
-                                    <h3>Category</h3>
+                                    <h3>Price Range</h3>
                                 </div>
-                                <div class="widget-content">
-                                    <ul class="category-list clearfix">
-                                        
-                                      
-
-{subCategoryName.map((name, index) => (
-                            <li class="custom-check-box" key={index}>
-                                <div class="custom-controls-stacked">
-                                    <label class="custom-control material-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            class="material-control-input"
-                                            checked={selectedSubCategoryName.includes(name)}
-                                            onChange={() => handleSelectedCategoryName(name)}
-                                        />
-                                        <span class="material-control-indicator"></span>
-                                        <span class="description">{name}</span>
-                                    </label>
+                                <div class="range-slider clearfix">
+                                    <div class="value-box clearfix">
+                                        <div class="min-value pull-left">
+                                            <p>$50.00</p>
+                                        </div>
+                                        <div class="max-value pull-right">
+                                            <p>$100.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="price-range-slider"></div>
                                 </div>
-                            </li>
-                        ))}
 
-                                      
-                                    </ul>
-                                </div>
-                            </div>
 
-                            <div class="sidebar-widget price-filter">
+
+                            </div> */}
+
+     <div class="sidebar-widget price-filter">
       <div class="widget-title">
         <h3>Price Range</h3>
       </div>
@@ -581,22 +518,10 @@ useEffect(() => {
       </div>
     </div>
 
-                            {/* <div class="sidebar-widget price-filter">
-                                <div class="widget-title">
-                                    <h3>Price Range</h3>
-                                </div>
-                                <div class="range-slider clearfix">
-                                    <div class="value-box clearfix">
-                                        <div class="min-value pull-left">
-                                            <p>$50.00</p>
-                                        </div>
-                                        <div class="max-value pull-right">
-                                            <p>$100.00</p>
-                                        </div>
-                                    </div>
-                                    <div class="price-range-slider"></div>
-                                </div>
-                            </div> */}
+
+
+
+
                             {/* <div class="sidebar-widget duration-widget">
                                 <div class="widget-title">
                                     <h3>Durations</h3>
@@ -607,7 +532,7 @@ useEffect(() => {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">0 - 24 hours</span>
                                                 </label>
                                             </div>
@@ -616,7 +541,7 @@ useEffect(() => {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">1 - 2 days</span>
                                                 </label>
                                             </div>
@@ -625,7 +550,7 @@ useEffect(() => {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">2 - 3 days</span>
                                                 </label>
                                             </div>
@@ -634,7 +559,7 @@ useEffect(() => {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">3 - 4 days</span>
                                                 </label>
                                             </div>
@@ -643,7 +568,7 @@ useEffect(() => {
                                             <div class="custom-controls-stacked">
                                                 <label class="custom-control material-checkbox">
                                                     <input type="checkbox" class="material-control-input" />
-                                                    <span class="material-control-indicator"></span>
+                                                    <span class="<check />"></span>
                                                     <span class="description">4 - 5 days</span>
                                                 </label>
                                             </div>
@@ -664,35 +589,7 @@ useEffect(() => {
                 </div>
             </div>
         </section>
-        </>
-        }
-      
-        
+        {/* <!-- tours-page-section end --> */}
     </>
-    
     );
 }
-
-export function generateMetadata(params){
-    
-    let {category}=params;
- 
-
-
-        return {
-            title: "category",
-            description: "Page description",
-            keywords: ["blog", "nextjs", "seo"],
-            openGraph: {
-              title: "OG Title",
-              description: "OG Description",
-              images: ['https://example.com/image.png'],
-            },
-            twitter: {
-              card: 'summary_large_image',
-              title: 'Twitter Title',
-            },
-          };
-   
-
-  }
