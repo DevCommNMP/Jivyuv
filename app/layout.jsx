@@ -25,16 +25,17 @@ export default function RootLayout({ children }) {
   const [companyData, setCompanyData] = useState([]);
   const [packageData,setPackageData]=useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [allPageMetadata,setAllPageMetadata]=useState([]);
 
 
   useEffect(() => {
-    fetchCategoriesAndCompanyProfile(setIsLoading, setCategories, setCompanyData,setPackageData);
+    fetchCategoriesAndCompanyProfile(setIsLoading, setCategories, setCompanyData,setPackageData,setAllPageMetadata);
   }, []);
 
   // Ensure Preloader does not replace the entire DOM structure
   if (isLoading) {
     return (
-      <seoContextObj.Provider value={{categories:categories, companyData:companyData, packageData:packageData}}>
+      <seoContextObj.Provider value={{categories:categories, companyData:companyData, packageData:packageData,allPageMetadata:allPageMetadata}}>
 
 
       <html lang="en" suppressHydrationWarning>
@@ -49,7 +50,7 @@ export default function RootLayout({ children }) {
     );
   }
   return (
-    <seoContextObj.Provider value={{categories:categories, companyData:companyData,packageData:packageData}}>
+    <seoContextObj.Provider value={{categories:categories, companyData:companyData,packageData:packageData,allPageMetadata:allPageMetadata}}>
     <html lang="en" suppressHydrationWarning>
     {/* <Head>
           {metaData}

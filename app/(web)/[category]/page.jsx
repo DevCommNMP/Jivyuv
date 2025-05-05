@@ -19,7 +19,9 @@ import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
 
 export default function CategoryPage({ params }) {
 
-    let {categories, companyData, packageData:tempPackageData} = useContext(seoContextObj);
+    let {categories, companyData, packageData:tempPackageData,allPageMetadata} = useContext(seoContextObj);
+   console.log("tempPackageData,",tempPackageData);
+    console.log("allPageMetadata",allPageMetadata);
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
     const [originalPackageData,setOriginalPackageData]=useState();
@@ -47,13 +49,13 @@ export default function CategoryPage({ params }) {
   
   
 
-   async function fetchPackageData() {
+    function fetchPackageData() {
        
         let subCategoryName = [];
        
             
             let data =tempPackageData;
-            console.log("temp package data",tempPackageData);
+         
          
     
             // Process data based on category
@@ -672,9 +674,9 @@ useEffect(() => {
 }
 
 export function generateMetadata(params){
-    console.log("generateMetaData function called");
+    
     let {category}=params;
-    console.log("category",category);
+ 
 
 
         return {
