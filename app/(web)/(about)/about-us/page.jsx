@@ -61,7 +61,7 @@ export default function about() {
               <img src="/assets/img/destination-details/destination-1.jpg" alt="Guide 1" />
             </figure>
             <div className="lower-content">
-              <h3>Merrie Lewis</h3>
+              <h3>Skilled Guides for Memorable Trips</h3>
               <span className="designation">Tour Guide</span>
               <ul style={{
                 display: "flex",
@@ -92,7 +92,7 @@ export default function about() {
               <img src="/assets/img/destination-details/destination-2.jpg" alt="Guide 1" />
             </figure>
             <div className="lower-content">
-              <h3>Merrie Lewis</h3>
+              <h3>Local Experts With Global Knowledge</h3>
               <span className="designation">Tour Guide</span>
               <ul style={{
                 display: "flex",
@@ -123,7 +123,7 @@ export default function about() {
               <img src="/assets/img/destination-details/destination-3.jpg" alt="Guide 1" />
             </figure>
             <div className="lower-content">
-              <h3>Merrie Lewis</h3>
+              <h3>Local Experts With Global Knowledge</h3>
               <span className="designation">Tour Guide</span>
               <ul style={{
                 display: "flex",

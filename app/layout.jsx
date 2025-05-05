@@ -9,8 +9,9 @@ import * as Lucide from 'lucide-react';
 import { fetchCategoriesAndCompanyProfile } from "../app/uitls/categoryAndCompanyprofiledata";
 import { useEffect, useState } from "react"; ""
 import Preloader from "../components/Preloader";
+import Head from "next/head";
 
-export const metaData = {
+export let  metadata = {
   title: "Tour & Travel",
   description: "Tour & Travel",
 };
@@ -37,6 +38,9 @@ export default function RootLayout({ children }) {
 
 
       <html lang="en" suppressHydrationWarning>
+        {/* <Head>
+          {metaData}
+        </Head> */}
         <body>
           <Preloader />
         </body>
@@ -47,7 +51,9 @@ export default function RootLayout({ children }) {
   return (
     <seoContextObj.Provider value={{categories:categories, companyData:companyData,packageData:packageData}}>
     <html lang="en" suppressHydrationWarning>
-         
+    {/* <Head>
+          {metaData}
+        </Head> */}
 
       <body>
 

@@ -144,16 +144,7 @@ export default function Footer() {
                       {/* <li>
                         <Link href="/listing">Listing</Link>
                       </li> */}
-<<<<<<< HEAD
-                     {categories.categories && categories.categories?.map((category, index) => (
-                        <li key={`footer-category-${index}`}>
-                          <Link href={`/${category.slugName}`}>
-                            {category.name}
-                          </Link>
-                        </li>
-                      ))}
-=======
-{categories.categories && categories.categories.map((category, index) => (
+{categories &&categories.map((category, index) => (
   <li key={`footer-category-${index}`}>
     <Link href={`/${category.slugName}`}>
       {category.name}
@@ -161,7 +152,6 @@ export default function Footer() {
   </li>
 ))}
 
->>>>>>> 90201bf4b806d3cccd2a0b799eb9e24f0488514e
                       <li>
                         <Link href="/about-us">About Us</Link>
                       </li>

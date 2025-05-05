@@ -1,7 +1,9 @@
 "use client";
 import {useContext} from 'react';
+
+
 import { seoContextObj } from "../../layout";
-import axios from "axios";
+
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
@@ -11,14 +13,12 @@ import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import   tripBanner from "../../../public/assets/images/banner/tripBanner.png";
-export const metadata = {
-    title: "Packages kundan",
-    description: "Read our terms and services carefully.",
-    icons: {
-      icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
-    },
-  };
+
+  
+
+
 export default function CategoryPage({ params }) {
+
     let {categories, companyData, packageData:tempPackageData} = useContext(seoContextObj);
     const { category } = params; // Access the dynamic category parameter
     const [packageData,setPackageData]=useState([]);
@@ -45,9 +45,9 @@ export default function CategoryPage({ params }) {
     }
 
   
+  
 
-
-    async function fetchPackageData() {
+   async function fetchPackageData() {
        
         let subCategoryName = [];
        
@@ -167,6 +167,7 @@ useEffect(() => {
 }, [selectedSubCategoryName]);
 
 useEffect(() => {
+   
     setCurrentPage(1); 
     setTotalPage(Math.ceil(packageData?.length / itemPerPage));
   }, [packageData]);
@@ -179,11 +180,17 @@ useEffect(() => {
 // }
 
 
+
     return (
         <>
         {/* <!-- Page Title --> */}
        
-        {isLoading===true?<Preloader/>: <> <section class="page-title style-two centred" style={{ backgroundImage: `url(${tripBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
+        {isLoading===true?<Preloader/>: <> 
+       
+      
+       
+
+<section class="page-title style-two centred" style={{ backgroundImage: `url(${tripBanner.src})`,height:"300px",width:"100%",backgroundSize:"cover",backgroundPosition:"center" }}>
             <div class="auto-container">
                 <div class="content-box">
                     <h1>Tours Details</h1>
@@ -663,3 +670,27 @@ useEffect(() => {
     
     );
 }
+
+export function generateMetadata(params){
+    console.log("generateMetaData function called");
+    let {category}=params;
+    console.log("category",category);
+
+
+        return {
+            title: "category",
+            description: "Page description",
+            keywords: ["blog", "nextjs", "seo"],
+            openGraph: {
+              title: "OG Title",
+              description: "OG Description",
+              images: ['https://example.com/image.png'],
+            },
+            twitter: {
+              card: 'summary_large_image',
+              title: 'Twitter Title',
+            },
+          };
+   
+
+  }

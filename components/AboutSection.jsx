@@ -54,7 +54,7 @@ export default function AboutSection({contactInfo}) {
                     <h3>Find Your Best Destination</h3>
                     <div className="video-btn">
                       <a
-                        href="https://www.youtube.com/watch?v=nfP5N9Yc72A&amp;t=28s"
+                        href="https://www.youtube.com/shorts/x_nke_drHtQ"
                         className="lightbox-image"
                         data-caption=""
                       >
@@ -70,14 +70,14 @@ export default function AboutSection({contactInfo}) {
                 <div className="content-box">
                   <div className="sec-title">
                     <p>About JivYuv</p>
-                    <h2>World Best Travel Agency Company Since 2025.</h2>
+                    <h2>Your Trusted Travel Partner – Since 2025</h2>
                   </div>
                   <div className="text">
                     <p>
                     {contactInfo.company_description || "Loading..."}
                     </p>
                   </div>
-                  <ul className="list clearfix">
+                  {/* <ul className="list clearfix">
                     <li>
                       <SquareCheckBig /> Ratione voluptatem.sequi nesciunt.
                     </li>
@@ -87,7 +87,7 @@ export default function AboutSection({contactInfo}) {
                     <li>
                       <SquareCheckBig /> Ratione voluptatem sequi.
                     </li>
-                  </ul>
+                  </ul> */}
                   <div className="btn-box">
                     <a href="/trips" className="theme-btn">
                       Find Tours
