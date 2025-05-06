@@ -6,14 +6,14 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 
-export const metadata = {
-  title: "Contact Us",
-  description: "Get in touch with us for any inquiries or support.",
+// export const metadata = {
+//   title: "Contact Us",
+//   description: "Get in touch with us for any inquiries or support.",
  
-  icons: {
-    icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
-  },
-};
+//   icons: {
+//     icon: "assets/images/logo/jivyuv-logo.png", // 👈 Different favicon
+//   },
+// };
 export default function Contact() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 

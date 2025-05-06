@@ -4,6 +4,7 @@ import Image from "next/image";
 export default function AboutSection({contactInfo}) {
   return (
     <>
+       
       <section className="about-section">
         <div
           className="pattern-layer"

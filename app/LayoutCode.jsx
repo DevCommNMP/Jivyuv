@@ -19,7 +19,7 @@ export let seoContextObj=React.createContext();
 
 
 
-export default function RootLayout({ children }) {
+export default function LayoutCode({ children }) {
   const [categories, setCategories] = useState([]);
  
   const [companyData, setCompanyData] = useState([]);

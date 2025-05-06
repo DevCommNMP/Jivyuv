@@ -1,16 +1,16 @@
 "use client";
 import {useContext} from 'react';
-import { seoContextObj } from "../layout";
+import { seoContextObj } from "../../layout";
 
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Preloader from "../../components/Preloader";
+import Preloader from "../../../components/Preloader";
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import tripBanner from "../../public/assets/images/banner/tripBanner.png";
+import tripBanner from "../../../public/assets/images/banner/tripBanner.png";
 
   
 

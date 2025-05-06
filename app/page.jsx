@@ -17,7 +17,10 @@ import { useState,useEffect} from "react";
 import Preloader from "../components/Preloader";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+// export let  metadata = {
+//   title: "Tour & Travel",
+//   description: "Tour & Travel",
+// };
 export default function Home() {
   const title = "Best Tour & Travel Packages | Explore the World";
   const description = "Discover amazing travel deals and destinations.";

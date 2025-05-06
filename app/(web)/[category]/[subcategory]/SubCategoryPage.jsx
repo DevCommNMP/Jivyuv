@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useContext } from "react";
-import { seoContextObj } from "../../layout";
+import { seoContextObj } from "../../../layout";
 import { useState,useEffect,useMemo } from "react";
 import Swal from "sweetalert2";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import {CalendarDays,Search ,MapPin ,Star,MoveRight   } from 'lucide-react'
 import { Key } from "lucide-react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import Preloader from "../../../components/Preloader";
+import Preloader from "../../../../components/Preloader";
 import TourBanner from "../../../../public/assets/images/banner/tripBanner.png";
 export default function SubcategoryPage({ params }) {
     let { categories, companyData, packageData:renamePackageData } = useContext(seoContextObj);

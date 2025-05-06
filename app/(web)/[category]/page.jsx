@@ -2,9 +2,10 @@
 import axios from 'axios';
 import CategoryPage from './CategoryPage';
 
-export async function generateMetadata({params}) {
-     console.log("kundan",params);
-    // let category=params.category;
+export async function generateMetadata({ params }) {
+
+
+   let category=params.category;
     try{
     const SERVER_URL= process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -23,7 +24,7 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
       title:`${metaData.title}`,
       description:`${metaData.description}`,
       keywords: metaData.metaKeywords,
-      authors: [{ name: 'Your Name', url: 'https://yourwebsite.com' }],
+      authors: [],
       openGraph: {
         title: `${metaData.ogTitle}`,
         description: `${metaData.ogDescription}`,
@@ -37,7 +38,7 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
             alt: '',
           },
         ],
-        locale: `${metaData.language}`,
+        locale: `${metaData?.language}`,
         type: `${metaData.ogType}`,
       },
       twitter: {

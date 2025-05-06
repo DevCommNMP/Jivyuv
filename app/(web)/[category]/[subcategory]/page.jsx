@@ -1,11 +1,12 @@
 
 import axios from 'axios';
-import BlogStandard from './BlogStandard';
+import SubCategoryPage from './SubCategoryPage';
 
-export async function generateMetadata() {
-
-
- 
+export async function generateMetadata({ params }) {
+    
+   
+   let subCategory=params.subcategory;
+   let category=params.category;
     try{
     const SERVER_URL= process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -13,7 +14,7 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
      let allMetaData=response.data;
     let metaData=allMetaData.find((item)=>{
     
-        if(item.page==="blogs"){
+        if(item.page===`${category}/${subCategory}`){
             return true;
         }else{
             return false;
@@ -38,16 +39,16 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
             alt: '',
           },
         ],
-        locale: `${metaData?.language}`,
+        locale: `${metaData.language}`,
         type: `${metaData.ogType}`,
       },
       twitter: {
-        card: `${metaData?.twitterCard}`,
-        title: `${metaData?.twitterTitle}`,
-        site: `${metaData?.twitterSite}`,
-        creator: `${metaData?.twitterCreator}`,
-        description: `${metaData?.twitterDescription}`,
-        images: [`${metaData?.twitterImage}`],
+        card: `${ metaData?.twitterCard && metaData?.twitterCard}`,
+        title: `${metaData?.twitterTitle && metaData?.twitterTitle }`,
+        site: `${metaData?.twitterSite && metaData?.twitterSite}`,
+        creator: `${metaData?.twitterCreator && metaData?.twitterCreator }`,
+        description: `${metaData?.twitterDescription && metaData?.twitterDescription }`,
+        images: metaData?.twitterImage && [`${metaData?.twitterImage}`],
       },
     }
   }
@@ -61,9 +62,12 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
 }
 
 
-export default function MetaDataCategoryPage({ params }) {
+export default function subCategoryPage({ params }) {
 
   return (
-  <BlogStandard params={params}/>
+    <>
+    <SubCategoryPage params={params}/>
+   
+    </>
   );
 }
