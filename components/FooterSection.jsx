@@ -1,5 +1,5 @@
 "use client";
-import { SquareX, MessageSquareMore } from "lucide-react"; // Import the message icon
+import { SquareX, MessageSquareMore, Youtube } from "lucide-react"; // Import the message icon
 import {useContext} from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -126,6 +126,17 @@ export default function Footer() {
                         <Linkedin />
                       </Link>
                     </li>
+
+                    <li>
+                      <Link
+                        href={companyData?.social_media_links?.linkedin || "#"}
+                        target="_blank"
+                      >
+                        <Youtube />
+                      </Link>
+                    </li>
+
+
                   </ul>
                 </div>
               </div>
@@ -208,7 +219,7 @@ export default function Footer() {
                           : "Address not available"}
                       </li>
                       <li>
-                        <PhoneCall />
+                        <PhoneCall />&nbsp;&nbsp;
                         <Link
                           href={`tel:${companyData?.phone_number || "#"}`}
                         >
@@ -219,7 +230,7 @@ export default function Footer() {
                         <Mail />
                         <Link
                           href={`mailto:${companyData?.email_id || "#"}`}
-                        >
+                        >&nbsp;&nbsp;
                           {companyData?.email_id || "Email not available"}
                         </Link>
                       </li>

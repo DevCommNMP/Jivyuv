@@ -152,7 +152,7 @@ const BlogStandard = () => {
                         <span className="post-date"><CalendarDays />{new Date(blog.createdAt).toLocaleDateString()}</span>
                       </figure>
                       <div className="lower-content">
-                        <div style={{display:"flex", gap:"10px"}}>
+                        {/* <div style={{display:"flex", gap:"10px"}}>
                         {blog.blogTag.map((tagName)=>{
                             return <div class="category"><Link href="#" onClick={(event)=>{
                                 event.preventDefault();
@@ -160,7 +160,7 @@ const BlogStandard = () => {
                         })
                         
                       }
-                      </div>
+                      </div> */}
                         <h2><Link href={`/blogs/${blog.slugName}`} legacyBehavior><a>{blog.blogTitle}</a></Link></h2>
                         <ul className="post-info clearfix">
                           <li><span>By</span> <Link href="#" legacyBehavior><a>{blog.createdBy}</a></Link></li>
