@@ -1,4 +1,4 @@
-"use client"; // Mark this file as a Client Component
+"use client"; 
 
 import Footer from "../components/FooterSection";
 import Header from "../components/HeaderSection";
@@ -9,6 +9,7 @@ import * as Lucide from 'lucide-react';
 import { fetchCategoriesAndCompanyProfile } from "../app/uitls/categoryAndCompanyprofiledata";
 import { useEffect, useState } from "react"; ""
 import Preloader from "../components/Preloader";
+import Head from "next/head";
 // import Head from "next/head";
 
 // export let  metadata = {
@@ -39,9 +40,7 @@ export default function RootLayout({ children }) {
 
 
       <html lang="en" suppressHydrationWarning>
-        {/* <Head>
-          {metaData}
-        </Head> */}
+      
         <body>
           <Preloader />
         </body>
@@ -52,9 +51,7 @@ export default function RootLayout({ children }) {
   return (
     <seoContextObj.Provider value={{categories:categories, companyData:companyData,packageData:packageData,allPageMetadata:allPageMetadata}}>
     <html lang="en" suppressHydrationWarning>
-    {/* <Head>
-          {metaData}
-        </Head> */}
+   
 
       <body>
 
@@ -67,3 +64,4 @@ export default function RootLayout({ children }) {
     </seoContextObj.Provider>
   );
 }
+
