@@ -5,10 +5,15 @@ import AboutSection from "../../../../components/AboutSection";
 import VideoSection from "../../../../components/VideoSection";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useContext} from 'react';
+import { seoContextObj } from "../../../layout";
 import {Youtube,Instagram,Linkedin,Facebook} from "lucide-react"
 
 export default function About() {
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  let {companyData}=useContext(seoContextObj);
+ 
+  
   const [contactInfo, setContactInfo] = useState({
     address: {},
     email_id: "",
@@ -20,8 +25,8 @@ export default function About() {
   useEffect(() => {
     async function fetchContactInfo() {
       try {
-        const response = await axios.get(`${SERVER_URL}/api/company-profile/67d7e08b75c754b93314d410`);
-        setContactInfo(response.data);
+        const response =companyData
+        setContactInfo(response);
       } catch (error) {
         // console.error("Error fetching contact info:", error);
         Swal.fire("Error", "Failed to load contact information.", "error");

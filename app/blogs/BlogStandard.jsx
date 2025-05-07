@@ -127,6 +127,8 @@ const BlogStandard = () => {
           </div>
         </div>
       </section>
+
+      
       {/* End Page Title */}
 
       {/* sidebar-page-container */}
