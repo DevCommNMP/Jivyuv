@@ -102,14 +102,14 @@ export default function Footer() {
                         <Facebook />
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         href={companyData?.social_media_links?.twitter || "#"}
                         target="_blank"
                       >
                         <Twitter />
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         href={companyData?.social_media_links?.instagram || "#"}
@@ -129,7 +129,7 @@ export default function Footer() {
 
                     <li>
                       <Link
-                        href={companyData?.social_media_links?.linkedin || "#"}
+                        href={companyData?.social_media_links?.youtube || "#"}
                         target="_blank"
                       >
                         <Youtube />
