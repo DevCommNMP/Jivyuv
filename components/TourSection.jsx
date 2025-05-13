@@ -57,7 +57,7 @@ export default function TourSection(props) {
 
   return (
     <>
-      <section className="tour-section bg-color-1 sec-pad">
+      <section className="tour-section bg-color-1">
         <div
           className="pattern-layer"
           style={{ backgroundImage: "url(/assets/images/shape/shape-4.png)" }}

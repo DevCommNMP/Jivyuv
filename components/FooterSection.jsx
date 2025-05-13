@@ -1,5 +1,5 @@
 "use client";
-import { SquareX, MessageSquareMore } from "lucide-react"; // Import the message icon
+import { SquareX, MessageSquareMore, Youtube } from "lucide-react"; // Import the message icon
 import {useContext} from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -102,14 +102,14 @@ export default function Footer() {
                         <Facebook />
                       </Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link
                         href={companyData?.social_media_links?.twitter || "#"}
                         target="_blank"
                       >
                         <Twitter />
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         href={companyData?.social_media_links?.instagram || "#"}
@@ -126,6 +126,17 @@ export default function Footer() {
                         <Linkedin />
                       </Link>
                     </li>
+
+                    <li>
+                      <Link
+                        href={companyData?.social_media_links?.youtube || "#"}
+                        target="_blank"
+                      >
+                        <Youtube />
+                      </Link>
+                    </li>
+
+
                   </ul>
                 </div>
               </div>
@@ -144,16 +155,7 @@ export default function Footer() {
                       {/* <li>
                         <Link href="/listing">Listing</Link>
                       </li> */}
-<<<<<<< HEAD
-                     {categories.categories && categories.categories?.map((category, index) => (
-                        <li key={`footer-category-${index}`}>
-                          <Link href={`/${category.slugName}`}>
-                            {category.name}
-                          </Link>
-                        </li>
-                      ))}
-=======
-{categories.categories && categories.categories.map((category, index) => (
+{categories &&categories.map((category, index) => (
   <li key={`footer-category-${index}`}>
     <Link href={`/${category.slugName}`}>
       {category.name}
@@ -161,7 +163,6 @@ export default function Footer() {
   </li>
 ))}
 
->>>>>>> 90201bf4b806d3cccd2a0b799eb9e24f0488514e
                       <li>
                         <Link href="/about-us">About Us</Link>
                       </li>
@@ -218,7 +219,7 @@ export default function Footer() {
                           : "Address not available"}
                       </li>
                       <li>
-                        <PhoneCall />
+                        <PhoneCall />&nbsp;&nbsp;
                         <Link
                           href={`tel:${companyData?.phone_number || "#"}`}
                         >
@@ -229,7 +230,7 @@ export default function Footer() {
                         <Mail />
                         <Link
                           href={`mailto:${companyData?.email_id || "#"}`}
-                        >
+                        >&nbsp;&nbsp;
                           {companyData?.email_id || "Email not available"}
                         </Link>
                       </li>
