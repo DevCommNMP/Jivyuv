@@ -14,6 +14,7 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
     let metaData=allMetaData.find((item)=>{
     
         if(item.page==="about-us"){
+         
             return true;
         }else{
             return false;

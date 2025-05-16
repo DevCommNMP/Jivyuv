@@ -13,7 +13,7 @@ let response=await axios.get(`${SERVER_URL}/api/getAllPagemeta`);
     let allMetaData=response.data;
    let metaData=allMetaData.find((item)=>{
    
-       if(item.page==="/"){
+       if(item.page==="home"){
            return true;
        }else{
            return false;
